@@ -4,3 +4,41 @@ body{
     align-items: center;
     background-color: #94b5f1;
 }
+
+.button-createTodos{
+    width: 1000px;
+    height: 30px;
+    background-color: #ff606f;
+    border-radius: 7px;
+    border-color: green;
+}
+
+.button-createTodos:hover{
+    background-color: #9cfc8c;
+}
+
+.input-todo{
+    margin-top: 2px;
+    width: 936px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.buttonCreate{
+    margin-top: 2px;
+    height: 45px;
+    background-color: #ff606f;
+    border-radius: 7px;
+    border-color: green;
+}
+
+.buttonCreate:hover{
+    background-color: #9cfc8c;
+}
+
+.input-edit{
+    margin-top: 2px;
+    width: 992px;
+    height: 40px;
+    border-radius: 5px;
+}

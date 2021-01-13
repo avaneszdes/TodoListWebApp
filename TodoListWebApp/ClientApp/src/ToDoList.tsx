@@ -1,51 +1,56 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './ToDoList.css';
 import TodoItem from "./Components/TodoItem/TodoItem";
 import {Item} from "./Components/Item";
 import axios from './API';
 
-export default function Home () {
+export default function ToDoList() {
     const [value, setValue] = useState("");
-    const [index, setIndex] = useState(4);
     const [inputHide, setInputHide] = useState(false);
     const [inputEditHideBtn, setInputEditHideBtn] = useState(true);
-   
-    const initialValue = [
-        {id: 0, value: "qq11qqq", finished: false},
-        {id: 1, value: "wwwww", finished: false},
-        {id: 2, value: "1eeee23123", finished: false},
-        {id: 3, value: "ffffff", finished: false}
-    ];
+    const [todos, setTodos] = useState<Item[]>([]);
 
-    const [todos, setTodos] = useState(initialValue);
+    useEffect(() => {
+        axios.get<Item[]>('/TodoList', {headers: {"Content-Type": "application/json"}})
+            .then((response) => {
+                setTodos(response.data);
+            });
+    }, [])
 
-    const changeHideInput = () => {
-        setInputHide(!inputHide);
-    }
 
-    const textChanged = (e : React.ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value);
-    }
-    
-    const addTodos = (text : string) => {
-        let newItem = [...todos];
-        setIndex(index + 1);
-        newItem.push({id: index, value: text, finished: false});
-        setTodos(newItem);
+    const changeHideInput = () => setInputHide(!inputHide);
+    const textChanged = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
+
+    const addTodos = (text: string) => {
+
+        axios.post('/TodoList', {
+            text,
+            finished: false
+        }, {headers: {"Content-Type": "application/json"}}).then((response) => {
+            setTodos([...todos, {id: response.data, text, finished: false}]);
+        }, (error) => {
+
+        });
         setValue('');
         setInputHide(!inputHide);
     }
 
-    const deleteItem = (id : number)=> {
-        setTodos(todos.filter(x => x.id !== id));
-        
+    const deleteItem = (id: number) => {
+
+        axios.delete(`/TodoList/${id}`).then((response) => {
+            setTodos(todos.filter(x => {
+                return x.id !== id;
+            }))
+        }, (error) => {
+            console.log(error);
+        });
     }
 
-    const isCheked = (id : number) => {
-
+    const isCheked = (item: Item) => {
+        axios.put('/TodoList', {id: item.id, text: item.text, finished: !item.finished})
         let newArray = todos.map((x) => {
-            if (x.id === id) {
-                x.finished = true
+            if (x.id === item.id) {
+                x.finished = !item.finished
             }
             return x;
         })
@@ -53,34 +58,40 @@ export default function Home () {
         setTodos(newArray);
     }
 
-    const editItem = (item : Item) => {
+    const editItem = (item: Item) => {
         setInputEditHideBtn(!inputEditHideBtn);
-        if(value !== ''){
-            const newArray = todos.map((x) => {
-                if (x.id === item.id){
-                    x.value = value;
-                }
-                return x;
+        if (value !== '') {
+            axios.put('/TodoList', {id: item.id, text: value}).then(res => {
+                const newArray = todos.map((x) => {
+                    if (x.id === item.id) {
+                        x.text = value;
+                    }
+                    return x;
+                });
+                setValue('');
+                setTodos(newArray);
             });
-            setValue('');
-            setTodos(newArray);
-        } 
-        
-       
+
+        }
     }
 
     return (
-        <div >
-            <input type="button" value="Create todos" onClick={() => changeHideInput()}/>
+        <div>
+
+            <input className={'button-createTodos'} type="button" value="Create todos"
+                   onClick={() => changeHideInput()}/>
 
             <div hidden={!inputHide}>
-                <input placeholder="Write todos here" type="text" onChange={textChanged}/>
-                <input value="Create" type="button" onClick={() => addTodos(value)}/>
+                <input className={'input-todo'} placeholder="Write todos here" type="text" onChange={textChanged}/>
+                <input className={'buttonCreate'} value="Create" type="button" onClick={() => addTodos(value)}/>
             </div>
-            <input hidden={inputEditHideBtn}  type='text' placeholder="Write new text here" onChange={textChanged} id="editInp"/>
-            <h1>{todos.map((x, index) =>
-                <TodoItem item={x} isCheked={isCheked} deleteItem={deleteItem} editItem={editItem} />)}
-            </h1>
+            <div>
+                <input className={'input-edit'} hidden={inputEditHideBtn} type='text' placeholder="Write new text here"
+                       onChange={textChanged}/>
+                <h1>{todos.map((x, index) =>
+                    <TodoItem key={index} item={x} isCheked={isCheked} deleteItem={deleteItem} editItem={editItem}/>)}
+                </h1>
+            </div>
         </div>
     );
 }

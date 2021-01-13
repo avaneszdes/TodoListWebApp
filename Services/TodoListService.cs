@@ -7,10 +7,12 @@ namespace Services
     public class TodoListService : ITodoListService
     {
         private ITodoListRepository _repository;
+
         public TodoListService(ITodoListRepository repository)
         {
             _repository = repository;
         }
+
         public List<TodoItem> GetAll()
         {
             return _repository.GetAll();
@@ -18,7 +20,17 @@ namespace Services
 
         public void AddItem(TodoItem todoItem)
         {
-           _repository.AddItem(todoItem);
+            _repository.AddItem(todoItem);
+        }
+
+        public void RemoveItem(int id)
+        {
+            _repository.RemoveItem(id);
+        }
+
+        public void UpdateItem(int id, string text, bool finished)
+        {
+            _repository.UpdateItem(id, text, finished);
         }
     }
 }

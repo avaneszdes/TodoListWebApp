@@ -23,5 +23,17 @@ namespace Repositories
             _context.Add(todoItem);
             _context.SaveChanges();
         }
+
+        public void RemoveItem(int id)
+        {
+            _context.TodoItems.Remove(_context.TodoItems.Find(id));
+            _context.SaveChanges();
+        }
+
+        public void UpdateItem(int id, string text, bool finished)
+        {
+            _context.TodoItems.Update(new TodoItem {Id = id, Finished = finished, Text = text});
+            _context.SaveChanges();
+        }
     }
 }

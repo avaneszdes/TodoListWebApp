@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Repositories;
 using Services;
 
 namespace TodoListWebApp
@@ -26,9 +27,21 @@ namespace TodoListWebApp
             
             services.AddControllersWithViews();
             services.AddTransient<ITodoListService, TodoListService>();
+            services.AddTransient<ITodoListRepository, TodoListRepository>();
             services.AddDbContext<AppDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("NotesPolicy",
+                    builder =>
+                    {
+                        builder.WithOrigins("*")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,6 +61,9 @@ namespace TodoListWebApp
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            app.UseCors("NotesPolicy");
+
+
 
             app.UseEndpoints(endpoints =>
             {

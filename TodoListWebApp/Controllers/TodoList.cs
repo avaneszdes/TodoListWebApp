@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -22,12 +23,24 @@ namespace TodoListWebApp.Controllers
         }
         
         [HttpPost]
-        public IActionResult AddItem(TodoItem todoItem)
+        public IActionResult AddItem([FromBody]TodoItem todoItem)
         {
             _service.AddItem(todoItem);
+            return Ok(todoItem.Id);
+        }
+        
+        [HttpDelete("{id}")]
+        public IActionResult RemoveItem(int id)
+        {
+            _service.RemoveItem(id);
             return Ok();
         }
         
-        
+        [HttpPut]
+        public IActionResult UpdateItem([FromBody] TodoItem item)
+        {
+            _service.UpdateItem(item.Id, item.Text, item.Finished);
+            return Ok();
+        }
     }
 }
