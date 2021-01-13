@@ -4,7 +4,7 @@ import './TodoItem.css'
 
 interface Props {
     item: Item,
-    isCheked: (id: number) => void,
+    isCheked: (item: Item) => void,
     deleteItem: (id: number) => void,
     editItem: (item: Item) => void,
 }
@@ -12,7 +12,7 @@ interface Props {
 export default function TodoItem({item, isCheked, deleteItem, editItem}: Props) {
 
     const isChekedItem = (item: Item) => {
-        isCheked(item.id);
+        isCheked(item);
 
     }
 
@@ -25,13 +25,14 @@ export default function TodoItem({item, isCheked, deleteItem, editItem}: Props) 
     }
 
     return (
-        <div className={'Todo-item'} >
-            <input type="checkbox" checked={item.finished} onChange={() => {
+        <div className={'Todo-item'}>
+            <input className={'checkBox-button'} type="checkbox" checked={item.finished} onChange={() => {
             }} onClick={() => isChekedItem(item)}/>
-            {item.finished ? <s>{item.value}</s> : item.value}
-            <div>
-                <input type="button" onClick={() => updateItem(item)} value="Edit"/>
-                <input type="button" onClick={() => removeItem(item)} value="Delete"/>
+            {item.finished ? <s>{item.text}</s> : item.text}
+
+            <div className={'buttons-block'}>
+                <input className={'button'} type="button" onClick={() => updateItem(item)} value="Edit"/>
+                <input className={'button'} type="button" onClick={() => removeItem(item)} value="Delete"/>
             </div>
 
         </div>

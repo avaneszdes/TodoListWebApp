@@ -1,10 +1,30 @@
 .Todo-item{
-    border-radius: 10px;
+    border-radius: 7px;
     width: 1000px;
     height: 40px;
     margin-top: 2px;
     background-color: #6ea8ef;
     justify-content: space-between;
     display: flex;
-    align-items: center;
 }
+
+.button{
+    background-color: #ff606f;
+    border-radius: 7px;
+    border-color: green;
+}
+
+.button:hover{
+    background-color: #9cfc8c;
+}
+
+.buttons-block{
+    display: flex;
+}
+
+.checkBox-button{
+   
+    width: 30px;
+    height: 30px;
+}
+
