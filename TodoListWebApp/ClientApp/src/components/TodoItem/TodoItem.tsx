@@ -1,19 +1,18 @@
 import React from "react";
-import {Item} from "../Item";
+import {Item} from '../Interfaces';
 import './TodoItem.css'
 
 interface Props {
     item: Item,
-    isCheked: (item: Item) => void,
+    completeTodo: (item: Item) => void,
     deleteItem: (id: number) => void,
     editItem: (item: Item) => void,
 }
 
-export default function TodoItem({item, isCheked, deleteItem, editItem}: Props) {
-
-    const isChekedItem = (item: Item) => {
-        isCheked(item);
-
+export default function TodoItem({item, completeTodo, deleteItem, editItem}: Props) {
+    
+    const completeTodoItem = (item: Item) => {
+        completeTodo({id: item.id, text: item.text, finished: !item.finished});
     }
 
     const removeItem = (item: Item) => {
@@ -26,8 +25,14 @@ export default function TodoItem({item, isCheked, deleteItem, editItem}: Props) 
 
     return (
         <div className={'Todo-item'}>
-            <input className={'checkBox-button'} type="checkbox" checked={item.finished} onChange={() => {
-            }} onClick={() => isChekedItem(item)}/>
+
+            <input className={'checkBox-button'}
+                   type="checkbox"
+                   checked={item.finished}
+                   onChange={() => {
+                   }}
+                   onClick={() => completeTodoItem(item)}
+            />
             {item.finished ? <s>{item.text}</s> : item.text}
 
             <div className={'buttons-block'}>

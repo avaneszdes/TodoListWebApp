@@ -10,7 +10,7 @@ namespace TodoListWebApp.Controllers
     [Route("[controller]")]
     public class TodoList : ControllerBase
     {
-        private ITodoListService _service;
+        private readonly ITodoListService _service;
         public TodoList(ITodoListService service)
         {
             _service = service;

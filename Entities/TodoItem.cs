@@ -2,9 +2,8 @@
 
 namespace Entities
 {
-    public class TodoItem
+    public class TodoItem : BaseEntity
     {
-        public int Id { get; set; }
         public string Text { get; set; }
         public bool Finished { get; set; }
     }
