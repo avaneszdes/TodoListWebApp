@@ -11,8 +11,7 @@ export interface Item{
     finished: boolean
 }
 
-export interface AuthorizationForm{
-    email: string
-    password: string
+export interface Auth{
+    token: string
 }
 

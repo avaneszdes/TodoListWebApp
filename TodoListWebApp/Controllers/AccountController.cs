@@ -21,10 +21,10 @@ namespace TodoListWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Token([FromBody]Person person)
+        public IActionResult Token([FromBody] Person person)
         {
             var identity = GetIdentity(person.Email, person.Password);
-            
+
             if (identity == null)
             {
                 return BadRequest(new {errorText = "Invalid username or password."});
@@ -43,7 +43,7 @@ namespace TodoListWebApp.Controllers
 
             var response = new
             {
-                access_token = encodedJwt,
+                token = encodedJwt,
                 username = identity.Name
             };
 
@@ -53,14 +53,15 @@ namespace TodoListWebApp.Controllers
         private ClaimsIdentity GetIdentity(string email, string password)
         {
             Person person = _person.GetAll().FirstOrDefault(x =>
-                x.Email ==email && x.Password == password);
-            
+                x.Email == email && x.Password == password);
+
             if (person != null)
             {
                 var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.Email),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role)
+                {   
+                    new(ClaimsIdentity.DefaultNameClaimType, person.Email),
+                    new(ClaimsIdentity.DefaultRoleClaimType, person.Password),
+                    new(ClaimsIdentity.DefaultRoleClaimType, person.Id.ToString()),
                 };
                 ClaimsIdentity claimsIdentity =
                     new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,

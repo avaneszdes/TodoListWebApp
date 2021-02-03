@@ -1,14 +1,14 @@
 import {
     ADD_TODO_SUCCEED,
-    AUTHORIZATION,
     COMPLETE_TODO,
     DELETE_TODO,
     EDIT_TODO,
     GET_TODO_LIST_SUCCEED,
-    REGISTRATION
 } from './constants'
 import {Item} from "../Components/Interfaces";
 import {TodosActionTypes} from "./action";
+
+
 
 const initialState: Item[] = []
 
@@ -42,12 +42,7 @@ const todos = (state = initialState, action: TodosActionTypes) => {
         case GET_TODO_LIST_SUCCEED:
             return action.payload
         
-        case REGISTRATION:
-            return action.payload
-        
-        case AUTHORIZATION:
-            return action.payload
-
+       
         default:
             return state
     }

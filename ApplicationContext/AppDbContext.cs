@@ -13,7 +13,10 @@ namespace ApplicationContext
         {
             Database.EnsureCreated();
         }
-        
-        
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new TodoItemConfiguration());
+        }
     }
 }

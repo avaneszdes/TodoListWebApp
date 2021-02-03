@@ -1,4 +1,4 @@
-import {AuthorizationForm, Item, SignForm} from "../Components/Interfaces";
+import {Item, SignForm} from "../Components/Interfaces";
 import {
     ADD_TODO,
     ADD_TODO_SUCCEED, AUTHORIZATION, AUTHORIZATION_SUCCEED,
@@ -60,21 +60,21 @@ export interface InitializeTodoListSucceedAction {
     payload: Item[]
 }
 
-export interface Registration {
+export interface RegistrationAction {
     type: typeof REGISTRATION,
     payload: SignForm
 }
 
-export interface Authorization {
+
+export interface AuthorizationAction {
     type: typeof AUTHORIZATION,
-    payload: AuthorizationForm
+    payload: SignForm
 }
 
-export interface AuthorizationSucceed {
+export interface AuthorizationSucceedAction {
     type: typeof AUTHORIZATION_SUCCEED,
-    payload: AuthorizationForm
+    payload: string
 }
-
 
 export function createTodoSucceed(id: number, text: string, finished: boolean): AddTodoSucceedAction {
     return {
@@ -96,6 +96,6 @@ export type TodosActionTypes =
     | InitializeTodoListAction
     | AddTodoSucceedAction
     | InitializeTodoListSucceedAction
-    | Registration
-    | Authorization
-    | AuthorizationSucceed
+    | RegistrationAction
+    | AuthorizationAction
+    | AuthorizationSucceedAction

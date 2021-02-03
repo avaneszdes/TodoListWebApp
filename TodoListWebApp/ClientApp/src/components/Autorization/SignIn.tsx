@@ -15,7 +15,9 @@ import Container from '@material-ui/core/Container';
 import {useDispatch} from "react-redux";
 import {AUTHORIZATION} from "../../redux/constants";
 import {SignForm} from "../Interfaces";
-import ToDoList from "../TodoList/ToDoList";
+import {useFormik} from "formik";
+import * as yup from "yup";
+import {ref} from "yup";
 
 function Copyright() {
     return (
@@ -49,27 +51,29 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
     },
 }));
+const vScheme = yup.object().shape({
+    password: yup.string().min(8, 'length must be most than 7').required('required'),
+    email: yup.string().email('incorrect email address').required('required'),
+})
+
 
 export default function SignIn() {
     const classes = useStyles();
-    const [signInData, setSignInData] = useState<SignForm>({
-        firstName: '',
-        lastName: '',
-        password: '',
-        email: '',
-    })
     const dispatch = useDispatch()
 
-    const updateSignInData = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSignInData({...signInData, [e.target.name]: e.target.value})
-    }
-
-    const token: string = localStorage.getItem('token')
-
-    const authorization = () => {
-        dispatch({type: AUTHORIZATION, payload: signInData})
-
-    }
+    const formik = useFormik({
+        initialValues: {
+            firstName: '',
+            lastName: '',
+            password: '',
+            confirmPassword: '',
+            email: '',
+        },
+        validationSchema: vScheme,
+        onSubmit: (values) => {
+            dispatch({type: AUTHORIZATION, payload: values})
+        },
+    })
 
     return (
         <Container component="main" maxWidth="xs">
@@ -81,7 +85,7 @@ export default function SignIn() {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} onSubmit={formik.handleSubmit}>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -92,7 +96,10 @@ export default function SignIn() {
                         name="email"
                         autoComplete="email"
                         autoFocus
-                        onChange={updateSignInData}
+                        onChange={formik.handleChange}
+                        error={formik.touched.email && Boolean(formik.errors.email)}
+                        value={formik.values.email}
+                        helperText={formik.touched.email && formik.errors.email}
                     />
                     <TextField
                         variant="outlined"
@@ -104,20 +111,21 @@ export default function SignIn() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                        onChange={updateSignInData}
+                        onChange={formik.handleChange}
+                        error={formik.touched.password && Boolean(formik.errors.password)}
+                        value={formik.values.password}
+                        helperText={formik.touched.password && formik.errors.password}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary"/>}
                         label="Remember me"
                     />
                     <Button
-                        // type="submit"
+                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={authorization}
-
                     >
                         Sign In
                     </Button>

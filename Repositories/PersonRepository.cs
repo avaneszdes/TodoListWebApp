@@ -17,6 +17,7 @@ namespace Repositories
         public List<Person> GetAll( ) => _dbContext.Persons.ToList();
         public void AddPerson(Person person)
         {
+            
             _dbContext.Persons.Add(person);
             _dbContext.SaveChanges();
         }

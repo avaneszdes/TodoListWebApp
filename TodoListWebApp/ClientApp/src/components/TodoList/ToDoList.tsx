@@ -39,7 +39,6 @@ export default function ToDoList() {
             dispatch({type: EDIT_TODO, payload: {id: item.id, text: value, finished: item.finished}})
             setValue('')
         }
-       
     }
 
     return (
@@ -74,7 +73,6 @@ export default function ToDoList() {
                 />
 
                 <h1>{todos.map((x: Item, index: number) =>
-
                     <TodoItem key={index}
                               item={x}
                               completeTodo={completeTodo}

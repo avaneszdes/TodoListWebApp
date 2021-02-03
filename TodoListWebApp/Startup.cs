@@ -1,5 +1,6 @@
 using ApplicationContext;
 using Entities;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,6 +44,7 @@ namespace TodoListWebApp
                 });
 
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
             services.AddTransient<ITodoListService, TodoListService>();
             services.AddTransient<ITodoListRepository, TodoListRepository>();
             services.AddTransient<IPersonRepository, PersonRepository>();
@@ -68,8 +70,8 @@ namespace TodoListWebApp
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                db.Persons.AddRange(new Person {Email = "admin@gmail.com", Password = "12345", Role = "admin"},
-                    new Person {Email = "qwerty@gmail.com", Password = "55555", Role = "user"});
+                db.Persons.AddRange(new Person {FirstName = "AAA", LastName = "AAA" ,Email = "admin@gmail.com", Password = "12345", Role = "admin"},
+                    new Person {FirstName = "VVV", LastName = "VVV" ,Email = "qwerty@gmail.com", Password = "55555", Role = "user"});
             }
 
             if (env.IsDevelopment())

@@ -8,15 +8,17 @@ namespace TodoListWebApp.Controllers
     public class Registration : Controller
     {
         private IPersonService _service;
+        private PersonValidator _validator;
         public Registration(IPersonService personService)
         {
             _service = personService;
+            _validator = new PersonValidator();
         }
         
         [HttpPost]
         public IActionResult Index([FromBody] Person person)
         {
-            if (person != null)
+            if (_validator.Validate(person).IsValid)
             {
                 _service.AddPerson(person);
                 return Ok();

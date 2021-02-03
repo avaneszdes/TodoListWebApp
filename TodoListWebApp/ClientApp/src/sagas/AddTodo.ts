@@ -9,6 +9,8 @@ function* addTodoWorker(action: AddTodoAction) {
         text: action.payload,
         finished: false
     });
+    
+    console.log(data)
     const addTodoSucceedAction = createTodoSucceed(data.data, action.payload, false);
     yield put(addTodoSucceedAction)
 
