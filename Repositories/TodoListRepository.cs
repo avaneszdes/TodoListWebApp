@@ -11,23 +11,21 @@ namespace Repositories
     public class TodoListRepository : ITodoListRepository
     {
         private AppDbContext _context;
-        private readonly IHttpContextAccessor _accessor;
         
-        public TodoListRepository(AppDbContext context,IHttpContextAccessor accessor)
+        public TodoListRepository(AppDbContext context)
         {
             _context = context;
-            _accessor = accessor;
         }
 
-        public List<TodoItem> GetAll()
+        public IQueryable<TodoItem> GetAll()
         {
-            return _context.TodoItems.ToList();
+            return _context.TodoItems;
         }
 
         public void AddItem(TodoItem todoItem)
         {
            
-            _context.Add(todoItem);
+            _context.TodoItems.Add(todoItem);
             _context.SaveChanges();
         }
 

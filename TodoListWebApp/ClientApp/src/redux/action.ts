@@ -1,12 +1,11 @@
-import {Item, SignForm} from "../Components/Interfaces";
+import {Item, SignForm, User} from "../Components/Interfaces";
 import {
     ADD_TODO,
     ADD_TODO_SUCCEED, AUTHORIZATION, AUTHORIZATION_SUCCEED,
     COMPLETE_TODO, COMPLETE_TODO_SUCCEED,
-    DELETE_TODO,
-    DELETE_TODO_SUCCEED,
-    EDIT_TODO, EDIT_TODO_SUCCEED,
-    GET_TODO_LIST, GET_TODO_LIST_SUCCEED, REGISTRATION
+    DELETE_TODO, DELETE_USER,
+    EDIT_TODO, EDIT_TODO_SUCCEED, EDIT_USER, EDIT_USER_SUCCEED,
+    GET_TODO_LIST, GET_TODO_LIST_SUCCEED, GET_USERS, GET_USERS_SUCCEED, LOG_OUT, REGISTRATION
 } from "./constants";
 
 
@@ -22,11 +21,6 @@ export interface AddTodoSucceedAction {
 
 export interface DeleteTodoAction {
     type: typeof DELETE_TODO,
-    payload: number
-}
-
-export interface DeleteTodoSucceedAction {
-    type: typeof DELETE_TODO_SUCCEED,
     payload: number
 }
 
@@ -76,6 +70,11 @@ export interface AuthorizationSucceedAction {
     payload: string
 }
 
+export interface LogOut {
+    type: typeof LOG_OUT,
+    payload: string
+}
+
 export function createTodoSucceed(id: number, text: string, finished: boolean): AddTodoSucceedAction {
     return {
         type: ADD_TODO_SUCCEED,
@@ -87,6 +86,30 @@ export function createTodoSucceed(id: number, text: string, finished: boolean): 
     }
 }
 
+export interface GetUsersAction {
+    type: typeof GET_USERS,
+    payload: User[]
+}
+
+export interface GetUsersSucceedAction {
+    type: typeof GET_USERS_SUCCEED,
+    payload: User[]
+}
+
+export interface DeleteUserAction {
+    type: typeof DELETE_USER,
+    payload: number
+}
+
+interface EditUserAction {
+    type: typeof EDIT_USER,
+    payload: User
+}
+
+export interface EditUserSucceedAction {
+    type: typeof EDIT_USER_SUCCEED,
+    payload: User
+}
 
 export type TodosActionTypes =
     AddTodoAction
@@ -99,3 +122,9 @@ export type TodosActionTypes =
     | RegistrationAction
     | AuthorizationAction
     | AuthorizationSucceedAction
+    | LogOut
+    | GetUsersAction
+    | GetUsersSucceedAction
+    | DeleteUserAction 
+    | EditUserAction 
+    | EditUserSucceedAction

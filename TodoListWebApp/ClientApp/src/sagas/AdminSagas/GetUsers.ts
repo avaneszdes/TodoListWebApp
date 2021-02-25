@@ -7,11 +7,10 @@ export function* getUsersWorker(){
     
     const httpConfig : AxiosRequestConfig = {
         method: 'GET',
-        url: '/Admin/',
+        url: '/admin/',
     }
     
     const response = yield call(() => httpRequest(httpConfig))
-    console.log(response)
     yield put({type: GET_USERS_SUCCEED, payload: response.data})
 }
 

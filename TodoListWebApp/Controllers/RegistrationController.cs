@@ -5,22 +5,22 @@ using Services;
 namespace TodoListWebApp.Controllers
 {
     [Route("registration")]
-    public class Registration : Controller
+    public class RegistrationController : Controller
     {
         private IPersonService _service;
         private PersonValidator _validator;
-        public Registration(IPersonService personService)
+        public RegistrationController(IPersonService personService)
         {
             _service = personService;
             _validator = new PersonValidator();
         }
         
         [HttpPost]
-        public IActionResult Index([FromBody] Person person)
+        public IActionResult Index([FromBody] User user)
         {
-            if (_validator.Validate(person).IsValid)
+            if (_validator.Validate(user).IsValid)
             {
-                _service.AddPerson(person);
+                _service.AddPerson(user);
                 return Ok();
             }
 

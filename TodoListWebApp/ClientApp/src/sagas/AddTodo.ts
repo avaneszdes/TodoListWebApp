@@ -1,19 +1,23 @@
 import {AddTodoAction, createTodoSucceed} from "../redux/action";
 import {call, put, takeEvery} from 'redux-saga/effects'
-import axios from 'axios';
+import {AxiosRequestConfig} from 'axios';
 import {ADD_TODO} from "../redux/constants";
+import httpRequest from "./httpConfig";
 
 function* addTodoWorker(action: AddTodoAction) {
 
-    const data = yield call(axios.post, '/TodoList', {
-        text: action.payload,
-        finished: false
-    });
-    
-    console.log(data)
-    const addTodoSucceedAction = createTodoSucceed(data.data, action.payload, false);
-    yield put(addTodoSucceedAction)
+    const httpConfig: AxiosRequestConfig = {
+        method: 'POST',
+        url: '/TodoList',
+        data: {
+            text: action.payload,
+            finished: false
+        }
+    }
 
+    const response = yield call(() => httpRequest(httpConfig));
+    const addTodoSucceedAction = createTodoSucceed(response.data, action.payload, false);
+    yield put(addTodoSucceedAction)
 }
 
 export function* watchAddTodo() {

@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using Entities;
 
-namespace Services
+namespace Repositories
 {
-    public interface IPersonService
+    public interface IUserRepository
     {
         List<User> GetAll();
         void AddPerson(User user);
+
     }
 }

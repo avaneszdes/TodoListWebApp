@@ -29,8 +29,7 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
             <input className={'checkBox-button'}
                    type="checkbox"
                    checked={item.finished}
-                   onChange={() => {
-                   }}
+                   onChange={() => {}}
                    onClick={() => completeTodoItem(item)}
             />
             {item.finished ? <s>{item.text}</s> : item.text}

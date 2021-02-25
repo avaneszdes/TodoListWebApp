@@ -1,13 +1,19 @@
-import { DeleteTodoAction} from "../redux/action";
+import {DeleteTodoAction} from "../redux/action";
 import {call, put, takeEvery} from 'redux-saga/effects'
-import axios from 'axios';
+import {AxiosRequestConfig} from 'axios';
 import {DELETE_TODO, DELETE_TODO_SUCCEED} from "../redux/constants";
+import httpRequest from "./httpConfig";
 
 function* deleteTodoWorker(action: DeleteTodoAction) {
+    console.log(action.payload)
+    const httpConfig: AxiosRequestConfig = {
+        method: 'DELETE',
+        url: `/TodoList/${action.payload}`,
+    }
 
-    const res = yield call(axios.delete, `/TodoList/${action.payload}`)
-    
-    if (res.statusCode === 200) {
+    const response = yield call(() => httpRequest(httpConfig));
+
+    if (response.statusCode === 200) {
         yield put({
             type: DELETE_TODO_SUCCEED,
             payload: action.payload
@@ -15,6 +21,6 @@ function* deleteTodoWorker(action: DeleteTodoAction) {
     }
 }
 
-export function* watchDeleteTodo(){
+export function* watchDeleteTodo() {
     yield takeEvery(DELETE_TODO, deleteTodoWorker)
 } 

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Services
 {
-    public class PersonValidator: AbstractValidator<Person>
+    public class PersonValidator: AbstractValidator<User>
     {
         public PersonValidator()
         {

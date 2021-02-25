@@ -13,10 +13,8 @@ import Container from '@material-ui/core/Container';
 import {useDispatch} from 'react-redux'
 import {REGISTRATION} from "../../redux/constants";
 import SignIn from "../Autorization/SignIn";
-import ToDoList from "../TodoList/ToDoList";
 import {Route} from "react-router-dom";
-import {Formik, useFormik} from 'formik';
-import * as yup from "yup";
+import {useFormik} from 'formik';
 import {ref} from "yup";
 
 
@@ -31,14 +29,6 @@ function Copyright() {
             {'.'}
         </Typography>
     );
-}
-
-interface SignForm {
-    firstName: string
-    lastName: string
-    password: string
-    confirmPassword: string,
-    email: string
 }
 
 interface Props {
@@ -66,10 +56,20 @@ const useStyles = makeStyles((theme: any) => ({
     },
 }));
 
+
+const yup = require('yup')
+require('yup-password')(yup)
+
 const vScheme = yup.object().shape({
-    firstName: yup.string().typeError('must be a string').required('required'),
-    lastName: yup.string().typeError('must be a string').required('required'),
-    password: yup.string().min(8, 'length must be most than 7').required('required'),
+    firstName: yup.string().min(2, 'must be most than 2 symbols').max(30,'must be lest than 30 symbols' ).required('required'),
+    lastName: yup.string().min(2, 'must be most than 2 symbols').max(30,'must be lest than 30 symbols' ).required('required'),
+    password: yup.string().password()
+        .minSymbols(1, 'password must contain at least 1 symbol')
+        .minUppercase(3, 'password must contain at least 3 uppercase letters')
+        .minLowercase(3, 'password must contain at least 3 lowercase letters')
+        .min(8, 'length must be most than 7')
+        .max(30, 'length must be less than 30')
+        .required('required'),
     email: yup.string().email('incorrect email address').required('required'),
     confirmPassword: yup.string().oneOf([ref('password')], 'passwords don`t match').required('required'),
 })
@@ -80,14 +80,6 @@ export default function SignUp({isPres, pressButton}: Props) {
     const classes = useStyles();
     const [isPressed, setPressed] = useState(false)
 
-    const initialValues: SignForm = {
-        firstName: '',
-        lastName: '',
-        password: '',
-        confirmPassword: '',
-        email: '',
-    }
-
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -95,6 +87,7 @@ export default function SignUp({isPres, pressButton}: Props) {
             password: '',
             confirmPassword: '',
             email: '',
+            role: '',
         },
         validationSchema: vScheme,
         onSubmit: (values) => {
@@ -108,7 +101,7 @@ export default function SignUp({isPres, pressButton}: Props) {
     if (!isPressed) {
         return (
 
-            <Container component="main" maxWidth="xl">
+            <Container component="main" maxWidth="xs">
                 <CssBaseline/>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
@@ -186,7 +179,7 @@ export default function SignUp({isPres, pressButton}: Props) {
                                     fullWidth
                                     name="confirmPassword"
                                     label="Confirm Password"
-                                    type="confirmPassword"
+                                    type="password"
                                     id="confirmPassword"
                                     onChange={formik.handleChange}
                                     error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
@@ -206,11 +199,11 @@ export default function SignUp({isPres, pressButton}: Props) {
                         </Button>
                         <Grid container justify="flex-end">
                             <Grid item>
-                                <Link href="/todo-list" variant="body2">
+                                <Link href="/signIn" variant="body2">
                                     Already have an account? Sign in
                                 </Link>
-                                <Route path="/todo-list">
-                                    <ToDoList/>
+                                <Route path="/signIn">
+                                    <SignIn/>
                                 </Route>
                             </Grid>
                         </Grid>

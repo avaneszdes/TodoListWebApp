@@ -42,12 +42,16 @@ namespace TodoListWebApp
                         ValidateIssuerSigningKey = true,
                     };
                 });
-
+            
+            services.AddAutoMapper(typeof(ApiMappingProfile));
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
             services.AddTransient<ITodoListService, TodoListService>();
+            services.AddTransient<IAdminRepository, AdminRepository>();
+            services.AddTransient<IAdminService, AdminService>();
             services.AddTransient<ITodoListRepository, TodoListRepository>();
-            services.AddTransient<IPersonRepository, PersonRepository>();
+            services.AddTransient<IIdentityService, IdentityService>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IPersonService, PersonService>();
             
             services.AddDbContext<AppDbContext>(options =>
@@ -67,13 +71,6 @@ namespace TodoListWebApp
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                db.Persons.AddRange(new Person {FirstName = "AAA", LastName = "AAA" ,Email = "admin@gmail.com", Password = "12345", Role = "admin"},
-                    new Person {FirstName = "VVV", LastName = "VVV" ,Email = "qwerty@gmail.com", Password = "55555", Role = "user"});
-            }
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

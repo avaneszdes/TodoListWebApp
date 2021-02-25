@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Entities;
 using Microsoft.AspNetCore.Http;
 using Repositories;
+using Services.TodoItemDto;
 
 namespace Services
 {
@@ -10,21 +13,29 @@ namespace Services
     {
         private ITodoListRepository _repository;
         private readonly IIdentityService _identity;
+        private readonly IMapper _mapper;
 
-        public TodoListService(ITodoListRepository repository)
+        public TodoListService(ITodoListRepository repository, IIdentityService identity, IMapper mapper)
         {
             _repository = repository;
-            _identity = new IdentityService(new HttpContextAccessor());
+            _identity = identity;
+            _mapper = mapper;
         }
 
-        public List<TodoItem> GetAll()
+        public List<TodoItemDtoModel> GetAll(int page)
         {
-            return _repository.GetAll().Where(x => x.PersonId == _identity.GetTokenId()).ToList();
+            
+            return _repository.GetAll()
+                .Where(x => x.UserId == _identity.GetUserId())
+                .OrderBy(x => x.Id)
+                .GetPage(page, 10)
+                .ProjectTo<TodoItemDtoModel>(_mapper.ConfigurationProvider)
+                .ToList();
         }
 
         public void AddItem(TodoItem todoItem)
         {
-            todoItem.PersonId = _identity.GetTokenId();
+            todoItem.UserId = _identity.GetUserId();
             _repository.AddItem(todoItem);
         }
 
@@ -35,7 +46,7 @@ namespace Services
 
         public void UpdateItem(int id, string text, bool finished)
         {
-            _repository.UpdateItem(new TodoItem {Id = id, Text = text, Finished = finished, PersonId = _identity.GetTokenId()});
+            _repository.UpdateItem(new TodoItem {Id = id, Text = text, IsComplete = finished, UserId = _identity.GetUserId()});
         }
     }
 }

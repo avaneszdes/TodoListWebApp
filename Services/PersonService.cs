@@ -6,20 +6,20 @@ namespace Services
 {
     public class PersonService: IPersonService
     {
-        private readonly IPersonRepository _repository; 
-        public PersonService(IPersonRepository repository)
+        private readonly IUserRepository _repository; 
+        public PersonService(IUserRepository repository)
         {
             _repository = repository;
         }
         
-        public List<Person> GetAll()
+        public List<User> GetAll()
         {
             return _repository.GetAll();
         }
 
-        public void AddPerson(Person person)
+        public void AddPerson(User user)
         {
-            _repository.AddPerson(person);
+            _repository.AddPerson(user);
         }
     }
 }

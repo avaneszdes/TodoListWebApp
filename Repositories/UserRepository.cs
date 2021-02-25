@@ -5,20 +5,20 @@ using Entities;
 
 namespace Repositories
 {
-    public class PersonRepository: IPersonRepository
+    public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _dbContext;
 
-        public PersonRepository(AppDbContext dbContext)
+        public UserRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        
-        public List<Person> GetAll( ) => _dbContext.Persons.ToList();
-        public void AddPerson(Person person)
+
+        public List<User> GetAll() => _dbContext.Users.ToList();
+
+        public void AddPerson(User user)
         {
-            
-            _dbContext.Persons.Add(person);
+            _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
         }
     }

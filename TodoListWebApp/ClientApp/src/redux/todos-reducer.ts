@@ -28,7 +28,6 @@ const todos = (state = initialState, action: TodosActionTypes) => {
                 }
                 return x;
             });
-            
         }
         
         case EDIT_TODO:
@@ -40,7 +39,7 @@ const todos = (state = initialState, action: TodosActionTypes) => {
             })
 
         case GET_TODO_LIST_SUCCEED:
-            return action.payload
+            return [...state, ...action.payload]
         
        
         default:

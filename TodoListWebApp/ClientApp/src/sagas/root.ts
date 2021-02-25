@@ -6,6 +6,9 @@ import {watchCompleteTodo} from "./CompleteTodo";
 import {watchDeleteTodo} from "./DeleteTodo";
 import {watchRegistration} from "./Registration";
 import {watchAuthorization} from "./Authorization";
+import {watchGetUsersList} from "./AdminSagas/GetUsers";
+import {watchDeleteUser} from "./AdminSagas/DeleteUser";
+import {watchEditUser} from "./AdminSagas/EditUser";
 
 export function* rootSaga () {
     yield all([
@@ -16,5 +19,8 @@ export function* rootSaga () {
         watchDeleteTodo(),
         watchRegistration(),
         watchAuthorization(),
+        watchGetUsersList(),
+        watchDeleteUser(),
+        watchEditUser(),
     ]);
 }
