@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
+using System.Text.Json;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -21,9 +23,9 @@ namespace TodoListWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Token([FromBody] Person person)
+        public IActionResult Token([FromBody] User user)
         {
-            var identity = GetIdentity(person.Email, person.Password);
+            var identity = GetIdentity(user.Email, user.Password);
 
             if (identity == null)
             {
@@ -52,20 +54,19 @@ namespace TodoListWebApp.Controllers
 
         private ClaimsIdentity GetIdentity(string email, string password)
         {
-            Person person = _person.GetAll().FirstOrDefault(x =>
+            User user = _person.GetAll().FirstOrDefault(x =>
                 x.Email == email && x.Password == password);
 
-            if (person != null)
+            if (user != null)
             {
                 var claims = new List<Claim>
-                {   
-                    new(ClaimsIdentity.DefaultNameClaimType, person.Email),
-                    new(ClaimsIdentity.DefaultRoleClaimType, person.Password),
-                    new(ClaimsIdentity.DefaultRoleClaimType, person.Id.ToString()),
+                {
+                    new(ClaimsIdentity.DefaultNameClaimType, JsonSerializer.Serialize(user)),
                 };
+
                 ClaimsIdentity claimsIdentity =
-                    new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                        ClaimsIdentity.DefaultRoleClaimType);
+                    new ClaimsIdentity(new GenericIdentity(user.Id.ToString()), claims, "Token",
+                        "User", ClaimsIdentity.DefaultNameClaimType);
 
                 return claimsIdentity;
             }

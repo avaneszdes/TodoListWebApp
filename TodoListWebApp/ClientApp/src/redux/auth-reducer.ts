@@ -1,10 +1,10 @@
-import {Auth, SignForm} from "../Components/Interfaces";
+import {Auth} from "../Components/Interfaces";
 import {TodosActionTypes} from "./action";
-import { AUTHORIZATION_SUCCEED, REGISTRATION} from "./constants";
+import {AUTHORIZATION_SUCCEED, LOG_OUT, REGISTRATION} from "./constants";
 
 
-const initialState: Auth | SignForm = {
-    token: '',
+const initialState: Auth = {
+    token: localStorage.getItem('token')!
 }
 
 const auth = (state = initialState, action: TodosActionTypes) => {
@@ -14,7 +14,10 @@ const auth = (state = initialState, action: TodosActionTypes) => {
             return action.payload
 
         case AUTHORIZATION_SUCCEED:
-            return action.payload
+            return {token: action.payload}
+
+        case LOG_OUT:
+            return {token: action.payload}
 
         default:
             return state

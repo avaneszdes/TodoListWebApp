@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,10 +14,9 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useDispatch} from "react-redux";
 import {AUTHORIZATION} from "../../redux/constants";
-import {SignForm} from "../Interfaces";
 import {useFormik} from "formik";
 import * as yup from "yup";
-import {ref} from "yup";
+import {Route} from "react-router-dom";
 
 function Copyright() {
     return (
@@ -136,9 +135,12 @@ export default function SignIn() {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="signUp" variant="body2">
                                 {"Don't have an account? Sign Up"}
                             </Link>
+                            <Route path="/signUp">
+                                
+                            </Route>
                         </Grid>
                     </Grid>
                 </form>
