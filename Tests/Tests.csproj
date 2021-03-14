@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Affecto.Mapping.AutoMapper" Version="4.2.0" />
         <PackageReference Include="AutoMapper" Version="10.1.1" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
         <PackageReference Include="Moq" Version="4.16.0" />
