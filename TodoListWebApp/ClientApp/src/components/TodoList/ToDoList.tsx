@@ -3,28 +3,53 @@ import './ToDoList.css';
 import TodoItem from "../TodoItem/TodoItem";
 import {Item} from '../Interfaces';
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_TODO, EDIT_TODO, COMPLETE_TODO, DELETE_TODO, GET_TODO_LIST, LOADING} from '../../redux/constants';
+import {ADD_TODO, EDIT_TODO, COMPLETE_TODO, DELETE_TODO, GET_TODO_LIST} from '../../redux/constants';
 import {IRootState} from "../../redux/configureStore";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SimpleBackdrop from "../BackDrop/BackDrop";
+import LeftPanel from "../LeftPanel/LeftPanel";
+import Button from "@material-ui/core/Button";
+import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+import {TextField} from "@material-ui/core";
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            '& > *': {
+                margin: theme.spacing(1),
+            },
+        },
+        button: {
+            width: '1000px'
+        },
+        input: {
+            width: '915px'
+        },
+        form: {
+            width: '100%',
+            marginTop: theme.spacing(1)
+        },
+        dialog: {
+            width: '500px'
+        }
+    }),
+);
 
 export default function ToDoList() {
 
+    const classes = useStyles();
     const [value, setValue] = useState("")
     const [inputHide, setInputHide] = useState(false)
-    const [inputEditHideBtn, setInputEditHideBtn] = useState(true)
+
     const todos: Item[] = useSelector((state: IRootState) => state.todos.items)
     const loading: boolean = useSelector((state: IRootState) => state.todos.loading)
     const dispatch = useDispatch();
     const [page, setPage] = useState(1)
 
     useEffect(() => {
-        dispatch({type: LOADING, payload: true})
         dispatch({type: GET_TODO_LIST, payload: []})
-        dispatch({type: LOADING, payload: false})
     }, [page])// eslint-disable-line react-hooks/exhaustive-deps
-    
-    
+
 
     const changeHideInput = () => setInputHide(!inputHide);
     const textChanged = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
@@ -42,42 +67,40 @@ export default function ToDoList() {
         dispatch({type: COMPLETE_TODO, payload: item})
     }
     const editItem = (item: Item) => {
-        setInputEditHideBtn(!inputEditHideBtn);
-        if (value) {
-            dispatch({type: EDIT_TODO, payload: {id: item.id, text: value, finished: item.isComplete}})
-            setValue('')
-        }
+        dispatch({type: EDIT_TODO, payload: {id: item.id, text: item.text, finished: item.isComplete}})
+
     }
-    
+
     return (
         <>
-            <input className={'button-createTodos'}
-                   type="button" value="Create todos"
-                   onClick={() => changeHideInput()}
-            />
+            <LeftPanel/>
+            <Button
+                className={classes.button}
+                onClick={() => changeHideInput()}
+                variant="contained"
+                color="primary"
+            >
+                Create todos
+            </Button>
 
-            <div hidden={!inputHide}>
-                <input className={'input-todo'}
-                       placeholder="Write todos here"
-                       type="text"
-                       onChange={textChanged}
-                       value={value}
+            <div style={{display:"flex", marginTop: '3px'}}hidden={!inputHide}>
+                <TextField
+                    placeholder="Write todos here"
+                    label="New Todos"
+                    onChange={textChanged}
+                    value={value}
+                    className={classes.input}
                 />
-                <input className={'buttonCreate'}
-                       value="Create"
-                       type="button"
-                       onClick={() => addTodos(value)}
-                />
+
+                <Button
+                    onClick={() => addTodos(value)}
+                    variant="contained"
+                    color="primary"
+                >
+                    Create
+                </Button>
             </div>
             <div>
-                <input className={'input-edit'}
-                       hidden={inputEditHideBtn}
-                       type='text'
-                       placeholder="Write new text here"
-                       onChange={textChanged}
-                       value={value}
-
-                />
                 <InfiniteScroll
                     dataLength={todos.length}
                     next={() => setPage(page + 1)}
@@ -95,14 +118,15 @@ export default function ToDoList() {
                                   completeTodo={completeTodo}
                                   deleteItem={deleteItem}
                                   editItem={editItem}
-                        />)   }
-                       
+                        />)}
+
                     </h1>
-                    
+
                 </InfiniteScroll>
-                <SimpleBackdrop hidden={loading} />
+                <SimpleBackdrop hidden={loading}/>
             </div>
 
         </>
-    );
+    )
+        ;
 }

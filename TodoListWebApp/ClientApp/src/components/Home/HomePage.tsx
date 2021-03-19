@@ -40,7 +40,7 @@ export default function Home() {
                     <Route exact path="/" component={SignIn}/>
                     <Route exact path="/admin" component={AdminPage}/>
                     <Route exact path="/todoList" component={ToDoList}/>
-                    <Route path="/signIn" component={SignUp}/>
+                    <Route exact path="/signUp" component={SignUp}/>
                 </Switch>
             </div>
     );

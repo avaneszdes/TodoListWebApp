@@ -1,14 +1,15 @@
 import {AuthorizationAction} from "../redux/action";
 import {call, put, takeEvery} from "redux-saga/effects";
 import {AxiosRequestConfig} from "axios";
-import {AUTHORIZATION, AUTHORIZATION_SUCCEED} from "../redux/constants";
+import {AUTHORIZATION, AUTHORIZATION_SUCCEED, LOADING} from "../redux/constants";
 import httpRequest from "./httpConfig";
 import jwt_decode from "jwt-decode";
 import {CustomJwtPayload} from "../redux/auth-reducer";
 import history from '../Components/history'
 function* authorizationWorker(action: AuthorizationAction) {
-    
-    
+
+    yield put({type: LOADING, payload: true})
+
     const httpConfig: AxiosRequestConfig = {
         method: 'POST',
         url: '/authorization/',
@@ -32,8 +33,8 @@ function* authorizationWorker(action: AuthorizationAction) {
         }
         else if(profile.Role === "admin"){
             history.push("/admin");
-        } 
-        
+        }
+        yield put({type: LOADING, payload: false})
         // eslint-disable-next-line no-restricted-globals
         location.reload();
         

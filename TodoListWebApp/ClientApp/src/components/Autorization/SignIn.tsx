@@ -59,13 +59,12 @@ const vScheme = yup.object().shape({
 })
 
 
-
 export default function SignIn() {
     const classes = useStyles();
     const dispatch = useDispatch()
     const loading: boolean = useSelector((state: IRootState) => state.todos.loading)
-    
-    
+
+
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -76,16 +75,14 @@ export default function SignIn() {
         },
         validationSchema: vScheme,
         onSubmit: (values) => {
-            dispatch({type: LOADING, payload: true})
             dispatch({type: AUTHORIZATION, payload: values})
-            dispatch({type: LOADING, payload: false})
         },
     })
-    
+
     return (
         <Container component="main" maxWidth="xs">
-            <SimpleBackdrop hidden={loading} />
-            
+
+
             <CssBaseline/>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
@@ -154,6 +151,7 @@ export default function SignIn() {
                         </Grid>
                     </Grid>
                 </form>
+                <SimpleBackdrop hidden={loading}/>
             </div>
             <Box mt={8}>
                 <Copyright/>
