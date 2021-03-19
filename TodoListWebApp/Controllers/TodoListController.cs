@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using Services.TodoItemDto;
@@ -9,8 +8,7 @@ using Services.TodoItemDto;
 namespace TodoListWebApp.Controllers
 {
     [ApiController]
-    [Route("todoList")]
-    [Authorize(Roles = "user")]
+    [Route("api/todoList")]
     public class TodoListController : Controller
     {
         private readonly ITodoListService _service;
@@ -23,6 +21,7 @@ namespace TodoListWebApp.Controllers
         [HttpGet("{page}")]
         public List<TodoItemDtoModel> GetAll(int page)
         {
+            var a = _service.GetAll(page).ToList();
             return _service.GetAll(page).ToList();
         }
 

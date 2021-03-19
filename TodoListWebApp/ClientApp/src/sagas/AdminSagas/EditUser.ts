@@ -8,7 +8,7 @@ import {EditUserSucceedAction} from "../../redux/action";
 function* editUserWorker(action: EditUserSucceedAction){
     const httpConfig: AxiosRequestConfig = {
         method: 'PUT',
-        url: '/Admin',
+        url: '/api/Admin',
         data: {
             id: action.payload.id,
             firstName: action.payload.firstName,

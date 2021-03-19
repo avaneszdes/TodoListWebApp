@@ -11,7 +11,7 @@ namespace Repositories
     public class TodoListRepository : ITodoListRepository
     {
         private AppDbContext _context;
-        
+
         public TodoListRepository(AppDbContext context)
         {
             _context = context;
@@ -24,7 +24,6 @@ namespace Repositories
 
         public void AddItem(TodoItem todoItem)
         {
-           
             _context.TodoItems.Add(todoItem);
             _context.SaveChanges();
         }

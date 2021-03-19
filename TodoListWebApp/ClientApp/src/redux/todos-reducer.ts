@@ -3,45 +3,54 @@ import {
     COMPLETE_TODO,
     DELETE_TODO,
     EDIT_TODO,
-    GET_TODO_LIST_SUCCEED,
+    GET_TODO_LIST_SUCCEED, LOADING,
 } from './constants'
-import {Item} from "../Components/Interfaces";
+import {ITodosState} from "../Components/Interfaces";
 import {TodosActionTypes} from "./action";
 
 
-
-const initialState: Item[] = []
+const initialState: ITodosState = {
+    items: [],
+    loading: false
+}
 
 const todos = (state = initialState, action: TodosActionTypes) => {
-
     switch (action.type) {
         case DELETE_TODO:
-            return state.filter(todo => todo.id !== action.payload)
-        
+            return {...state, items: state.items.filter(todo => todo.id !== action.payload)}
+
         case ADD_TODO_SUCCEED:
-            return [...state, action.payload]
+            return {...state, items: [...state.items, action.payload]}
 
         case COMPLETE_TODO: {
-           return state.map(x => {
-                if (x.id === action.payload.id) {
-                    return {...x, finished: action.payload.finished} 
-                }
-                return x;
-            });
+            return {
+                ...state, items: state.items.map(x => {
+                    if (x.id === action.payload.id) {
+                        return {...x, isComplete: action.payload.isComplete}
+                    }
+                    return x;
+                })
+            };
         }
-        
-        case EDIT_TODO:
-            return  state.map(x => {
-                if (x.id === action.payload.id) {
-                    return {...x, text: action.payload.text}  
-                }
-                 return x;
-            })
 
-        case GET_TODO_LIST_SUCCEED:
-            return [...state, ...action.payload]
-        
-       
+        case EDIT_TODO:
+            return {
+                ...state, items: state.items.map(x => {
+                    if (x.id === action.payload.id) {
+                        return {...x, text: action.payload.text}
+                    }
+                    return x;
+                })
+            }
+
+        case GET_TODO_LIST_SUCCEED: {
+            return {...state, items: [...state.items, ...action.payload]};
+        }
+
+        case LOADING:
+            return {...state, loading: action.payload}
+
+
         default:
             return state
     }

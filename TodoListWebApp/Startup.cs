@@ -51,22 +51,22 @@ namespace TodoListWebApp
             services.AddTransient<IAdminService, AdminService>();
             services.AddTransient<ITodoListRepository, TodoListRepository>();
             services.AddTransient<IIdentityService, IdentityService>();
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IPersonService, PersonService>();
+            services.AddTransient<IRegistrationRepository, RegistrationRepository>();
+            services.AddTransient<IRegistrationService, RegistrationService>();
             
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
-            // services.AddCors(options =>
-            // {
-            //     options.AddPolicy("NotesPolicy",
-            //         builder =>
-            //         {
-            //             builder.WithOrigins("*")
-            //                 .AllowAnyHeader()
-            //                 .AllowAnyMethod();
-            //         });
-            // });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("NotesPolicy",
+                    builder =>
+                    {
+                        builder.WithOrigins("*")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -86,7 +86,7 @@ namespace TodoListWebApp
             app.UseSpaStaticFiles();
 
             app.UseRouting();
-            // app.UseCors("NotesPolicy");
+            app.UseCors("NotesPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();

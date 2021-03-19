@@ -5,18 +5,18 @@ using Entities;
 
 namespace Repositories
 {
-    public class UserRepository : IUserRepository
+    public class RegistrationRepository : IRegistrationRepository
     {
         private readonly AppDbContext _dbContext;
 
-        public UserRepository(AppDbContext dbContext)
+        public RegistrationRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
         public List<User> GetAll() => _dbContext.Users.ToList();
 
-        public void AddPerson(User user)
+        public void AddUser(User user)
         {
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();

@@ -7,8 +7,9 @@ using Services.UsersDto;
 
 namespace TodoListWebApp.Controllers
 {
-    [Route("admin")]
+    
     [ApiController]
+    [Route("api/admin")]
     [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {

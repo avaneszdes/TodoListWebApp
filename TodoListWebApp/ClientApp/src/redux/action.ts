@@ -1,11 +1,11 @@
-import {Item, SignForm, User} from "../Components/Interfaces";
+import {Auth, Item, SignForm, User} from "../Components/Interfaces";
 import {
     ADD_TODO,
     ADD_TODO_SUCCEED, AUTHORIZATION, AUTHORIZATION_SUCCEED,
     COMPLETE_TODO, COMPLETE_TODO_SUCCEED,
     DELETE_TODO, DELETE_USER,
     EDIT_TODO, EDIT_TODO_SUCCEED, EDIT_USER, EDIT_USER_SUCCEED,
-    GET_TODO_LIST, GET_TODO_LIST_SUCCEED, GET_USERS, GET_USERS_SUCCEED, LOG_OUT, REGISTRATION
+    GET_TODO_LIST, GET_TODO_LIST_SUCCEED, GET_USERS, GET_USERS_SUCCEED, LOADING, LOG_OUT, REGISTRATION
 } from "./constants";
 
 
@@ -67,7 +67,7 @@ export interface AuthorizationAction {
 
 export interface AuthorizationSucceedAction {
     type: typeof AUTHORIZATION_SUCCEED,
-    payload: string
+    payload: Auth
 }
 
 export interface LogOut {
@@ -111,6 +111,16 @@ export interface EditUserSucceedAction {
     payload: User
 }
 
+export interface LoadingAction {
+    type: typeof LOADING,
+    payload: boolean
+}
+
+export interface LoadingActionSucceed {
+    type: typeof LOADING,
+    payload: boolean
+}
+
 export type TodosActionTypes =
     AddTodoAction
     | DeleteTodoAction
@@ -128,3 +138,5 @@ export type TodosActionTypes =
     | DeleteUserAction 
     | EditUserAction 
     | EditUserSucceedAction
+    | LoadingAction
+    | LoadingActionSucceed

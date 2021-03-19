@@ -7,7 +7,7 @@ export function* getUsersWorker(){
     
     const httpConfig : AxiosRequestConfig = {
         method: 'GET',
-        url: '/admin/',
+        url: '/api/admin/',
     }
     
     const response = yield call(() => httpRequest(httpConfig))

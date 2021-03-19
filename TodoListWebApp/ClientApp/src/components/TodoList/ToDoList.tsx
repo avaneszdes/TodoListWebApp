@@ -3,22 +3,28 @@ import './ToDoList.css';
 import TodoItem from "../TodoItem/TodoItem";
 import {Item} from '../Interfaces';
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_TODO, EDIT_TODO, COMPLETE_TODO, DELETE_TODO, GET_TODO_LIST} from '../../redux/constants';
+import {ADD_TODO, EDIT_TODO, COMPLETE_TODO, DELETE_TODO, GET_TODO_LIST, LOADING} from '../../redux/constants';
 import {IRootState} from "../../redux/configureStore";
 import InfiniteScroll from "react-infinite-scroll-component";
+import SimpleBackdrop from "../BackDrop/BackDrop";
 
 export default function ToDoList() {
 
     const [value, setValue] = useState("")
     const [inputHide, setInputHide] = useState(false)
     const [inputEditHideBtn, setInputEditHideBtn] = useState(true)
-    const todos = useSelector((state: IRootState) => state.todos)
+    const todos: Item[] = useSelector((state: IRootState) => state.todos.items)
+    const loading: boolean = useSelector((state: IRootState) => state.todos.loading)
     const dispatch = useDispatch();
     const [page, setPage] = useState(1)
 
     useEffect(() => {
+        dispatch({type: LOADING, payload: true})
         dispatch({type: GET_TODO_LIST, payload: []})
-    }, [page])
+        dispatch({type: LOADING, payload: false})
+    }, [page])// eslint-disable-line react-hooks/exhaustive-deps
+    
+    
 
     const changeHideInput = () => setInputHide(!inputHide);
     const textChanged = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
@@ -29,16 +35,20 @@ export default function ToDoList() {
         }
         setInputHide(!inputHide);
     }
-    const deleteItem = (id: number) => dispatch({type: DELETE_TODO, payload: id})
-    const completeTodo = (item: Item) => dispatch({type: COMPLETE_TODO, payload: item})
+    const deleteItem = (id: number) => {
+        dispatch({type: DELETE_TODO, payload: id})
+    }
+    const completeTodo = (item: Item) => {
+        dispatch({type: COMPLETE_TODO, payload: item})
+    }
     const editItem = (item: Item) => {
         setInputEditHideBtn(!inputEditHideBtn);
         if (value) {
-            dispatch({type: EDIT_TODO, payload: {id: item.id, text: value, finished: item.finished}})
+            dispatch({type: EDIT_TODO, payload: {id: item.id, text: value, finished: item.isComplete}})
             setValue('')
         }
     }
-
+    
     return (
         <>
             <input className={'button-createTodos'}
@@ -69,10 +79,10 @@ export default function ToDoList() {
 
                 />
                 <InfiniteScroll
-                    dataLength={todos.length} //This is important field to render the next data
+                    dataLength={todos.length}
                     next={() => setPage(page + 1)}
                     hasMore={true}
-                    loader={<h4>Loading...</h4>}
+                    loader={<br/>}
                     endMessage={
                         <p style={{textAlign: 'center'}}>
                             <b>Yay! You have seen it all</b>
@@ -85,9 +95,12 @@ export default function ToDoList() {
                                   completeTodo={completeTodo}
                                   deleteItem={deleteItem}
                                   editItem={editItem}
-                        />)}
+                        />)   }
+                       
                     </h1>
+                    
                 </InfiniteScroll>
+                <SimpleBackdrop hidden={loading} />
             </div>
 
         </>

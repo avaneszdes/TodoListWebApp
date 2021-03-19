@@ -4,6 +4,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Repositories;
 using Services.TodoItemDto;
 
@@ -24,7 +25,6 @@ namespace Services
 
         public List<TodoItemDtoModel> GetAll(int page)
         {
-            
             return _repository.GetAll()
                 .Where(x => x.UserId == _identity.GetUserId())
                 .OrderBy(x => x.Id)
@@ -42,11 +42,11 @@ namespace Services
         public void RemoveItem(int id)
         {
             _repository.RemoveItem(id);
-        }
+        }   
 
-        public void UpdateItem(int id, string text, bool finished)
+        public void UpdateItem(int id, string text, bool isComplete)
         {
-            _repository.UpdateItem(new TodoItem {Id = id, Text = text, IsComplete = finished, UserId = _identity.GetUserId()});
+            _repository.UpdateItem(new TodoItem {Id = id, Text = text, IsComplete = isComplete, UserId = _identity.GetUserId()});
         }
     }
 }

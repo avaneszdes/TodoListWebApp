@@ -25,9 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             width: '100%',
-            maxWidth: 1600,
-            backgroundColor: theme.palette.background.paper,
-            marginLeft: '10%',
+            maxWidth: 1800,
 
         },
         form: {
@@ -49,8 +47,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         headerItem: {
             width: '218px',
+            height: '30px',
             borderWidth: '2px',
-            borderColor: 'black',
+            borderTop: 'white',
+            borderBottom: 'white',
             borderStyle: 'solid',
             paddingTop: '5px',
             marginLeft: '10px',
@@ -85,10 +85,11 @@ export default function AdminPage() {
     const [open, setOpen] = useState(false)
     const [userId, setUserId] = useState(0 )
     const users = useSelector((x: IRootState) => x.admin)
+    console.log(users)
 
     useEffect(() => {
         dispatch({type: GET_USERS, payload: []})
-    }, [])
+    }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
     const handleClose = () => {
         setOpen(!open)
@@ -106,6 +107,7 @@ export default function AdminPage() {
         onSubmit: (values) => {
             const user = {...values, id: userId}
             handleClose()
+            console.log(user)
             dispatch({type: EDIT_USER, payload: user})
         },
     })
@@ -217,13 +219,13 @@ export default function AdminPage() {
                 </form>
             </Dialog>
 
-        <div style={{display: 'flex', marginLeft: '14.5%'} }>
-            <div className={classes.headerItem}><h3 style={{marginBlockEnd: '0px',marginBlockStart: '0px'}}>First Name </h3></div>
-            <div className={classes.headerItem}><h3 style={{marginBlockEnd: '0px',marginBlockStart: '0px'}}>Last Name </h3></div>
-            <div className={classes.headerItem}><h3 style={{marginBlockEnd: '0px',marginBlockStart: '0px'}}>Todos Count</h3></div>
-            <div className={classes.headerItem}><h3 style={{marginBlockEnd: '0px',marginBlockStart: '0px'}}>Email </h3></div>
-            <div className={classes.headerItem}><h3 style={{marginBlockEnd: '0px',marginBlockStart: '0px'}}>Password</h3></div>
-            <div className={classes.headerItem}><h3 style={{marginBlockEnd: '0px',marginBlockStart: '0px'}}>Role </h3></div>
+        <div style={{display: 'flex', paddingLeft: '97px'} }>
+            <div className={classes.headerItem}><h3>First Name </h3></div>
+            <div className={classes.headerItem}><h3>Last Name </h3></div>
+            <div className={classes.headerItem}><h3>Todos Count</h3></div>
+            <div className={classes.headerItem}><h3>Email </h3></div>
+            <div className={classes.headerItem}><h3>Password</h3></div>
+            <div className={classes.headerItem}><h3>Role </h3></div>
         </div>
             <List dense className={classes.root}>
                 {users.map((value: User, index: number) => {
@@ -239,10 +241,11 @@ export default function AdminPage() {
                             <div style={{display: 'flex'}}>
                                 <div className={classes.item}>{value.firstName}</div>
                                 <div className={classes.item}>{value.lastName}</div>
+                                <div className={classes.item}>{value.todosCount}</div>
                                 <div className={classes.item}>{value.email}</div>
                                 <div className={classes.item}>{value.password}</div>
                                 <div className={classes.item}>{value.role}</div>
-                                <div className={classes.item}>{value.todosCount}</div>
+                               
                                 <Button
                                     variant="contained"
                                     color="secondary"

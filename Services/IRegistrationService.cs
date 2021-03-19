@@ -3,9 +3,9 @@ using Entities;
 
 namespace Services
 {
-    public interface IPersonService
+    public interface IRegistrationService
     {
         List<User> GetAll();
-        void AddPerson(User user);
+        void AddUser(User user);
     }
 }

@@ -3,6 +3,7 @@ import {RegistrationAction} from "../redux/action";
 import {call, put, takeEvery} from "redux-saga/effects";
 import {REGISTRATION, REGISTRATION_SUCCEED} from "../redux/constants";
 import httpRequest from "./httpConfig";
+import history from "../Components/history";
 
 
 function* registrationWorker(action: RegistrationAction) {
@@ -14,6 +15,7 @@ function* registrationWorker(action: RegistrationAction) {
     const response = yield call(() => httpRequest(httpConfig));
     if (response.statusCode === 200) {
         yield put({type: REGISTRATION_SUCCEED, payload: action.payload})
+        history.push("/signIn");
     }
 }
 

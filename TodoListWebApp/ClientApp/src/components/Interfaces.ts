@@ -8,11 +8,22 @@ export interface SignForm {
 export interface Item{
     id: number
     text: string
-    finished: boolean
+    isComplete: boolean
+}
+export interface ITodosState {
+    items: Item[]
+    loading: boolean
+}
+
+export enum Role {
+    Admin = 1,
+    User = 2
 }
 
 export interface Auth{
-    token: string
+    token: string | null;
+    role: Role | null;
+    name: string | null
 }
 
 export interface User {

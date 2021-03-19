@@ -17,7 +17,8 @@ const admin = (state = initialState, action: TodosActionTypes) => {
         case EDIT_USER:
             return  state.map(x => {
                 if (x.id === action.payload.id) {
-                    return {...x, user: action.payload}
+                    console.log(123, x , action.payload)
+                    return action.payload
                 }
                 return x;
             })

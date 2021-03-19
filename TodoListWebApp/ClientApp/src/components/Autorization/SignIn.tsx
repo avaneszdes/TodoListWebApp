@@ -12,11 +12,14 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {useDispatch} from "react-redux";
-import {AUTHORIZATION} from "../../redux/constants";
+import {useDispatch, useSelector} from "react-redux";
+import {AUTHORIZATION, LOADING} from "../../redux/constants";
 import {useFormik} from "formik";
 import * as yup from "yup";
 import {Route} from "react-router-dom";
+import SignUp from "../Registration/Registration";
+import SimpleBackdrop from "../BackDrop/BackDrop";
+import {IRootState} from "../../redux/configureStore";
 
 function Copyright() {
     return (
@@ -56,10 +59,13 @@ const vScheme = yup.object().shape({
 })
 
 
+
 export default function SignIn() {
     const classes = useStyles();
     const dispatch = useDispatch()
-
+    const loading: boolean = useSelector((state: IRootState) => state.todos.loading)
+    
+    
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -70,12 +76,16 @@ export default function SignIn() {
         },
         validationSchema: vScheme,
         onSubmit: (values) => {
+            dispatch({type: LOADING, payload: true})
             dispatch({type: AUTHORIZATION, payload: values})
+            dispatch({type: LOADING, payload: false})
         },
     })
-
+    
     return (
         <Container component="main" maxWidth="xs">
+            <SimpleBackdrop hidden={loading} />
+            
             <CssBaseline/>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
@@ -139,7 +149,7 @@ export default function SignIn() {
                                 {"Don't have an account? Sign Up"}
                             </Link>
                             <Route path="/signUp">
-                                
+                                <SignUp/>
                             </Route>
                         </Grid>
                     </Grid>

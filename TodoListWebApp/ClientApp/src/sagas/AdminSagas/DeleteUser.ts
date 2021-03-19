@@ -7,7 +7,7 @@ import {DeleteUserAction} from "../../redux/action";
 function* deleteUserWorker(action: DeleteUserAction) {
     const httpConfig: AxiosRequestConfig = {
         method: 'DELETE',
-        url: `/Admin/${action.payload}`,
+        url: `/api/Admin/${action.payload}`,
     }
 
     const response = yield call(() => httpRequest(httpConfig));

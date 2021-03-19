@@ -9,12 +9,12 @@ export function* getTodoListWorker() {
 
     const httpConfig: AxiosRequestConfig = {
         method: 'GET',
-        url: `/todoList/${page}`,
+        url: `/api/todoList/${page}`,
     }
-    page += 10
     
+    
+    page += 10
     const response = yield call(() => httpRequest(httpConfig));
-    console.log(response.data)
     yield put({type: GET_TODO_LIST_SUCCEED, payload: response.data})
 }
 

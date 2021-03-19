@@ -7,9 +7,9 @@ namespace TodoListWebApp.Controllers
     [Route("registration")]
     public class RegistrationController : Controller
     {
-        private IPersonService _service;
+        private IRegistrationService _service;
         private PersonValidator _validator;
-        public RegistrationController(IPersonService personService)
+        public RegistrationController(IRegistrationService personService)
         {
             _service = personService;
             _validator = new PersonValidator();
@@ -20,7 +20,7 @@ namespace TodoListWebApp.Controllers
         {
             if (_validator.Validate(user).IsValid)
             {
-                _service.AddPerson(user);
+                _service.AddUser(user);
                 return Ok();
             }
 

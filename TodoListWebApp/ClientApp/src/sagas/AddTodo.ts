@@ -8,7 +8,7 @@ function* addTodoWorker(action: AddTodoAction) {
 
     const httpConfig: AxiosRequestConfig = {
         method: 'POST',
-        url: '/TodoList',
+        url: '/api/todoList',
         data: {
             text: action.payload,
             finished: false

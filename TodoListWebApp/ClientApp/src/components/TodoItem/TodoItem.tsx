@@ -12,10 +12,11 @@ interface Props {
 export default function TodoItem({item, completeTodo, deleteItem, editItem}: Props) {
     
     const completeTodoItem = (item: Item) => {
-        completeTodo({id: item.id, text: item.text, finished: !item.finished});
+        completeTodo({id: item.id, text: item.text, isComplete: !item.isComplete});
     }
 
     const removeItem = (item: Item) => {
+        
         deleteItem(item.id);
     }
 
@@ -25,14 +26,15 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
 
     return (
         <div className={'Todo-item'}>
-
             <input className={'checkBox-button'}
                    type="checkbox"
-                   checked={item.finished}
+                   checked={item.isComplete}
                    onChange={() => {}}
                    onClick={() => completeTodoItem(item)}
             />
-            {item.finished ? <s>{item.text}</s> : item.text}
+            {item.isComplete ? <s>{item.text}</s> : item.text}
+            
+                    
 
             <div className={'buttons-block'}>
                 <input className={'button'} type="button" onClick={() => updateItem(item)} value="Edit"/>

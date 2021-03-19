@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import todos from "./todos-reducer";
-import {Item, Auth, User} from "../Components/Interfaces";
+import {Auth, User, ITodosState} from "../Components/Interfaces";
 import createSagaMiddleware from 'redux-saga'
 import {composeWithDevTools } from 'redux-devtools-extension';
 import {rootSaga} from "../sagas/root";
@@ -9,7 +9,7 @@ import admin from "./admin-reducer";
 
 export interface IRootState {
     auth: Auth,
-    todos: Item[],
+    todos: ITodosState ,
     admin: User[],
 }
 

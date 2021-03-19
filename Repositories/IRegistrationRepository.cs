@@ -3,10 +3,10 @@ using Entities;
 
 namespace Repositories
 {
-    public interface IUserRepository
+    public interface IRegistrationRepository
     {
         List<User> GetAll();
-        void AddPerson(User user);
+        void AddUser(User user);
 
     }
 }

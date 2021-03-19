@@ -15,9 +15,9 @@ namespace TodoListWebApp.Controllers
     [Route("authorization")]
     public class AccountController : Controller
     {
-        private readonly IPersonService _person;
+        private readonly IRegistrationService _person;
 
-        public AccountController(IPersonService person)
+        public AccountController(IRegistrationService person)
         {
             _person = person;
         }
@@ -43,13 +43,7 @@ namespace TodoListWebApp.Controllers
                     SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            var response = new
-            {
-                token = encodedJwt,
-                username = identity.Name
-            };
-
-            return Json(response);
+            return Json(encodedJwt);
         }
 
         private ClaimsIdentity GetIdentity(string email, string password)
@@ -61,12 +55,13 @@ namespace TodoListWebApp.Controllers
             {
                 var claims = new List<Claim>
                 {
-                    new(ClaimsIdentity.DefaultNameClaimType, JsonSerializer.Serialize(user)),
+                    new("UserProfile", JsonSerializer.Serialize(user)),
+                    new(ClaimsIdentity.DefaultRoleClaimType, user?.Role ),
                 };
 
                 ClaimsIdentity claimsIdentity =
                     new ClaimsIdentity(new GenericIdentity(user.Id.ToString()), claims, "Token",
-                        "User", ClaimsIdentity.DefaultNameClaimType);
+                        ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 
                 return claimsIdentity;
             }

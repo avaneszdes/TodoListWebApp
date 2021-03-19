@@ -8,13 +8,15 @@ function* completeTodoWorker(action: CompleteTodoSucceedAction) {
 
     const httpConfig: AxiosRequestConfig = {
         method: 'PUT',
-        url: '/TodoList',
+        url: '/api/todoList',
         data: {
             id: action.payload.id,
             text: action.payload.text,
-            finished: action.payload.finished
+            isComplete: action.payload.isComplete
         }
     }
+    
+    console.log(action.payload.isComplete)
     const response = yield call(() => httpRequest(httpConfig));
     if (response.statusCode === 200) {
         yield put({type: action.payload, payload: action.payload})
