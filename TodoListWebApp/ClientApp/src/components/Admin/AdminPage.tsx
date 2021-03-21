@@ -85,7 +85,6 @@ export default function AdminPage() {
     const [open, setOpen] = useState(false)
     const [userId, setUserId] = useState(0 )
     const users = useSelector((x: IRootState) => x.admin)
-    console.log(users)
 
     useEffect(() => {
         dispatch({type: GET_USERS, payload: []})
@@ -107,7 +106,6 @@ export default function AdminPage() {
         onSubmit: (values) => {
             const user = {...values, id: userId}
             handleClose()
-            console.log(user)
             dispatch({type: EDIT_USER, payload: user})
         },
     })
@@ -126,7 +124,6 @@ export default function AdminPage() {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-title">
                 <form className={classes.form} onSubmit={formik.handleSubmit}>
                     <DialogTitle id="form-title">Change user`s data</DialogTitle>
-
                     <DialogContent>
                         <TextField
                             variant="outlined"
@@ -205,7 +202,6 @@ export default function AdminPage() {
                         <Button
                             type='submit'
                             color='primary'
-                            
                         >
                             Edit
                         </Button>
@@ -235,7 +231,7 @@ export default function AdminPage() {
                                 <Avatar
                                     style={{height: '80px', width: '80px'}}
                                     alt={`Avatar n°${value.firstName[0] + value.lastName[0]}`}
-                                    src={`/static/images/avatar/${value.firstName}.jpg`}
+                                    src={value.photo}
                                 />
                             </ListItemAvatar>
                             <div style={{display: 'flex'}}>

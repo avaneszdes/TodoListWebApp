@@ -16,6 +16,7 @@ function* editUserWorker(action: EditUserSucceedAction){
             password: action.payload.password,
             email: action.payload.email,
             role: action.payload.role,
+            photo: action.payload.photo,
         }
     }
 

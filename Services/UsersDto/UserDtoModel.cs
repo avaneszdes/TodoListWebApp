@@ -9,5 +9,8 @@ namespace Services.UsersDto
         public string Password { get; set; }
         public string Role { get; set; }
         public int TodosCount { get; set; }
+        public string Photo { get; set; }
+        
+        
     }
 }

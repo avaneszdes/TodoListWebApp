@@ -12,7 +12,6 @@ export function* getTodoListWorker() {
         url: `/api/todoList/${page}`,
     }
     
-    
     page += 10
     const response = yield call(() => httpRequest(httpConfig));
     yield put({type: GET_TODO_LIST_SUCCEED, payload: response.data})

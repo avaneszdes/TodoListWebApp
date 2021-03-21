@@ -4,7 +4,7 @@ import {
     ADD_TODO_SUCCEED, AUTHORIZATION, AUTHORIZATION_SUCCEED,
     COMPLETE_TODO, COMPLETE_TODO_SUCCEED,
     DELETE_TODO, DELETE_USER,
-    EDIT_TODO, EDIT_TODO_SUCCEED, EDIT_USER, EDIT_USER_SUCCEED,
+    EDIT_TODO, EDIT_TODO_SUCCEED, EDIT_USER, EDIT_USER_PHOTO, EDIT_USER_PHOTO_SUCCEED, EDIT_USER_SUCCEED,
     GET_TODO_LIST, GET_TODO_LIST_SUCCEED, GET_USERS, GET_USERS_SUCCEED, LOADING, LOG_OUT, REGISTRATION
 } from "./constants";
 
@@ -121,6 +121,16 @@ export interface LoadingActionSucceed {
     payload: boolean
 }
 
+export interface EditUserPhoto {
+    type: typeof EDIT_USER_PHOTO,
+    payload: {photo: string, id: number}
+}
+
+export interface EditUserPhotoSucceed {
+    type: typeof EDIT_USER_PHOTO_SUCCEED,
+    payload: {photo: string, id: number}
+}
+
 export type TodosActionTypes =
     AddTodoAction
     | DeleteTodoAction
@@ -135,8 +145,11 @@ export type TodosActionTypes =
     | LogOut
     | GetUsersAction
     | GetUsersSucceedAction
-    | DeleteUserAction 
-    | EditUserAction 
+    | DeleteUserAction
+    | EditUserAction
     | EditUserSucceedAction
     | LoadingAction
     | LoadingActionSucceed
+    | EditUserPhoto
+    | EditUserPhotoSucceed
+

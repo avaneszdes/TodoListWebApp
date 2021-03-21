@@ -7,22 +7,22 @@ const initialState: User[] = []
 const admin = (state = initialState, action: TodosActionTypes) => {
 
     switch (action.type) {
-        
+
         case GET_USERS_SUCCEED:
-            return  action.payload
+            return action.payload
 
         case DELETE_USER:
             return state.filter(x => x.id !== action.payload)
-        
+
         case EDIT_USER:
-            return  state.map(x => {
+            return state.map(x => {
                 if (x.id === action.payload.id) {
-                    console.log(123, x , action.payload)
                     return action.payload
                 }
                 return x;
             })
         
+
         default:
             return state
     }

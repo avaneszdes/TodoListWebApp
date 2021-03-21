@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useDispatch, useSelector} from "react-redux";
-import {AUTHORIZATION, LOADING} from "../../redux/constants";
+import {AUTHORIZATION} from "../../redux/constants";
 import {useFormik} from "formik";
 import * as yup from "yup";
 import {Route} from "react-router-dom";

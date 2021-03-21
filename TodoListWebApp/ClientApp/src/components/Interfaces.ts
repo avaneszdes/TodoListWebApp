@@ -24,6 +24,8 @@ export interface Auth{
     token: string | null;
     role: Role | null;
     name: string | null
+    photo: string
+    id: number
 }
 
 export interface User {
@@ -34,4 +36,6 @@ export interface User {
     email: string
     role: string
     todosCount: number
+    photo: string
+    
 }

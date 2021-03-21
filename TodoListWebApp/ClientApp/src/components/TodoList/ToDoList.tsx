@@ -83,7 +83,7 @@ export default function ToDoList() {
                 Create todos
             </Button>
 
-            <div style={{display:"flex", marginTop: '3px'}}hidden={!inputHide}>
+            <div style={{marginTop: '3px'}} hidden={!inputHide}>
                 <TextField
                     placeholder="Write todos here"
                     label="New Todos"
@@ -119,7 +119,6 @@ export default function ToDoList() {
                                   deleteItem={deleteItem}
                                   editItem={editItem}
                         />)}
-
                     </h1>
 
                 </InfiniteScroll>

@@ -31,8 +31,15 @@ namespace Repositories
 
         public void UpdateUserData(User user)
         {
-            _db.Users.Update(user);
-            _db.SaveChanges();
+            var existUser = _db.Users.Find(user.Id);
+
+            if (existUser != null)
+            {
+                existUser.Photo = user.Photo;
+                _db.Users.Update(existUser);
+                _db.SaveChanges();
+            }
+           
         }
     }
 }

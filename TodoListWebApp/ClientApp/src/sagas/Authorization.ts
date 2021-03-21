@@ -18,6 +18,7 @@ function* authorizationWorker(action: AuthorizationAction) {
     const response = yield call(() => httpRequest(httpConfig));
     if (Boolean(response.data)) {
         const jwt = Object.values(jwt_decode<CustomJwtPayload>(response.data))
+        
         const profile = JSON.parse(jwt[1])
         localStorage.setItem('token', response.data)
         
@@ -26,6 +27,8 @@ function* authorizationWorker(action: AuthorizationAction) {
                 token: response.data,
                 role: profile.Role,
                 name: profile.FirstName,
+                photo: profile.Photo,
+                id: profile.Id
             }
         })
         if(profile.Role === "user"){
@@ -35,8 +38,7 @@ function* authorizationWorker(action: AuthorizationAction) {
             history.push("/admin");
         }
         yield put({type: LOADING, payload: false})
-        // eslint-disable-next-line no-restricted-globals
-        location.reload();
+       
         
     }
 }
