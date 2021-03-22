@@ -30,7 +30,6 @@ namespace TodoListWebApp.Controllers
                 Photo =  user.Photo,
             };
             _service.UpdateUserData(updatedUser);
-
             return Ok();
         }
     }
