@@ -6,6 +6,9 @@ import httpRequest from "./httpConfig";
 import jwt_decode from "jwt-decode";
 import {CustomJwtPayload} from "../redux/auth-reducer";
 import history from '../Components/history'
+
+
+
 function* authorizationWorker(action: AuthorizationAction) {
 
     yield put({type: LOADING, payload: true})

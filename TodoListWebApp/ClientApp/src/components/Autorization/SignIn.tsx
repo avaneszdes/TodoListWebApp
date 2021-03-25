@@ -16,8 +16,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {AUTHORIZATION} from "../../redux/constants";
 import {useFormik} from "formik";
 import * as yup from "yup";
-import {Route} from "react-router-dom";
-import SignUp from "../Registration/Registration";
 import SimpleBackdrop from "../BackDrop/BackDrop";
 import {IRootState} from "../../redux/configureStore";
 
@@ -63,8 +61,6 @@ export default function SignIn() {
     const classes = useStyles();
     const dispatch = useDispatch()
     const loading: boolean = useSelector((state: IRootState) => state.todos.loading)
-
-
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -81,8 +77,6 @@ export default function SignIn() {
 
     return (
         <Container component="main" maxWidth="xs">
-
-
             <CssBaseline/>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
@@ -142,12 +136,9 @@ export default function SignIn() {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="signUp" variant="body2">
+                            <Link href="/signUp" variant="body2">
                                 {"Don't have an account? Sign Up"}
                             </Link>
-                            <Route path="/signUp">
-                                <SignUp/>
-                            </Route>
                         </Grid>
                     </Grid>
                 </form>

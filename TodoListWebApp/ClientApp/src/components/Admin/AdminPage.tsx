@@ -24,11 +24,13 @@ import {useFormik} from "formik";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
+            
             width: '100%',
             maxWidth: 1800,
 
         },
         form: {
+           
             width: '100%', // Fix IE 11 issue.
             marginTop: theme.spacing(3),
         },
@@ -46,6 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginLeft: '10px',
         },
         headerItem: {
+            marginTop: '3px',
             width: '218px',
             height: '30px',
             borderWidth: '2px',
@@ -104,9 +107,9 @@ export default function AdminPage() {
         },
         validationSchema: vScheme,
         onSubmit: (values) => {
-            const user = {...values, id: userId}
+            const user: User | undefined = users.find(x => x.id === userId)
             handleClose()
-            dispatch({type: EDIT_USER, payload: user})
+            dispatch({type: EDIT_USER, payload: {...values, id: userId, todosCount: user?.todosCount, photo: user?.photo}})
         },
     })
 
@@ -115,8 +118,8 @@ export default function AdminPage() {
         setOpen(!open)
     }
 
-    const deleteUser = (user: User) => {
-        dispatch({type: DELETE_USER, payload: user.id})
+    const deleteUser = (userId: number) => {
+        dispatch({type: DELETE_USER, payload: userId})
     }
 
     return (<>
@@ -247,7 +250,7 @@ export default function AdminPage() {
                                     color="secondary"
                                     className={classes.button}
                                     startIcon={<DeleteIcon/>}
-                                    onClick={() => deleteUser(value)}
+                                    onClick={() => deleteUser(value.id)}
                                 >
                                     Delete
                                 </Button>
