@@ -9,13 +9,10 @@ namespace Entities
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
         public string Photo { get; set; }
-        public List<TodoItem> TodoItems { get; set; }
-
-        public User()
-        {
-            TodoItems = new List<TodoItem>();
-        }
+        
+        public List<TodoItem> TodoItems = new List<TodoItem>();
+        public long? RoleId { get; set; }
+        public Role Role { get; set; }
     }
 }

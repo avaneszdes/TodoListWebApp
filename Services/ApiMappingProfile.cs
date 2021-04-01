@@ -29,7 +29,7 @@ namespace TodoListWebApp
                 .ForMember(dest => dest.LastName,
                     opt => opt.MapFrom(x => x.LastName))
                 .ForMember(dest => dest.Role,
-                    opt => opt.MapFrom(x => x.Role))
+                    opt => opt.MapFrom(x => x.Role.Name))
                 .ForMember(dest => dest.TodosCount,
                     opt => opt.MapFrom(x => x.TodoItems.Count));
 

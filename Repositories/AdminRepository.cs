@@ -17,10 +17,10 @@ namespace Repositories
 
         public IQueryable<User> GetUsers()
         {
-            return _db.Users;
+            return _db.Users.Include(x => x.Role);
         }
 
-        public void RemoveUser(int id)
+        public void RemoveUser(long id)
         {
             User user = _db.Users.Find(id);
 
@@ -51,6 +51,17 @@ namespace Repositories
             existUser.Photo = user.Photo;
             _db.SaveChanges();
 
+        }
+
+        public string GetUserPhoto(long id)
+        {
+            var user = _db.Users.Find(id);
+            if (user != null)
+            {
+                return user.Photo;
+            }
+
+            return "";
         }
     }
 }
