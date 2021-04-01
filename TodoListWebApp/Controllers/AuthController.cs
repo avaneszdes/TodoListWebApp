@@ -5,21 +5,23 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text.Json;
+using AutoMapper;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Services;
+using Services.UsersDto;
 
 namespace TodoListWebApp.Controllers
 {
     [Route("authorization")]
     public class AccountController : Controller
     {
-        private readonly IRegistrationService _person;
+        private readonly IRegistrationService _registrationService;
 
-        public AccountController(IRegistrationService person)
+        public AccountController(IRegistrationService registrationService)
         {
-            _person = person;
+            _registrationService = registrationService;
         }
 
         [HttpPost]
@@ -48,15 +50,16 @@ namespace TodoListWebApp.Controllers
 
         private ClaimsIdentity GetIdentity(string email, string password)
         {
-            User user = _person.GetAll().FirstOrDefault(x =>
+            UserDtoModel user = _registrationService.GetAll().FirstOrDefault(x =>
                 x.Email == email && x.Password == password);
 
             if (user != null)
             {
+                user.Photo = "";
                 var claims = new List<Claim>
                 {
                     new("UserProfile", JsonSerializer.Serialize(user)),
-                    new(ClaimsIdentity.DefaultRoleClaimType, user?.Role ),
+                    new(ClaimsIdentity.DefaultRoleClaimType, user?.Role),
                 };
 
                 ClaimsIdentity claimsIdentity =

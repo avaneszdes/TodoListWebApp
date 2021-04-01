@@ -22,8 +22,11 @@ namespace Tests.UnitTests
             };
 
             var mockRepository = new Mock<IRegistrationRepository>();
-            mockRepository.Setup(x => x.GetAll()).Returns(users);
-            var service = new RegistrationService(mockRepository.Object);
+            var mockRole = new Mock<IRoleRepository>();
+            var mapper = new Mock<IMapper>();
+            
+            mockRepository.Setup(x => x.GetAll()).Returns(users.AsQueryable);
+            var service = new RegistrationService(mockRepository.Object, mockRole.Object, mapper.Object);
             
             Assert.IsTrue(users.Count == service.GetAll().Count);
             Assert.AreNotEqual(new List<User>(), service.GetAll().Count);
@@ -35,9 +38,11 @@ namespace Tests.UnitTests
         public void AddUserToDb_isAdded()
         {
             var user = new User {Id = 12, Email = "", Password = "", FirstName = ""};
+            var mapper = new Mock<IMapper>();
             
+            var mockRole = new Mock<IRoleRepository>();
             var mockRepository = new Mock<IRegistrationRepository>();
-            var mockService = new RegistrationService(mockRepository.Object);
+            var mockService = new RegistrationService(mockRepository.Object, mockRole.Object, mapper.Object);
             mockService.AddUser(user);
             
             mockRepository.Verify(x => x.AddUser(It.IsAny<User>()));

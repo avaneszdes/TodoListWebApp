@@ -13,11 +13,10 @@ namespace Services
             _accessor = accessor;
         }
         
-        public int GetUserId()
+        public long GetUserId()
         {
             var claimsMap = _accessor.HttpContext.User.Claims
                 .ToDictionary(x => x.Type, x => x.Value);
-            var a =  claimsMap.ContainsKey(ClaimTypes.Name) ? int.Parse(claimsMap[ClaimTypes.Name]) : default;
             return claimsMap.ContainsKey(ClaimTypes.Name) ? int.Parse(claimsMap[ClaimTypes.Name]) : default;
         }
     }

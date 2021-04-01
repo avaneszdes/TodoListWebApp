@@ -7,7 +7,8 @@ namespace Services
     public interface IAdminService
     {
         List<UserDtoModel> GetUsers();
-        void RemoveUser(int id);
+        void RemoveUser(long id);
         void UpdateUserData(User user);
+        string GetUserPhoto(long id);
     }
 }

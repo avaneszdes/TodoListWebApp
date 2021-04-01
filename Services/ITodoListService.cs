@@ -9,7 +9,8 @@ namespace Services
     {
         List<TodoItemDtoModel> GetAll(int page);
         void AddItem(TodoItem todoItem);
-        void RemoveItem(int id);
-        void UpdateItem(int id, string text, bool isComplete);
+        void RemoveItem(long id);
+        void UpdateItem(long id, string text, bool isComplete);
+        
     }
 }

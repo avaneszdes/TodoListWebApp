@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Entities
+namespace TodoListWebApp.Controllers
 {
     public class Auth
     {

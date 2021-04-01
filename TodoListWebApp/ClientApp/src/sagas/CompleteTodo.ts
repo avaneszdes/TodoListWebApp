@@ -16,7 +16,6 @@ function* completeTodoWorker(action: CompleteTodoSucceedAction) {
         }
     }
     
-    console.log(action.payload.isComplete)
     const response = yield call(() => httpRequest(httpConfig));
     if (response.statusCode === 200) {
         yield put({type: action.payload, payload: action.payload})

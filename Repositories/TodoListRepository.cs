@@ -28,7 +28,7 @@ namespace Repositories
             _context.SaveChanges();
         }
 
-        public void RemoveItem(int id)
+        public void RemoveItem(long id)
         {
             var item = _context.TodoItems.Find(id);
             _context.TodoItems.Remove(item);

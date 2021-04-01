@@ -4,7 +4,8 @@ using Services;
 
 namespace TodoListWebApp.Controllers
 {
-    [Route("registration")]
+    [ApiController]
+    [Route("api/registration")]
     public class RegistrationController : Controller
     {
         private IRegistrationService _service;

@@ -26,7 +26,7 @@ namespace Tests.UnitTests
             {
                 new User
                 {
-                    Id = 1, Email = "", Password = "", FirstName = "", LastName = "", Role = "Admin",
+                    Id = 1, Email = "", Password = "", FirstName = "", LastName = "", RoleId = 1,
                     TodoItems = new List<TodoItem>
                     {
                         new TodoItem {Id = 1, Text = "2", IsComplete = false},
@@ -35,7 +35,7 @@ namespace Tests.UnitTests
                 },
                 new User
                 {
-                    Id = 1, Email = "", Password = "", FirstName = "", LastName = "", Role = "Admin",
+                    Id = 1, Email = "", Password = "", FirstName = "", LastName = "", RoleId = 1,
                     TodoItems = new List<TodoItem>
                     {
                         new TodoItem {Id = 1, Text = "2", IsComplete = false},
@@ -44,7 +44,7 @@ namespace Tests.UnitTests
                 },
                 new User
                 {
-                    Id = 1, Email = "", Password = "", FirstName = "", LastName = "", Role = "Admin",
+                    Id = 1, Email = "", Password = "", FirstName = "", LastName = "", RoleId = 1,
                     TodoItems = new List<TodoItem>
                     {
                         new TodoItem {Id = 1, Text = "2", IsComplete = false},

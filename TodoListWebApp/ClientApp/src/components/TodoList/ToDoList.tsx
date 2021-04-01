@@ -50,6 +50,7 @@ export default function ToDoList() {
         dispatch({type: GET_TODO_LIST, payload: []})
     }, [page])// eslint-disable-line react-hooks/exhaustive-deps
 
+    
 
     const changeHideInput = () => setInputHide(!inputHide);
     const textChanged = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
@@ -80,7 +81,7 @@ export default function ToDoList() {
                 variant="contained"
                 color="primary"
             >
-                Create todos
+                Create item
             </Button>
 
             <div style={{marginTop: '3px'}} hidden={!inputHide}>

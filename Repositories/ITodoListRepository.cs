@@ -8,7 +8,7 @@ namespace Repositories
     {
         IQueryable<TodoItem> GetAll();
         void AddItem(TodoItem todoItem);
-        void RemoveItem(int id);
+        void RemoveItem(long id);
         void UpdateItem(TodoItem todoItem);
     }
 }

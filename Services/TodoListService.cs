@@ -39,14 +39,17 @@ namespace Services
             _repository.AddItem(todoItem);
         }
 
-        public void RemoveItem(int id)
+        public void RemoveItem(long id)
         {
             _repository.RemoveItem(id);
         }   
 
-        public void UpdateItem(int id, string text, bool isComplete)
+        public void UpdateItem(long id, string text, bool isComplete)
         {
             _repository.UpdateItem(new TodoItem {Id = id, Text = text, IsComplete = isComplete, UserId = _identity.GetUserId()});
         }
+
+        
+
     }
 }

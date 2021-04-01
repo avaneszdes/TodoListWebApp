@@ -12,8 +12,6 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useDispatch} from 'react-redux'
 import {REGISTRATION} from "../../redux/constants";
-import SignIn from "../Autorization/SignIn";
-import {Route} from "react-router-dom";
 import {useFormik} from 'formik';
 import {ref} from "yup";
 
@@ -193,9 +191,6 @@ export default function SignUp() {
                             <Link href="/" variant="body2">
                                 Already have an account? Sign in
                             </Link>
-                            <Route path="/">
-                                <SignIn />
-                            </Route>
                         </Grid>
                     </Grid>
                 </form>

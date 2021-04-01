@@ -7,7 +7,8 @@ namespace Repositories
     public interface IAdminRepository
     {
         IQueryable<User> GetUsers();
-        void RemoveUser(int id);
+        void RemoveUser(long id);
         void UpdateUserData(User user);
+        string GetUserPhoto(long id);
     }
 }

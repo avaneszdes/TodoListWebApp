@@ -4,6 +4,6 @@ namespace Services
 {
     public interface IIdentityService
     {
-        int GetUserId();
+        long GetUserId();
     }
 }

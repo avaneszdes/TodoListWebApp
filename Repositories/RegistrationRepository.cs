@@ -2,6 +2,7 @@
 using System.Linq;
 using ApplicationContext;
 using Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repositories
 {
@@ -14,7 +15,10 @@ namespace Repositories
             _dbContext = dbContext;
         }
 
-        public List<User> GetAll() => _dbContext.Users.ToList();
+        public IQueryable<User> GetAll()
+        {
+            return _dbContext.Users.Include(x => x.Role);  
+        } 
 
         public void AddUser(User user)
         {

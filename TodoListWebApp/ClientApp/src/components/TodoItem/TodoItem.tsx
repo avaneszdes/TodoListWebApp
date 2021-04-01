@@ -124,7 +124,7 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
 
             <Paper component="form" className={classes.root}>
                 <ThemeProvider theme={theme}>
-                        <FormControlLabel
+                        <FormControlLabel style={{marginLeft: '10px'}}
                             onClick={() => completeTodoItem(item)}
                             control={<Checkbox icon={<FavoriteBorder color={'primary'}/>}
                                                checkedIcon={<Favorite color={'secondary'} />}

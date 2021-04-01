@@ -33,7 +33,7 @@ namespace TodoListWebApp.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult RemoveItem(int id)
+        public IActionResult RemoveItem(long id)
         {
             _service.RemoveItem(id);
             return Ok();

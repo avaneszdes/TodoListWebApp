@@ -1,10 +1,7 @@
 using ApplicationContext;
-using Entities;
-using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Repositories;
 using Services;
+using TodoListWebApp.Controllers;
 
 namespace TodoListWebApp
 {
@@ -44,8 +42,13 @@ namespace TodoListWebApp
                 });
             
             services.AddAutoMapper(typeof(ApiMappingProfile));
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             services.AddHttpContextAccessor();
+            services.AddTransient<IRoleRepository, RoleRepository>();
+            services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ITodoListService, TodoListService>();
             services.AddTransient<IAdminRepository, AdminRepository>();
             services.AddTransient<IAdminService, AdminService>();

@@ -24,7 +24,7 @@ namespace Services
             return _repository.GetUsers().ProjectTo<UserDtoModel>(_mapper.ConfigurationProvider).ToList();
         }
 
-        public void RemoveUser(int id)
+        public void RemoveUser(long id)
         {
             _repository.RemoveUser(id);
         }
@@ -32,6 +32,11 @@ namespace Services
         public void UpdateUserData(User user)
         {
             _repository.UpdateUserData(user);
+        }
+        
+        public string GetUserPhoto(long id)
+        {
+            return _repository.GetUserPhoto(id);
         }
     }
 }
