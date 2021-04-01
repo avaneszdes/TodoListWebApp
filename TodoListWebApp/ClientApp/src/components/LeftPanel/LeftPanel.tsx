@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
@@ -12,11 +12,12 @@ import MailIcon from '@material-ui/icons/Mail';
 import Avatar from "@material-ui/core/Avatar";
 import {useDispatch, useSelector} from "react-redux";
 import {IRootState} from "../../redux/configureStore";
-import {EDIT_USER_PHOTO, LOG_OUT} from "../../redux/constants";
+import {EDIT_USER_PHOTO, GET_USER_PHOTO, LOG_OUT} from "../../redux/constants";
 import history from "../history";
 import logoutImg from '../../img/logout.png'
 import changePhotoImg from '../../img/open-folder.png'
 import './LeftPanel.css'
+import * as url from "url";
 
 const useStyles = makeStyles({
     list: {
@@ -62,7 +63,7 @@ const useStyles = makeStyles({
 export default function LeftPanel() {
     const classes = useStyles();
     const [state, setState] = React.useState(false);
-    const profile = useSelector((x: IRootState) => x.auth)
+    let profile = useSelector((x: IRootState) => x.auth)
     const dispatch = useDispatch()
 
     const logOut = () => {
@@ -72,12 +73,14 @@ export default function LeftPanel() {
         history.push("/")
     }
 
+    useEffect(() => {
+        dispatch({type: GET_USER_PHOTO, payload: ""})
+    }, [])// eslint-disable-line react-hooks/exhaustive-deps
+
     const imageHandler = (target: any) => {
         let reader = new FileReader();
 
         reader.onload = (e: any) => {
-
-            console.log(e.target.result, profile.id)
             dispatch({type: EDIT_USER_PHOTO, payload: {photo: e.target.result, id: profile.id}})
         };
 
@@ -110,7 +113,7 @@ export default function LeftPanel() {
             <div className={classes.profile}>
                 <Avatar
                     className={classes.avatar}
-                    alt={`Avatar n°${profile.name}`}
+                    alt={`${profile.name}`}
                     src={profile.photo}
                 />
                 <h3>{profile.name}</h3>

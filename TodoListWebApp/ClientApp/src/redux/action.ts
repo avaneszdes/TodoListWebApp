@@ -1,11 +1,28 @@
 import {Auth, Item, SignForm, User} from "../Components/Interfaces";
 import {
     ADD_TODO,
-    ADD_TODO_SUCCEED, AUTHORIZATION, AUTHORIZATION_SUCCEED,
-    COMPLETE_TODO, COMPLETE_TODO_SUCCEED,
-    DELETE_TODO, DELETE_USER,
-    EDIT_TODO, EDIT_TODO_SUCCEED, EDIT_USER, EDIT_USER_PHOTO, EDIT_USER_PHOTO_SUCCEED, EDIT_USER_SUCCEED,
-    GET_TODO_LIST, GET_TODO_LIST_SUCCEED, GET_USERS, GET_USERS_SUCCEED, LOADING, LOG_OUT, REGISTRATION
+    ADD_TODO_SUCCEED,
+    AUTHORIZATION,
+    AUTHORIZATION_SUCCEED,
+    COMPLETE_TODO,
+    COMPLETE_TODO_SUCCEED,
+    DELETE_TODO,
+    DELETE_USER,
+    EDIT_TODO,
+    EDIT_TODO_SUCCEED,
+    EDIT_USER,
+    EDIT_USER_PHOTO,
+    EDIT_USER_PHOTO_SUCCEED,
+    EDIT_USER_SUCCEED,
+    GET_TODO_LIST,
+    GET_TODO_LIST_SUCCEED,
+    GET_USER_PHOTO,
+    GET_USER_PHOTO_SUCCEED,
+    GET_USERS,
+    GET_USERS_SUCCEED,
+    LOADING,
+    LOG_OUT,
+    REGISTRATION
 } from "./constants";
 
 
@@ -123,12 +140,22 @@ export interface LoadingActionSucceed {
 
 export interface EditUserPhoto {
     type: typeof EDIT_USER_PHOTO,
-    payload: {photo: string, id: number}
+    payload: { photo: string, id: number }
 }
 
 export interface EditUserPhotoSucceed {
     type: typeof EDIT_USER_PHOTO_SUCCEED,
-    payload: {photo: string, id: number}
+    payload: { photo: string, id: number }
+}
+
+export interface GetUserPhotoSucceed {
+    type: typeof GET_USER_PHOTO_SUCCEED,
+    payload: string
+}
+
+export interface GetUserPhoto {
+    type: typeof GET_USER_PHOTO,
+    payload: string
 }
 
 export type TodosActionTypes =
@@ -152,4 +179,6 @@ export type TodosActionTypes =
     | LoadingActionSucceed
     | EditUserPhoto
     | EditUserPhotoSucceed
+    | GetUserPhotoSucceed
+    | GetUserPhoto
 

@@ -1,7 +1,13 @@
 import {AuthorizationAction} from "../redux/action";
 import {call, put, takeEvery} from "redux-saga/effects";
 import {AxiosRequestConfig} from "axios";
-import {AUTHORIZATION, AUTHORIZATION_SUCCEED, LOADING} from "../redux/constants";
+import {
+    AUTHORIZATION,
+    AUTHORIZATION_SUCCEED,
+    GET_USER_PHOTO,
+    GET_USER_PHOTO_SUCCEED,
+    LOADING
+} from "../redux/constants";
 import httpRequest from "./httpConfig";
 import jwt_decode from "jwt-decode";
 import {CustomJwtPayload} from "../redux/auth-reducer";
@@ -12,10 +18,9 @@ import history from '../Components/history'
 function* authorizationWorker(action: AuthorizationAction) {
 
     yield put({type: LOADING, payload: true})
-
     const httpConfig: AxiosRequestConfig = {
         method: 'POST',
-        url: '/authorization/',
+        url: 'authorization',
         data: action.payload
     }
     const response = yield call(() => httpRequest(httpConfig));
@@ -30,10 +35,11 @@ function* authorizationWorker(action: AuthorizationAction) {
                 token: response.data,
                 role: profile.Role,
                 name: profile.FirstName,
-                photo: profile.Photo,
+                photo: '',
                 id: profile.Id
             }
         })
+        
         if(profile.Role === "user"){
             history.push("/todoList");
         }

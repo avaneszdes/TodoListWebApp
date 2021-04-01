@@ -5,7 +5,6 @@ import httpRequest from "./httpConfig";
 import {EDIT_USER_PHOTO, EDIT_USER_PHOTO_SUCCEED} from "../redux/constants";
 
 function* updateUserPhotoWorker(action: EditUserPhotoSucceed){
-    console.log(action.type, action.payload)
     const httpConfig: AxiosRequestConfig = {
         method: 'PUT',
         url: '/api/user',
