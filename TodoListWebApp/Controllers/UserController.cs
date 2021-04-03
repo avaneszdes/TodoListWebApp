@@ -32,6 +32,7 @@ namespace TodoListWebApp.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Photo =  user.Photo,
+                
             };
             _service.UpdateUserData(updatedUser);
             return Ok();
@@ -40,8 +41,14 @@ namespace TodoListWebApp.Controllers
         [HttpGet("{id}")]
         public string GetUserPhoto(int id)
         {
-            var a = _service.GetUserPhoto(id);
             return _service.GetUserPhoto(id);
+        }
+        
+        
+        [HttpPost]
+        public IActionResult SendEmail(string emailAddress)
+        {
+            return Ok(EmailSender.SendEmailCustom(emailAddress));
         }
     }
 }

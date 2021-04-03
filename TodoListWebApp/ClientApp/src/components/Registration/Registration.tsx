@@ -48,8 +48,6 @@ const useStyles = makeStyles((theme: any) => ({
         margin: theme.spacing(3, 0, 2),
     },
 }));
-
-
 const yup = require('yup')
 require('yup-password')(yup)
 

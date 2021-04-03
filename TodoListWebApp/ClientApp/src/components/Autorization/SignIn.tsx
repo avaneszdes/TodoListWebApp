@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,11 +13,13 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useDispatch, useSelector} from "react-redux";
-import {AUTHORIZATION} from "../../redux/constants";
+import {AUTHORIZATION, SEND_USER_PASSWORD} from "../../redux/constants";
 import {useFormik} from "formik";
 import * as yup from "yup";
 import SimpleBackdrop from "../BackDrop/BackDrop";
 import {IRootState} from "../../redux/configureStore";
+import {Dialog, DialogActions, DialogContent, DialogTitle, Slide} from "@material-ui/core";
+import {TransitionProps} from "@material-ui/core/transitions";
 
 function Copyright() {
     return (
@@ -55,12 +57,19 @@ const vScheme = yup.object().shape({
     password: yup.string().min(8, 'length must be most than 7').required('required'),
     email: yup.string().email('incorrect email address').required('required'),
 })
-
+const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & { children?: React.ReactElement<any, any> },
+    ref: React.Ref<unknown>,
+) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function SignIn() {
     const classes = useStyles();
     const dispatch = useDispatch()
     const loading: boolean = useSelector((state: IRootState) => state.todos.loading)
+    const [inputEditHideBtn, setInputEditHideBtn] = useState(false)
+    const [value, setValue] = useState('')
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -75,6 +84,16 @@ export default function SignIn() {
         },
     })
 
+    const getPasswordAndEmail = (email: string) => {
+        dispatch({type: SEND_USER_PASSWORD, payload: email})
+        setInputEditHideBtn(!inputEditHideBtn);
+    }
+
+    const handleClose = () => {
+        setInputEditHideBtn(!inputEditHideBtn);
+    }
+
+    const textChanged = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
@@ -131,7 +150,7 @@ export default function SignIn() {
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link href="#" variant="body2">
+                            <Link href="#" onClick={handleClose} variant="body2">
                                 Forgot password?
                             </Link>
                         </Grid>
@@ -142,6 +161,37 @@ export default function SignIn() {
                         </Grid>
                     </Grid>
                 </form>
+                
+                <Dialog TransitionComponent={Transition}
+                        keepMounted
+                        open={inputEditHideBtn}
+                        onClose={handleClose}
+                        aria-labelledby="form-title"
+                >
+                    <DialogTitle id="form-title">Change todo`s text</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            placeholder="Write your email"
+                            label="Send password"
+                            style={{width: '400px'}}
+                            onChange={textChanged}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            color='primary'
+                            onClick={() => getPasswordAndEmail(value)}
+                        >
+                            Send password
+                        </Button>
+                        <Button
+                            onClick={handleClose}
+                            color='primary'
+                        >
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 <SimpleBackdrop hidden={loading}/>
             </div>
             <Box mt={8}>

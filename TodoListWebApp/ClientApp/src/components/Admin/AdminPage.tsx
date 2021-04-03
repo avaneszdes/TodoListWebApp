@@ -111,7 +111,6 @@ export default function AdminPage() {
         dispatch({type: LOG_OUT, token})
         history.push("/")
     }
-    
     const handleClose = () => {
         setOpen(!open)
     }
@@ -140,7 +139,6 @@ export default function AdminPage() {
             })
         },
     })
-
     const handleClickOpen = (Id: number) => {
         setUserId(Id)
         setOpen(!open)

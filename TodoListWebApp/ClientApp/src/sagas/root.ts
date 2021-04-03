@@ -11,6 +11,7 @@ import {watchDeleteUser} from "./AdminSagas/DeleteUser";
 import {watchEditUser} from "./AdminSagas/EditUser";
 import {watchUpdateUserPhoto} from "./UpdateUserPhoto";
 import {watchGetUserPhoto} from "./GetUserPhoto";
+import {watchSendEmail} from "./SendPasswordToEmail";
 
 export function* rootSaga () {
     yield all([
@@ -26,5 +27,6 @@ export function* rootSaga () {
         watchEditUser(),
         watchUpdateUserPhoto(),
         watchGetUserPhoto(),
+        watchSendEmail(),
     ]);
 }

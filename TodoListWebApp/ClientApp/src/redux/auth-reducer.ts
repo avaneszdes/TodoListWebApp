@@ -6,7 +6,7 @@ import {
     GET_USER_PHOTO,
     GET_USER_PHOTO_SUCCEED,
     LOG_OUT,
-    REGISTRATION
+    REGISTRATION, SEND_USER_PASSWORD
 } from "./constants";
 import jwt_decode, {JwtPayload} from "jwt-decode";
 
@@ -68,6 +68,9 @@ const auth = (state = initialState, action: TodosActionTypes) => {
 
         case GET_USER_PHOTO_SUCCEED:
             return {...state, photo: action.payload}
+            
+        case SEND_USER_PASSWORD:
+            return {...state, email: action.payload}
 
         default:
             return state

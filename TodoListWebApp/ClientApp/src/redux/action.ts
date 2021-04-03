@@ -22,7 +22,7 @@ import {
     GET_USERS_SUCCEED,
     LOADING,
     LOG_OUT,
-    REGISTRATION
+    REGISTRATION, SEND_USER_PASSWORD
 } from "./constants";
 
 
@@ -158,6 +158,11 @@ export interface GetUserPhoto {
     payload: string
 }
 
+export interface SendUserPassword {
+    type: typeof SEND_USER_PASSWORD,
+    payload: string
+}
+
 export type TodosActionTypes =
     AddTodoAction
     | DeleteTodoAction
@@ -181,4 +186,5 @@ export type TodosActionTypes =
     | EditUserPhotoSucceed
     | GetUserPhotoSucceed
     | GetUserPhoto
+    | SendUserPassword
 
