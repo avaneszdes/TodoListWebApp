@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import App from "./app";
 import configureStore from "./redux/configureStore";
 import {Router} from "react-router-dom";
-import history from './Components/history'
+import history from './components/history'
 
 const store = configureStore()
 

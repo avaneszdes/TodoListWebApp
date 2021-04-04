@@ -15,13 +15,14 @@ import {
     TextField
 } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import {User} from "../Interfaces";
+
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from "@material-ui/core/Button";
 import {useFormik} from "formik";
 import {ExpandLess, ExpandMore} from "@material-ui/icons";
-import history from "../history";
+import {User} from '../Interfaces' ;
+import history from '../history'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -67,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'center',
             alignItems: 'center',
         },
-        
+
     }),
 );
 
@@ -104,7 +105,7 @@ export default function AdminPage() {
     const handleOpenRoleList = () => {
         setOpenList(!openList)
     }
-    
+
     const logOut = () => {
         let token: string = ''
         localStorage.clear()
@@ -149,7 +150,7 @@ export default function AdminPage() {
     }
 
     return (<>
-            <Container maxWidth="xl" >
+            <Container maxWidth="xl">
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-title">
                     <form className={classes.form} onSubmit={formik.handleSubmit}>
                         <DialogTitle id="form-title">Change user`s data</DialogTitle>
@@ -249,7 +250,7 @@ export default function AdminPage() {
                         </DialogActions>
                     </form>
                 </Dialog>
-                
+
                 <div style={{display: 'flex', paddingLeft: '97px'}}>
                     <div className={classes.headerItem}><h3>First Name </h3></div>
                     <div className={classes.headerItem}><h3>Last Name </h3></div>
@@ -257,7 +258,8 @@ export default function AdminPage() {
                     <div className={classes.headerItem}><h3>Email </h3></div>
                     <div className={classes.headerItem}><h3>Password</h3></div>
                     <div className={classes.headerItem}><h3>Role </h3></div>
-                    <Button onClick={logOut} style={{width: '205px', marginTop: '4px', marginLeft: '3px' }} variant="outlined" color="primary">
+                    <Button onClick={logOut} style={{width: '205px', marginTop: '4px', marginLeft: '3px'}}
+                            variant="outlined" color="primary">
                         Log Out
                     </Button>
                 </div>

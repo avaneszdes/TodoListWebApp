@@ -168,11 +168,11 @@ export default function SignIn() {
                         onClose={handleClose}
                         aria-labelledby="form-title"
                 >
-                    <DialogTitle id="form-title">Change todo`s text</DialogTitle>
+                    <DialogTitle id="form-title">Sending your password to email</DialogTitle>
                     <DialogContent>
                         <TextField
                             placeholder="Write your email"
-                            label="Send password"
+                            label="Email address"
                             style={{width: '400px'}}
                             onChange={textChanged}
                         />

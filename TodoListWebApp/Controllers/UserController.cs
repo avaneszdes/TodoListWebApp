@@ -1,8 +1,11 @@
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using Services.EmailDto;
 using Services.UsersDto;
 
 namespace TodoListWebApp.Controllers
@@ -13,10 +16,12 @@ namespace TodoListWebApp.Controllers
     {
         private readonly IAdminService _service;
         private readonly IRoleService _roleService;
-        public UserController(IAdminService service, IRoleService roleService)
+        private readonly EmailSender _emailSender;
+        public UserController(IAdminService service, IRoleService roleService, EmailSender emailSender)
         {
             _service = service;
             _roleService = roleService;
+            _emailSender = emailSender;
         }
         
         [HttpPut]
@@ -46,9 +51,9 @@ namespace TodoListWebApp.Controllers
         
         
         [HttpPost]
-        public IActionResult SendEmail(string emailAddress)
+        public IActionResult SendEmail([FromBody]Email email)
         {
-            return Ok(EmailSender.SendEmailCustom(emailAddress));
+            return Ok(_emailSender.SendEmailCustom(email));
         }
     }
 }

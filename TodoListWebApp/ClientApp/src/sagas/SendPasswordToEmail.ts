@@ -9,10 +9,14 @@ function* sendEmailWorker(action: SendUserPassword) {
         
         method: 'POST',
         url: '/api/user',
-        data : action.payload,
+        data : {
+            EmailAddress : action.payload,
+            EmailClientName: '',
+            EmailClientPassword: '',
+        },
         
     }
-    
+    console.log(action.payload)
     const response = yield call(() => httpRequest(httpConfig));
     if (response.statusCode === 200) {
        

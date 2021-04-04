@@ -4,14 +4,12 @@ import {AxiosRequestConfig} from "axios";
 import {
     AUTHORIZATION,
     AUTHORIZATION_SUCCEED,
-    GET_USER_PHOTO,
-    GET_USER_PHOTO_SUCCEED,
     LOADING
 } from "../redux/constants";
 import httpRequest from "./httpConfig";
 import jwt_decode from "jwt-decode";
 import {CustomJwtPayload} from "../redux/auth-reducer";
-import history from '../Components/history'
+import history from '../components/history'
 
 
 

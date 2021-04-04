@@ -3,7 +3,7 @@ import {RegistrationAction} from "../redux/action";
 import {call, put, takeEvery} from "redux-saga/effects";
 import {REGISTRATION, REGISTRATION_SUCCEED} from "../redux/constants";
 import httpRequest from "./httpConfig";
-import history from "../Components/history";
+import history from "../components/history";
 
 
 function* registrationWorker(action: RegistrationAction) {

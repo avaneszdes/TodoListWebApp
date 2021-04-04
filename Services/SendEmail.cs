@@ -1,30 +1,49 @@
 using System;
+using System.Linq;
 using MimeKit;
+using Repositories;
+using Services.EmailDto;
 
 namespace Services
 {
-    public static class EmailSender
+    public class EmailSender
     {
-        public static string SendEmailCustom(string usersEmail)
+        private readonly IAdminRepository _repository;
+        public EmailSender(IAdminRepository repository)
         {
+            _repository = repository;
+        }
+        public string SendEmailCustom(Email email)
+        {
+            Email emailData = new Email();
+           var user =  _repository.GetUsers().FirstOrDefault(x => x.Email == email.EmailAddress);
             try
             {
-                MimeMessage message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Todo List", "ivavivanoviartem@gmail.com")); //отправитель сообщения
-                message.To.Add(new MailboxAddress(usersEmail)); //адресат сообщения
-                message.Subject = "Message from Todo List"; //тема сообщения
-                message.Body = new BodyBuilder() {HtmlBody = "<div style=\"color: green;\">Your password</div>"}
-                    .ToMessageBody(); //тело сообщения (так же в формате HTML)
-
-                using (MailKit.Net.Smtp.SmtpClient client = new MailKit.Net.Smtp.SmtpClient())
+                if (user != null)
                 {
-                    client.Connect("smtp.gmail.com", 587, true); //либо использум порт 465
-                    client.Authenticate("ivavivanoviartem@gmail.com", "Create,a,strong,password"); //логин-пароль от аккаунта
-                    client.Send(message);
+                    MimeMessage message = new MimeMessage();
+                    message.From.Add(new MailboxAddress("Todo List", emailData.EmailClientName )); 
+                    message.To.Add(new MailboxAddress(user.FirstName,email.EmailAddress)); 
+                    message.Subject = "Message from Todo List"; 
+                    message.Body = new BodyBuilder() {HtmlBody = $"<div style=\"color: black;\">Your password: " +
+                                                                 $"<div style=\"color: green;\">{user.Password}</div></div>"}
+                        .ToMessageBody(); 
 
-                    client.Disconnect(true);
-                    return ("Сообщение отправлено успешно!");
+                    using (MailKit.Net.Smtp.SmtpClient client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 465, true); //либо использум порт 465
+                        client.Authenticate(emailData.EmailClientName , emailData.EmailClientPassword); //логин-пароль от аккаунта
+                        client.Send(message);
+
+                        client.Disconnect(true);
+                        return ("Сообщение отправлено успешно!");
+                    }
                 }
+                else
+                {
+                    return ("Упс... Что-то пошло не так!");
+                }
+               
             }
             catch (Exception e)
             {

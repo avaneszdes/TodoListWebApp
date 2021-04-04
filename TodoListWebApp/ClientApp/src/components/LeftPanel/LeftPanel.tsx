@@ -17,7 +17,6 @@ import history from "../history";
 import logoutImg from '../../img/logout.png'
 import changePhotoImg from '../../img/open-folder.png'
 import './LeftPanel.css'
-
 const useStyles = makeStyles({
     list: {
         width: 250,

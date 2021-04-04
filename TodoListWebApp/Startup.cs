@@ -48,6 +48,7 @@ namespace TodoListWebApp
                 );
             services.AddHttpContextAccessor();
             services.AddTransient<IRoleRepository, RoleRepository>();
+            services.AddTransient<EmailSender>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ITodoListService, TodoListService>();
             services.AddTransient<IAdminRepository, AdminRepository>();
