@@ -1,3 +1,4 @@
+using System.Linq;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -19,7 +20,9 @@ namespace TodoListWebApp.Controllers
         [HttpPost]
         public IActionResult Index([FromBody] User user)
         {
-            if (_validator.Validate(user).IsValid)
+            var existUser = _service.GetAll().FirstOrDefault(x => x.Email == user.Email);
+            
+            if (_validator.Validate(user).IsValid && existUser == null)
             {
                 _service.AddUser(user);
                 return Ok();

@@ -9,7 +9,7 @@ import history from "../components/history";
 function* registrationWorker(action: RegistrationAction) {
     const httpConfig: AxiosRequestConfig = {
         method: 'POST',
-        url: '/registration/',
+        url: 'api/registration/',
         data: action.payload
     }
     const response = yield call(() => httpRequest(httpConfig));
