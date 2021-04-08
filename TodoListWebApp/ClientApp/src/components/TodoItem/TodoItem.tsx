@@ -16,6 +16,8 @@ import {
 import {TransitionProps} from '@material-ui/core/transitions';
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import {Favorite, FavoriteBorder} from "@material-ui/icons";
+import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
+import EditIcon from '@material-ui/icons/Edit';
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -144,7 +146,7 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
                         variant="contained"
                         color="primary"
                     >
-                        Delete
+                        <DeleteForeverOutlinedIcon  />
                     </Button>
 
                     <Button
@@ -153,7 +155,7 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
                         variant="contained"
                         color="primary"
                     >
-                        Edit
+                        <EditIcon />
                     </Button>
                 </div>
             </Paper>

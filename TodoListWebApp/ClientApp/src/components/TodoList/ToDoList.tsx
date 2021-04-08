@@ -10,7 +10,7 @@ import SimpleBackdrop from "../BackDrop/BackDrop";
 import LeftPanel from "../LeftPanel/LeftPanel";
 import Button from "@material-ui/core/Button";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
-import {TextField} from "@material-ui/core";
+import {AppBar, Hidden, TextField, Toolbar} from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -31,7 +31,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         dialog: {
             width: '500px'
-        }
+        },
+
+        title: {
+            flexGrow: 1,
+        },
+
     }),
 );
 
@@ -50,7 +55,6 @@ export default function ToDoList() {
         dispatch({type: GET_TODO_LIST, payload: []})
     }, [page])// eslint-disable-line react-hooks/exhaustive-deps
 
-    
 
     const changeHideInput = () => setInputHide(!inputHide);
     const textChanged = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
@@ -73,16 +77,25 @@ export default function ToDoList() {
     }
 
     return (
-        <>
-            <LeftPanel/>
-            <Button
-                className={classes.button}
-                onClick={() => changeHideInput()}
-                variant="contained"
-                color="primary"
-            >
-                Create item
-            </Button>
+        <div style={{marginTop: '70px'}}>
+
+            <AppBar position="absolute">
+                <Toolbar>
+                    <LeftPanel/>
+                </Toolbar>
+            </AppBar>
+
+            <Hidden only={inputHide ? 'xl' : 'xs'}>
+                <Button
+                    className={classes.button}
+                    onClick={() => changeHideInput()}
+                    variant="contained"
+                    color="primary"
+                >
+
+                    Create item 
+                </Button>
+            </Hidden>
 
             <div style={{marginTop: '3px'}} hidden={!inputHide}>
                 <TextField
@@ -126,7 +139,6 @@ export default function ToDoList() {
                 <SimpleBackdrop hidden={loading}/>
             </div>
 
-        </>
+        </div>
     )
-        ;
 }
