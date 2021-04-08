@@ -1,9 +1,9 @@
 import {AuthorizationAction} from "../redux/action";
 import {call, put, takeEvery} from "redux-saga/effects";
-import {AxiosRequestConfig} from "axios";
+import {AxiosError, AxiosRequestConfig} from "axios";
 import {
     AUTHORIZATION,
-    AUTHORIZATION_SUCCEED,
+    AUTHORIZATION_SUCCEED, GET_ERROR_MESSAGE_SUCCEED,
     LOADING
 } from "../redux/constants";
 import httpRequest from "./httpConfig";
@@ -21,33 +21,39 @@ function* authorizationWorker(action: AuthorizationAction) {
         url: 'authorization',
         data: action.payload
     }
-    const response = yield call(() => httpRequest(httpConfig));
-    if (Boolean(response.data)) {
-        const jwt = Object.values(jwt_decode<CustomJwtPayload>(response.data))
-        
-        const profile = JSON.parse(jwt[1])
-        localStorage.setItem('token', response.data)
-        
-        yield put({
-            type: AUTHORIZATION_SUCCEED, payload: {
-                token: response.data,
-                role: profile.Role,
-                name: profile.FirstName,
-                photo: '',
-                id: profile.Id
+    
+    try {
+        const response = yield call(() => httpRequest(httpConfig));
+            const jwt = Object.values(jwt_decode<CustomJwtPayload>(response.data))
+
+            const profile = JSON.parse(jwt[1])
+            localStorage.setItem('token', response.data)
+
+            yield put({
+                type: AUTHORIZATION_SUCCEED, payload: {
+                    token: response.data,
+                    role: profile.Role,
+                    name: profile.FirstName,
+                    photo: '',
+                    id: profile.Id
+                }
+            })
+
+            if(profile.Role === "user"){
+                history.push("/todoList");
             }
-        })
-        
-        if(profile.Role === "user"){
-            history.push("/todoList");
-        }
-        else if(profile.Role === "admin"){
-            history.push("/admin");
-        }
-        yield put({type: LOADING, payload: false})
-       
-        
+            else if(profile.Role === "admin"){
+                history.push("/admin");
+            }
+            
     }
+    catch (e){
+        
+        const error = e as AxiosError
+        yield put({type: GET_ERROR_MESSAGE_SUCCEED, payload: error.response?.data.errorText})
+    }
+   
+    yield put({type: LOADING, payload: false})
 }
 
 export function* watchAuthorization() {

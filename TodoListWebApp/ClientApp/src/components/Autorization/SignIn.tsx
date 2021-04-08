@@ -20,6 +20,7 @@ import SimpleBackdrop from "../BackDrop/BackDrop";
 import {IRootState} from "../../redux/configureStore";
 import {Dialog, DialogActions, DialogContent, DialogTitle, Slide} from "@material-ui/core";
 import {TransitionProps} from "@material-ui/core/transitions";
+import ErrorAlertComponent from "../ErrorAlert/ErrorAlert";
 
 function Copyright() {
     return (
@@ -96,6 +97,7 @@ export default function SignIn() {
     const textChanged = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)
     return (
         <Container component="main" maxWidth="xs">
+            <ErrorAlertComponent/>
             <CssBaseline/>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>

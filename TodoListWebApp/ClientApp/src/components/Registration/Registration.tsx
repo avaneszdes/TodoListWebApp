@@ -73,9 +73,6 @@ export default function SignUp() {
 
     const dispatch = useDispatch();
     const classes = useStyles();
-    const errorMessage: string = useSelector((errorMessage: IRootState) => errorMessage.error)
-    const [error, setError] = useState(true);
-
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -88,11 +85,6 @@ export default function SignUp() {
         validationSchema: vScheme,
         onSubmit: (values) => {
             dispatch({type: REGISTRATION, payload: values})
-            if (errorMessage) {
-                setError(!error)
-            } else (
-                setError(false)
-            )
         },
     })
 

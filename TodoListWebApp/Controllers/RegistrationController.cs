@@ -29,7 +29,7 @@ namespace TodoListWebApp.Controllers
                 return Ok();
             }
 
-            return Ok("User with same email address already exist");
+            return BadRequest("User with the same email address already exist");
         }
     }
 }
