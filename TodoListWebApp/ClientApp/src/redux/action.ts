@@ -3,7 +3,7 @@ import {
     ADD_TODO,
     ADD_TODO_SUCCEED,
     AUTHORIZATION,
-    AUTHORIZATION_SUCCEED,
+    AUTHORIZATION_SUCCEED, CLEAR_ERROR_MESSAGE,
     COMPLETE_TODO,
     COMPLETE_TODO_SUCCEED,
     DELETE_TODO,
@@ -14,6 +14,7 @@ import {
     EDIT_USER_PHOTO,
     EDIT_USER_PHOTO_SUCCEED,
     EDIT_USER_SUCCEED,
+    GET_ERROR_MESSAGE_SUCCEED,
     GET_TODO_LIST,
     GET_TODO_LIST_SUCCEED,
     GET_USER_PHOTO,
@@ -163,6 +164,16 @@ export interface SendUserPassword {
     payload: string
 }
 
+export interface GetErrorMessage {
+    type: typeof GET_ERROR_MESSAGE_SUCCEED,
+    payload: string
+}
+
+export interface ClearErrorMessage {
+    type: typeof CLEAR_ERROR_MESSAGE,
+    payload: string
+}
+
 export type TodosActionTypes =
     AddTodoAction
     | DeleteTodoAction
@@ -187,4 +198,6 @@ export type TodosActionTypes =
     | GetUserPhotoSucceed
     | GetUserPhoto
     | SendUserPassword
+    | GetErrorMessage
+    | ClearErrorMessage
 

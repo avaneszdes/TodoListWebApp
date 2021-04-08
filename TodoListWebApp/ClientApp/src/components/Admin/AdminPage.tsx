@@ -258,7 +258,7 @@ export default function AdminPage() {
                     <div className={classes.headerItem}><h3>Email </h3></div>
                     <div className={classes.headerItem}><h3>Password</h3></div>
                     <div className={classes.headerItem}><h3>Role </h3></div>
-                    <Button onClick={logOut} style={{width: '205px', marginTop: '4px', marginLeft: '3px'}}
+                    <Button onClick={logOut} style={{width: '203px', marginTop: '4px', marginLeft: '3px'}}
                             variant="outlined" color="primary">
                         Log Out
                     </Button>

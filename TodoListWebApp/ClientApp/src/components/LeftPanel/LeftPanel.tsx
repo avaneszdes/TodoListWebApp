@@ -2,13 +2,7 @@ import React, {useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import Avatar from "@material-ui/core/Avatar";
 import {useDispatch, useSelector} from "react-redux";
 import {IRootState} from "../../redux/configureStore";
@@ -17,7 +11,10 @@ import history from "../history";
 import logoutImg from '../../img/logout.png'
 import changePhotoImg from '../../img/open-folder.png'
 import './LeftPanel.css'
-const useStyles = makeStyles({
+import {IconButton} from "@material-ui/core";
+import MenuIcon from '@material-ui/icons/Menu';
+
+const useStyles = makeStyles((theme) => ({
     list: {
         width: 250,
     },
@@ -53,9 +50,12 @@ const useStyles = makeStyles({
         height: '20px',
         backgroundImage: `url(${changePhotoImg})`,
         backgroundRepeat: 'no-repeat',
-    }
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
 
-});
+}));
 
 
 export default function LeftPanel() {
@@ -119,7 +119,7 @@ export default function LeftPanel() {
             <div className={classes.logoutContainer}>
                 <div className={classes.changePhoto} style={{backgroundPosition: '0px 50%'}}/>
                 <div className='change-photo_wrapper'>
-                        <label className="custom-file-upload">
+                    <label className="custom-file-upload">
                         Change photo <input
                         accept="image/*"
                         onChange={imageHandler}
@@ -130,15 +130,6 @@ export default function LeftPanel() {
 
 
             </div>
-            <Divider/>
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                        <ListItemText primary={text}/>
-                    </ListItem>
-                ))}
-            </List>
             <Divider/>
             <div hidden={!Boolean(profile.token)} className={classes.logoutContainer}>
                 <div className={classes.logoutImg} style={{backgroundPosition: '0px 50%'}}/>
@@ -153,7 +144,12 @@ export default function LeftPanel() {
     return (
         <div>
             <React.Fragment key={'left'}>
-                <Button onClick={toggleDrawer(!state)}>menu</Button>
+                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                    <Button onClick={toggleDrawer(!state)}>
+                        <MenuIcon/>
+                    </Button>
+                </IconButton>
+
                 <Drawer anchor={'left'} open={state} onClose={toggleDrawer(!state)}>
                     {list()}
                 </Drawer>

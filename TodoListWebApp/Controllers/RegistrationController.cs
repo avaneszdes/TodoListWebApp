@@ -1,5 +1,6 @@
 using System.Linq;
 using Entities;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -28,7 +29,7 @@ namespace TodoListWebApp.Controllers
                 return Ok();
             }
 
-            return BadRequest();
+            return Ok("User with same email address already exist");
         }
     }
 }
