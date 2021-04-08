@@ -53,7 +53,13 @@ namespace TodoListWebApp.Controllers
         [HttpPost]
         public IActionResult SendEmail([FromBody]Email email)
         {
-            return Ok(_emailSender.SendEmailCustom(email));
+            var message = _emailSender.SendEmailCustom(email);
+            if (message == "")
+            {
+                return Ok("The password was sent");
+            }
+
+            return BadRequest("User with the same email address didn`t found");
         }
     }
 }

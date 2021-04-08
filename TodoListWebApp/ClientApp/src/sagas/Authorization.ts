@@ -12,7 +12,6 @@ import {CustomJwtPayload} from "../redux/auth-reducer";
 import history from '../components/history'
 
 
-
 function* authorizationWorker(action: AuthorizationAction) {
 
     yield put({type: LOADING, payload: true})
@@ -21,38 +20,36 @@ function* authorizationWorker(action: AuthorizationAction) {
         url: 'authorization',
         data: action.payload
     }
-    
+
     try {
         const response = yield call(() => httpRequest(httpConfig));
-            const jwt = Object.values(jwt_decode<CustomJwtPayload>(response.data))
+        const jwt = Object.values(jwt_decode<CustomJwtPayload>(response.data))
 
-            const profile = JSON.parse(jwt[1])
-            localStorage.setItem('token', response.data)
+        const profile = JSON.parse(jwt[1])
+        localStorage.setItem('token', response.data)
 
-            yield put({
-                type: AUTHORIZATION_SUCCEED, payload: {
-                    token: response.data,
-                    role: profile.Role,
-                    name: profile.FirstName,
-                    photo: '',
-                    id: profile.Id
-                }
-            })
-
-            if(profile.Role === "user"){
-                history.push("/todoList");
+        yield put({
+            type: AUTHORIZATION_SUCCEED, payload: {
+                token: response.data,
+                role: profile.Role,
+                name: profile.FirstName,
+                photo: '',
+                id: profile.Id
             }
-            else if(profile.Role === "admin"){
-                history.push("/admin");
-            }
-            
-    }
-    catch (e){
-        
+        })
+
+        if (profile.Role === "user") {
+            history.push("/todoList");
+        } else if (profile.Role === "admin") {
+            history.push("/admin");
+        }
+
+    } catch (e) {
+
         const error = e as AxiosError
         yield put({type: GET_ERROR_MESSAGE_SUCCEED, payload: error.response?.data.errorText})
     }
-   
+
     yield put({type: LOADING, payload: false})
 }
 

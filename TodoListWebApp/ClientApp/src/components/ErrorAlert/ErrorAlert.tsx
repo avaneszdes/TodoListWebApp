@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 import {useDispatch, useSelector} from "react-redux";
 import {IRootState} from "../../redux/configureStore";
-import {Collapse, Hidden} from "@material-ui/core";
+import {Collapse} from "@material-ui/core";
 import {CLEAR_ERROR_MESSAGE} from "../../redux/constants";
 
 const useStyles = makeStyles((theme: Theme) =>

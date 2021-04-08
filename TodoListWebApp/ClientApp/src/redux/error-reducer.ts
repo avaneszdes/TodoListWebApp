@@ -2,6 +2,7 @@ import {CLEAR_ERROR_MESSAGE, GET_ERROR_MESSAGE_SUCCEED} from "./constants";
 import {TodosActionTypes} from "./action";
 
 
+
 const initialState: string = ''
 
 const error = (state = initialState, action: TodosActionTypes) => {
@@ -13,7 +14,7 @@ const error = (state = initialState, action: TodosActionTypes) => {
 
 
         case CLEAR_ERROR_MESSAGE:
-            return ''
+            return action.payload
 
         default:
             return state
