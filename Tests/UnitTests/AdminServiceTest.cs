@@ -53,7 +53,7 @@ namespace Tests.UnitTests
                 },
             };
 
-            mockRepository.Setup(x => x.GetUsers()).Returns(users.AsQueryable());
+            mockRepository.Setup(x => x.GetUsersAsync()).Returns(users.AsQueryable());
             var Servise = new AdminService(mockRepository.Object, maper);
 
             Assert.AreEqual(users.FirstOrDefault().FirstName, Servise.GetUsers().FirstOrDefault().FirstName);
@@ -71,7 +71,7 @@ namespace Tests.UnitTests
             var service = new AdminService(mockRepository.Object, mockMapper.Object);
             service.RemoveUser(It.IsAny<int>());
 
-            mockRepository.Verify(f => f.RemoveUser(It.IsAny<int>()));
+            mockRepository.Verify(f => f.RemoveUserAsync(It.IsAny<int>()));
         }
 
 
