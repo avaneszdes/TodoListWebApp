@@ -12,6 +12,7 @@ function* updateUserPhotoWorker(action: EditUserPhotoSucceed){
     }
 
     const response = yield call(() => httpRequest(httpConfig));
+    console.log(response)
     if(response.statusCode === 200){
         yield put({type: EDIT_USER_PHOTO_SUCCEED, payload: action.payload})
     }

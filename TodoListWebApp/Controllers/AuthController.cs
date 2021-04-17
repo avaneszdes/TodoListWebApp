@@ -5,11 +5,14 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text.Json;
+using System.Threading.Tasks;
 using AutoMapper;
 using Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Services;
+using Services.AdminServiceCommands.GetAllUsers;
 using Services.UsersDto;
 
 namespace TodoListWebApp.Controllers
@@ -17,11 +20,11 @@ namespace TodoListWebApp.Controllers
     [Route("authorization")]
     public class AccountController : Controller
     {
-        private readonly IRegistrationService _registrationService;
+        private readonly IMediator _mediator;
 
-        public AccountController(IRegistrationService registrationService)
+        public AccountController(IMediator mediator)
         {
-            _registrationService = registrationService;
+            _mediator = mediator;
         }
 
         [HttpPost]
@@ -50,26 +53,22 @@ namespace TodoListWebApp.Controllers
 
         private ClaimsIdentity GetIdentity(string email, string password)
         {
-            UserDtoModel user = _registrationService.GetAll().FirstOrDefault(x =>
+            var user = _mediator.Send(new GetAllUsersQuery()).Result.FirstOrDefault(x =>
                 x.Email == email && x.Password == password);
 
-            if (user != null)
+            if (user == null) return null;
+            user.Photo = "";
+            var claims = new List<Claim>
             {
-                user.Photo = "";
-                var claims = new List<Claim>
-                {
-                    new("UserProfile", JsonSerializer.Serialize(user)),
-                    new(ClaimsIdentity.DefaultRoleClaimType, user?.Role),
-                };
+                new("UserProfile", JsonSerializer.Serialize(user)),
+                new(ClaimsIdentity.DefaultRoleClaimType, user?.Role),
+            };
 
-                ClaimsIdentity claimsIdentity =
-                    new ClaimsIdentity(new GenericIdentity(user.Id.ToString()), claims, "Token",
-                        ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            ClaimsIdentity claimsIdentity =
+                new ClaimsIdentity(new GenericIdentity(user.Id.ToString()), claims, "Token",
+                    ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 
-                return claimsIdentity;
-            }
-
-            return null;
+            return claimsIdentity;
         }
     }
 }

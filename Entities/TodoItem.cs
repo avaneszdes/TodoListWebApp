@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Entities
+﻿namespace Entities
 {
     public class TodoItem : BaseEntity
     {

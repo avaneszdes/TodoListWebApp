@@ -1,67 +1,65 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using ApplicationContext;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Repositories
 {
     public class AdminRepository : IAdminRepository
     {
-        private AppDbContext _db;
+        private readonly AppDbContext _db;
 
         public AdminRepository(AppDbContext db)
         {
             _db = db;
         }
 
-        public IQueryable<User> GetUsers()
+        public IQueryable<User> GetUsersAsync()
         {
             return _db.Users.Include(x => x.Role);
         }
 
-        public void RemoveUser(long id)
+        public async Task RemoveUserAsync(long id)
         {
-            User user = _db.Users.Find(id);
-
-            if (user != null)
-            {
-                _db.Users.Remove(user);
-                _db.SaveChanges();
-            }
+            var user = await _db.Users.FindAsync(id);
+            if (user == null) return;
+            _db.Users.Remove(user);
+            await _db.SaveChangesAsync();
         }
 
-        public void UpdateUserData(User user)
+        public async Task UpdateUserDataAsync(User user)
         {
-            User existUser = _db.Users.Find(user.Id);
-            
+            var existUser = await _db.Users.FindAsync(user.Id);
+
             if (existUser != null && user.Email != null)
             {
-                _db.Attach(existUser);
                 existUser.Email = user.Email;
-                existUser.Photo = user.Photo;
-                existUser.Password = user.Password;
                 existUser.Role = user.Role;
                 existUser.FirstName = user.FirstName;
                 existUser.LastName = user.LastName;
-                _db.SaveChanges();
+                _db.Update(existUser);
+                await _db.SaveChangesAsync();
+                return;
             }
 
-            _db.Attach(existUser);
             existUser.Photo = user.Photo;
-            _db.SaveChanges();
-
+            _db.Update(existUser);
+            await _db.SaveChangesAsync();
         }
 
-        public string GetUserPhoto(long id)
+        public async Task<string> GetUserPhotoAsync(long id)
         {
-            var user = _db.Users.Find(id);
-            if (user != null)
-            {
-                return user.Photo;
-            }
+            var user = await _db.Users.FindAsync(id);
+            return user != null ? user.Photo : "";
+        }
 
-            return "";
+        public async Task AddUserAsync(User user)
+        {
+            await _db.Users.AddAsync(user);
+            await _db.SaveChangesAsync();
         }
     }
 }

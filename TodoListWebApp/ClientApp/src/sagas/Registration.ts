@@ -14,18 +14,15 @@ function* registrationWorker(action: RegistrationAction) {
     }
     try {
         const response = yield call(() => httpRequest(httpConfig));
-        if(response.statustCode === 200){
-            yield put({type: REGISTRATION_SUCCEED, payload: action.payload})
-            history.push("/signIn");
-        }
-            
-    }
-    catch (e){
+        yield put({type: REGISTRATION_SUCCEED, payload: action.payload})
+        history.push("/");
+
+    } catch (e) {
         const error = e as AxiosError
-        yield put({type: GET_ERROR_MESSAGE_SUCCEED, payload: error.response?.data.errorText})
+        yield put({type: GET_ERROR_MESSAGE_SUCCEED, payload: error.response?.data})
     }
 }
 
-export function* watchRegistration(){
+export function* watchRegistration() {
     yield takeEvery(REGISTRATION, registrationWorker)
 } 

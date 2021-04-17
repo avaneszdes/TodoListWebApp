@@ -4,17 +4,15 @@ import {EDIT_USER} from '../../redux/constants';
 import httpRequest from "../httpConfig";
 import {EditUserSucceedAction} from "../../redux/action";
 
-
 function* editUserWorker(action: EditUserSucceedAction){
-    console.log(action.payload)
+   
     const httpConfig: AxiosRequestConfig = {
         method: 'PUT',
-        url: '/api/Admin',
+        url: '/api/admin',
         data: {
             id: action.payload.id,
             firstName: action.payload.firstName,
             lastName: action.payload.lastName,
-            password: action.payload.password,
             email: action.payload.email,
             role: action.payload.role,
             photo: action.payload.photo,
@@ -22,7 +20,7 @@ function* editUserWorker(action: EditUserSucceedAction){
     }
 
     const response = yield call(() => httpRequest(httpConfig));
-    
+    console.log(response)
     if(response.statusCode === 200){
         yield put({type: action.type, payload: action.payload})
     }

@@ -79,13 +79,6 @@ require('yup-password')(yup)
 const vScheme = yup.object().shape({
     firstName: yup.string().min(2, 'must be most than 2 symbols').max(30, 'must be lest than 30 symbols').required('required'),
     lastName: yup.string().min(2, 'must be most than 2 symbols').max(30, 'must be lest than 30 symbols').required('required'),
-    password: yup.string().password()
-        .minSymbols(1, 'password must contain at least 1 symbol')
-        .minUppercase(3, 'password must contain at least 3 uppercase letters')
-        .minLowercase(3, 'password must contain at least 3 lowercase letters')
-        .min(8, 'length must be most than 7')
-        .max(30, 'length must be less than 30')
-        .required('required'),
     email: yup.string().email('incorrect email address').required('required'),
 })
 
@@ -120,7 +113,6 @@ export default function AdminPage() {
             id: 0,
             firstName: '',
             lastName: '',
-            password: '',
             email: '',
             role: '',
         },
@@ -188,20 +180,6 @@ export default function AdminPage() {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id='password'
-                                label='Password'
-                                type='password'
-                                name="password"
-                                onChange={formik.handleChange}
-                                error={formik.touched.password && Boolean(formik.errors.password)}
-                                value={formik.values.password}
-                                helperText={formik.touched.password && formik.errors.password}
-                            />
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
                                 id="email"
                                 label="Email Address"
                                 name="email"
@@ -256,7 +234,6 @@ export default function AdminPage() {
                     <div className={classes.headerItem}><h3>Last Name </h3></div>
                     <div className={classes.headerItem}><h3>Todos Count</h3></div>
                     <div className={classes.headerItem}><h3>Email </h3></div>
-                    <div className={classes.headerItem}><h3>Password</h3></div>
                     <div className={classes.headerItem}><h3>Role </h3></div>
                     <Button onClick={logOut} style={{width: '203px', marginTop: '4px', marginLeft: '3px'}}
                             variant="outlined" color="primary">
@@ -279,7 +256,6 @@ export default function AdminPage() {
                                     <div className={classes.item}>{value.lastName}</div>
                                     <div className={classes.item}>{value.todosCount}</div>
                                     <div className={classes.item}>{value.email}</div>
-                                    <div className={classes.item}>{value.password}</div>
                                     <div className={classes.item}>{value.role}</div>
 
                                     <Button

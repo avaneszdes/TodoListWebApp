@@ -1,9 +1,10 @@
 ﻿using Entities;
 using FluentValidation;
+using Services.AdminServiceCommands.Commands.AddUser;
 
 namespace Services
 {
-    public class PersonValidator: AbstractValidator<User>
+    public class PersonValidator: AbstractValidator<AddUserCommand>
     {
         public PersonValidator()
         {

@@ -1,12 +1,18 @@
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Entities;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using Services.AdminServiceCommands.UpdateUser;
 using Services.EmailDto;
 using Services.UsersDto;
+using Services.UserServiceCommands.Commands;
+using Services.UserServiceCommands.Queries;
 
 namespace TodoListWebApp.Controllers
 {
@@ -14,52 +20,36 @@ namespace TodoListWebApp.Controllers
     [Route("api/user")]
     public class UserController: Controller
     {
-        private readonly IAdminService _service;
-        private readonly IRoleService _roleService;
-        private readonly EmailSender _emailSender;
-        public UserController(IAdminService service, IRoleService roleService, EmailSender emailSender)
+        private readonly IMediator _mediator;
+        public UserController(IMediator mediator)
         {
-            _service = service;
-            _roleService = roleService;
-            _emailSender = emailSender;
+            _mediator = mediator;
         }
         
-        [HttpPut]
-        public IActionResult UpdateUser([FromBody] UserDtoModel user)
+        [Authorize(Roles = "user")]
+        [HttpGet("{id:long}")]
+        public async Task<string> GetUserPhoto(long id)
         {
-            var role = _roleService.GetRole().FirstOrDefault(x => x.Name == user.Role);
-            var updatedUser = new User
-            {
-                Id = user.Id, 
-                Email = user.Email, 
-                Password = user.Password, 
-                Role = role,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Photo =  user.Photo,
-                
-            };
-            _service.UpdateUserData(updatedUser);
-            return Ok();
+            return await _mediator.Send(new GetUserPhotoQuery(id));
         }
-        
-        [HttpGet("{id}")]
-        public string GetUserPhoto(int id)
-        {
-            return _service.GetUserPhoto(id);
-        }
-        
         
         [HttpPost]
-        public IActionResult SendEmail([FromBody]Email email)
+        public async Task<IActionResult> SendEmail([FromBody]Email email)
         {
-            var message = _emailSender.SendEmailCustom(email);
+            var message = await _mediator.Send(new SendEmailCommand(email.EmailAddress));
             if (message == "")
             {
                 return Ok("The password was sent");
             }
 
             return BadRequest("User with the same email address didn`t found");
+        }
+        
+        [Authorize(Roles = "user")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromBody]UpdateUserCommand user)
+        {
+            return Ok(await _mediator.Send(user));
         }
     }
 }

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Entities;
 
 namespace Repositories
 {
     public interface IRoleRepository
     {
-        List<Role> GetRoles();
+        Task<List<Role>> GetRoles();
     }
 }

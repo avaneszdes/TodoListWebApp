@@ -13,8 +13,17 @@
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="10.1.1" />
       <PackageReference Include="MailKit" Version="2.11.1" />
+      <PackageReference Include="MediatR" Version="9.0.0" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="AdminServiceCommands\Queries" />
+      <Folder Include="DtoModels" />
+      <Folder Include="TodoListServiceCommands\Commands" />
+      <Folder Include="TodoListServiceCommands\Queries" />
     </ItemGroup>
 
 </Project>

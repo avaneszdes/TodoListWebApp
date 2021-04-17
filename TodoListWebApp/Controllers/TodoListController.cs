@@ -1,9 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using Services.TodoItemDto;
+using Services.TodoListServiceCommands;
+using Services.TodoListServiceCommands.AddItem;
+using Services.TodoListServiceCommands.RemoveItem;
+using Services.TodoListServiceCommands.UpdateTodoItem;
 
 namespace TodoListWebApp.Controllers
 {
@@ -11,39 +17,37 @@ namespace TodoListWebApp.Controllers
     [Route("api/todoList")]
     public class TodoListController : Controller
     {
-        private readonly ITodoListService _service;
+        private readonly IMediator _mediator;
 
-        public TodoListController(ITodoListService service)
+        public TodoListController(IMediator mediator)
         {
-            _service = service;
+            _mediator = mediator;
         }
-        
-        [HttpGet("{page}")]
-        public List<TodoItemDtoModel> GetAll(int page)
+
+        [HttpGet("{page:int}")]
+        public async Task<List<TodoItemDtoModel>> GetAll(int page)
         {
-            var a = _service.GetAll(page).ToList();
-            return _service.GetAll(page).ToList();
+            return (List<TodoItemDtoModel>) await _mediator.Send(new GetAllTodoItemsQuery(page));
         }
 
         [HttpPost]
-        public IActionResult AddItem([FromBody] TodoItem todoItem)
+        public async Task<IActionResult> AddItem([FromBody] AddTodoItemCommand todoItem)
         {
-            _service.AddItem(todoItem);
+            await _mediator.Send(todoItem);
             return Ok(todoItem.Id);
         }
 
         [HttpDelete("{id}")]
         public IActionResult RemoveItem(long id)
         {
-            _service.RemoveItem(id);
+            _mediator.Send(new RemoveItemCommand(id));
             return Ok();
         }
 
         [HttpPut]
         public IActionResult UpdateItem([FromBody] TodoItem item)
         {
-            _service.UpdateItem(item.Id, item.Text, item.IsComplete);
-            return Ok();
+            return Ok(_mediator.Send(new UpdateTodoItemCommand(item.Id, item.Text, item.IsComplete)));
         }
     }
 }

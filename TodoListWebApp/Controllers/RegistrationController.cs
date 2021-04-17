@@ -1,8 +1,12 @@
 using System.Linq;
+using System.Threading.Tasks;
 using Entities;
+using MediatR;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using Services.AdminServiceCommands.Commands.AddUser;
+using Services.AdminServiceCommands.GetAllUsers;
 
 namespace TodoListWebApp.Controllers
 {
@@ -10,23 +14,22 @@ namespace TodoListWebApp.Controllers
     [Route("api/registration")]
     public class RegistrationController : Controller
     {
-        private IRegistrationService _service;
-        private PersonValidator _validator;
-        public RegistrationController(IRegistrationService personService)
+        private readonly IMediator _mediator;
+        private readonly PersonValidator _validator;
+        public RegistrationController(IMediator mediator)
         {
-            _service = personService;
+            _mediator = mediator;
             _validator = new PersonValidator();
         }
         
         [HttpPost]
-        public IActionResult Index([FromBody] User user)
+        public async Task<IActionResult> Registration([FromBody] AddUserCommand user)
         {
-            var existUser = _service.GetAll().FirstOrDefault(x => x.Email == user.Email);
+            var existUser = _mediator.Send(new GetAllUsersQuery()).Result.Find(x => x.Email == user.Email);
             
-            if (_validator.Validate(user).IsValid && existUser == null)
+            if ((await _validator.ValidateAsync(user)).IsValid && existUser == null)
             {
-                _service.AddUser(user);
-                return Ok();
+                return Ok(await _mediator.Send(user));
             }
 
             return BadRequest("User with the same email address already exist");

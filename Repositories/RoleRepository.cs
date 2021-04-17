@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using ApplicationContext;
 using Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repositories
 {
@@ -13,9 +15,9 @@ namespace Repositories
             _db = db;
         }
         
-        public List<Role> GetRoles()
+        public async Task<List<Role>> GetRoles()
         {
-            return _db.Roles.ToList();
+            return await _db.Roles.ToListAsync();
         }
     }
 }

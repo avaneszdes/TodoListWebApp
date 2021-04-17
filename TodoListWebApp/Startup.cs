@@ -1,4 +1,6 @@
+using System.Reflection;
 using ApplicationContext;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,17 +49,12 @@ namespace TodoListWebApp
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
             services.AddHttpContextAccessor();
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(Assembly.GetExecutingAssembly(), typeof(IIdentityService).Assembly); 
             services.AddTransient<IRoleRepository, RoleRepository>();
-            services.AddTransient<EmailSender>();
-            services.AddTransient<IRoleService, RoleService>();
-            services.AddTransient<ITodoListService, TodoListService>();
             services.AddTransient<IAdminRepository, AdminRepository>();
-            services.AddTransient<IAdminService, AdminService>();
             services.AddTransient<ITodoListRepository, TodoListRepository>();
             services.AddTransient<IIdentityService, IdentityService>();
-            services.AddTransient<IRegistrationRepository, RegistrationRepository>();
-            services.AddTransient<IRegistrationService, RegistrationService>();
-            
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
