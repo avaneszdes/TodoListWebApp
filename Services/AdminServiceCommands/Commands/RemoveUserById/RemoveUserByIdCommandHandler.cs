@@ -7,9 +7,9 @@ namespace Services.AdminServiceCommands.Commands.RemoveUserById
 {
     public class RemoveUserByIdCommandHandler : AsyncRequestHandler<RemoveUserByIdCommand>
     {
-        private readonly IAdminRepository _repository;
+        private readonly IUserRepository _repository;
 
-        public RemoveUserByIdCommandHandler(IAdminRepository repository)
+        public RemoveUserByIdCommandHandler(IUserRepository repository)
         {
             _repository = repository;
         }

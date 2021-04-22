@@ -20,6 +20,8 @@ export enum Role {
     User = 2
 }
 
+
+
 export interface Auth{
     token: string | null;
     role: Role | null;

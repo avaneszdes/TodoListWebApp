@@ -6,7 +6,7 @@ using Repositories;
 
 namespace Services.TodoListServiceCommands.UpdateTodoItem
 {
-    public class UpdateTodoItemCommandHandler : IRequestHandler<UpdateTodoItemCommand>
+    public class UpdateTodoItemCommandHandler : AsyncRequestHandler<UpdateTodoItemCommand>
     {
         private readonly ITodoListRepository _repository;
         private readonly IIdentityService _identity;
@@ -17,14 +17,12 @@ namespace Services.TodoListServiceCommands.UpdateTodoItem
             _repository = repository;
         }
 
-        public Task<Unit> Handle(UpdateTodoItemCommand request, CancellationToken cancellationToken)
+        protected override async Task Handle(UpdateTodoItemCommand request, CancellationToken cancellationToken)
         {
-            _repository.UpdateItem(new TodoItem
+            await _repository.UpdateItemAsync(new TodoItem
             {
                 Id = request.Id, Text = request.Text, IsComplete = request.IsComplete, UserId = _identity.GetUserId()
             });
-
-            return Task.FromResult(Unit.Value);
         }
     }
 }

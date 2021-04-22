@@ -13,10 +13,10 @@ namespace Services.AdminServiceCommands.GetAllUsers
 {
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserDtoModel>>
     {
-        private readonly IAdminRepository _repository;
+        private readonly IUserRepository _repository;
         private readonly IMapper _mapper;
         
-        public GetAllUsersQueryHandler(IAdminRepository repository, IMapper mapper)
+        public GetAllUsersQueryHandler(IUserRepository repository, IMapper mapper)
         {
             _mapper = mapper;
             _repository = repository;

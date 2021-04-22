@@ -8,7 +8,7 @@ function* editUserWorker(action: EditUserSucceedAction){
    
     const httpConfig: AxiosRequestConfig = {
         method: 'PUT',
-        url: '/api/admin',
+        url: '/api/user',
         data: {
             id: action.payload.id,
             firstName: action.payload.firstName,
@@ -20,7 +20,6 @@ function* editUserWorker(action: EditUserSucceedAction){
     }
 
     const response = yield call(() => httpRequest(httpConfig));
-    console.log(response)
     if(response.statusCode === 200){
         yield put({type: action.type, payload: action.payload})
     }

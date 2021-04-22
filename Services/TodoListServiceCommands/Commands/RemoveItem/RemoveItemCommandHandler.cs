@@ -5,7 +5,7 @@ using Repositories;
 
 namespace Services.TodoListServiceCommands.RemoveItem
 {
-    public class RemoveItemCommandHandler : IRequestHandler<RemoveItemCommand>
+    public class RemoveItemCommandHandler : AsyncRequestHandler<RemoveItemCommand>
     {
         private readonly ITodoListRepository _repository;
 
@@ -14,10 +14,9 @@ namespace Services.TodoListServiceCommands.RemoveItem
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(RemoveItemCommand request, CancellationToken cancellationToken)
+        protected override async Task  Handle(RemoveItemCommand request, CancellationToken cancellationToken)
         {
-            _repository.RemoveItem(request.Id);
-            return Unit.Value;
+           await _repository.RemoveItemAsync(request.Id);
         }
     }
 }

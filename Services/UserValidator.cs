@@ -4,9 +4,9 @@ using Services.AdminServiceCommands.Commands.AddUser;
 
 namespace Services
 {
-    public class PersonValidator: AbstractValidator<AddUserCommand>
+    public class UserValidator: AbstractValidator<AddUserCommand>
     {
-        public PersonValidator()
+        public UserValidator()
         {
             RuleFor(customer => customer.Email).NotNull().EmailAddress().MaximumLength(50);
             RuleFor(customer => customer.FirstName).NotNull().MaximumLength(50);

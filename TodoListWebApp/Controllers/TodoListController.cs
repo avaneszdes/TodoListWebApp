@@ -33,21 +33,19 @@ namespace TodoListWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> AddItem([FromBody] AddTodoItemCommand todoItem)
         {
-            await _mediator.Send(todoItem);
-            return Ok(todoItem.Id);
+            return Ok(await _mediator.Send(todoItem));
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult RemoveItem(long id)
+        [HttpDelete("{id:long}")]
+        public async Task<IActionResult> RemoveItem(long id)
         {
-            _mediator.Send(new RemoveItemCommand(id));
-            return Ok();
+            return Ok(await _mediator.Send(new RemoveItemCommand(id)));
         }
 
         [HttpPut]
-        public IActionResult UpdateItem([FromBody] TodoItem item)
+        public async Task<IActionResult> UpdateItem([FromBody] TodoItem item)
         {
-            return Ok(_mediator.Send(new UpdateTodoItemCommand(item.Id, item.Text, item.IsComplete)));
+            return Ok(await _mediator.Send(new UpdateTodoItemCommand(item.Id, item.Text, item.IsComplete)));
         }
     }
 }

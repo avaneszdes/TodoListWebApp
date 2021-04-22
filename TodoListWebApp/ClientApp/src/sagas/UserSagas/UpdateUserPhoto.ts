@@ -1,8 +1,8 @@
-import {EditUserPhotoSucceed} from "../redux/action";
+import {EditUserPhotoSucceed} from "../../redux/action";
 import {AxiosRequestConfig} from "axios";
 import {call, put, takeEvery} from "redux-saga/effects";
-import httpRequest from "./httpConfig";
-import {EDIT_USER_PHOTO, EDIT_USER_PHOTO_SUCCEED} from "../redux/constants";
+import httpRequest from "../httpConfig";
+import {EDIT_USER_PHOTO, EDIT_USER_PHOTO_SUCCEED} from "../../redux/constants";
 
 function* updateUserPhotoWorker(action: EditUserPhotoSucceed){
     const httpConfig: AxiosRequestConfig = {
@@ -12,7 +12,6 @@ function* updateUserPhotoWorker(action: EditUserPhotoSucceed){
     }
 
     const response = yield call(() => httpRequest(httpConfig));
-    console.log(response)
     if(response.statusCode === 200){
         yield put({type: EDIT_USER_PHOTO_SUCCEED, payload: action.payload})
     }

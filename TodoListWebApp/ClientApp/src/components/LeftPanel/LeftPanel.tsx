@@ -144,10 +144,8 @@ export default function LeftPanel() {
     return (
         <div>
             <React.Fragment key={'left'}>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                    <Button onClick={toggleDrawer(!state)}>
+                <IconButton onClick={toggleDrawer(!state)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon/>
-                    </Button>
                 </IconButton>
 
                 <Drawer anchor={'left'} open={state} onClose={toggleDrawer(!state)}>

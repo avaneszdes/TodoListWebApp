@@ -7,11 +7,11 @@ import {DeleteUserAction} from "../../redux/action";
 function* deleteUserWorker(action: DeleteUserAction) {
     const httpConfig: AxiosRequestConfig = {
         method: 'DELETE',
-        url: `/api/Admin/${action.payload}`,
+        url: `/api/user/${action.payload}`,
     }
 
     const response = yield call(() => httpRequest(httpConfig));
-
+console.log(response)
     if (response.statusCode === 200) {
         yield put({
             type: DELETE_USER_SUCCEED,

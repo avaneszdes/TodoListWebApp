@@ -1,17 +1,17 @@
 import {all} from 'redux-saga/effects'
-import {watchAddTodo} from "./AddTodo";
-import {watchEditTodo} from "./EditTodo";
-import {watchGetTodoList} from "./GetTodoLIst";
-import {watchCompleteTodo} from "./CompleteTodo";
-import {watchDeleteTodo} from "./DeleteTodo";
+import {watchAddTodo} from "./TodoListSagas/AddTodo";
 import {watchRegistration} from "./Registration";
 import {watchAuthorization} from "./Authorization";
-import {watchGetUsersList} from "./AdminSagas/GetUsers";
-import {watchDeleteUser} from "./AdminSagas/DeleteUser";
-import {watchEditUser} from "./AdminSagas/EditUser";
-import {watchUpdateUserPhoto} from "./UpdateUserPhoto";
-import {watchGetUserPhoto} from "./GetUserPhoto";
-import {watchSendEmail} from "./SendPasswordToEmail";
+import {watchEditUser} from "./UserSagas/EditUser";
+import {watchSendEmail} from "./UserSagas/SendPasswordToEmail";
+import {watchEditTodo} from "./TodoListSagas/EditTodo";
+import {watchCompleteTodo} from "./TodoListSagas/CompleteTodo";
+import {watchGetTodoList} from "./TodoListSagas/GetTodoLIst";
+import {watchDeleteTodo} from "./TodoListSagas/DeleteTodo";
+import {watchGetUsersList} from "./UserSagas/GetUsers";
+import {watchDeleteUser} from "./UserSagas/DeleteUser";
+import {watchUpdateUserPhoto} from "./UserSagas/UpdateUserPhoto";
+import {watchGetUserPhoto} from "./UserSagas/GetUserPhoto";
 
 export function* rootSaga () {
     yield all([

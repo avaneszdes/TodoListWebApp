@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using ApplicationContext;
 using Entities;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +11,7 @@ namespace Repositories
 {
     public class TodoListRepository : ITodoListRepository
     {
-        private AppDbContext _context;
+        private readonly AppDbContext _context;
 
         public TodoListRepository(AppDbContext context)
         {
@@ -22,23 +23,23 @@ namespace Repositories
             return _context.TodoItems;
         }
 
-        public void AddItem(TodoItem todoItem)
+        public async Task AddItemAsync(TodoItem todoItem)
         {
-            _context.TodoItems.Add(todoItem);
-            _context.SaveChanges();
+            await _context.TodoItems.AddAsync(todoItem);
+            await _context.SaveChangesAsync();
         }
 
-        public void RemoveItem(long id)
+        public async Task RemoveItemAsync(long id)
         {
-            var item = _context.TodoItems.Find(id);
+            var item = await _context.TodoItems.FindAsync(id);
             _context.TodoItems.Remove(item);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateItem(TodoItem todoItem)
+        public async Task UpdateItemAsync(TodoItem todoItem)
         {
             _context.TodoItems.Update(todoItem);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

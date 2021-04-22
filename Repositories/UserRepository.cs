@@ -1,18 +1,16 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApplicationContext;
 using Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace Repositories
 {
-    public class AdminRepository : IAdminRepository
+    public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _db;
 
-        public AdminRepository(AppDbContext db)
+        public UserRepository(AppDbContext db)
         {
             _db = db;
         }

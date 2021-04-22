@@ -9,12 +9,12 @@ namespace Services.AdminServiceCommands.UpdateUser
 {
     public class UpdateUserCommandHandler : AsyncRequestHandler<UpdateUserCommand>
     {
-        private readonly IAdminRepository _adminRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
 
-        public UpdateUserCommandHandler(IRoleRepository roleRepository, IAdminRepository repository)
+        public UpdateUserCommandHandler(IRoleRepository roleRepository, IUserRepository repository)
         {
-            _adminRepository = repository;
+            _userRepository = repository;
             _roleRepository = roleRepository;
         }
 
@@ -22,7 +22,7 @@ namespace Services.AdminServiceCommands.UpdateUser
         {
             request.Role ??= "user";
             var role = _roleRepository.GetRoles().Result.First(x => x.Name == request.Role);
-            await _adminRepository.UpdateUserDataAsync(new User()
+            await _userRepository.UpdateUserDataAsync(new User()
             {
                 Id = request.Id, 
                 Email = request.Email,

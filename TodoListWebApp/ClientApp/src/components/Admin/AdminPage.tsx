@@ -89,7 +89,8 @@ export default function AdminPage() {
     const [openList, setOpenList] = useState(false)
     const [role, setRole] = useState('user')
     const [userId, setUserId] = useState(0)
-    const users = useSelector((x: IRootState) => x.admin)
+    const users = useSelector((x: IRootState) => x.users)
+    console.log(users)
 
     useEffect(() => {
         dispatch({type: GET_USERS, payload: []})

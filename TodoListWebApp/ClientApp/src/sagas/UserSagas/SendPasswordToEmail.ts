@@ -1,8 +1,8 @@
-import {SendUserPassword} from "../redux/action";
+import {SendUserPassword} from "../../redux/action";
 import {AxiosError, AxiosRequestConfig} from "axios";
 import {call, put, takeEvery} from "redux-saga/effects";
-import httpRequest from "./httpConfig";
-import {GET_ERROR_MESSAGE_SUCCEED, SEND_USER_PASSWORD} from "../redux/constants";
+import httpRequest from "../httpConfig";
+import {GET_ERROR_MESSAGE_SUCCEED, SEND_USER_PASSWORD} from "../../redux/constants";
 
 function* sendEmailWorker(action: SendUserPassword) {
     const httpConfig: AxiosRequestConfig = {
@@ -12,13 +12,10 @@ function* sendEmailWorker(action: SendUserPassword) {
         data: {
             EmailAddress: action.payload,
         },
-
     }
-    
     
     try {
         const response = yield call(() => httpRequest(httpConfig));
-        console.log(response.data)
         if(response.statustCode === 200){
             
         }

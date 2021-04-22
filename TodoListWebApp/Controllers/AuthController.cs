@@ -64,7 +64,7 @@ namespace TodoListWebApp.Controllers
                 new(ClaimsIdentity.DefaultRoleClaimType, user?.Role),
             };
 
-            ClaimsIdentity claimsIdentity =
+            var claimsIdentity =
                 new ClaimsIdentity(new GenericIdentity(user.Id.ToString()), claims, "Token",
                     ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 

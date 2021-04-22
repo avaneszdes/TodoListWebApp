@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Services.TodoListServiceCommands.AddItem
 {
-    public class AddTodoItemCommand : IRequest
+    public class AddTodoItemCommand : IRequest<long>
     {
         public int Id { get; set; }
         public string Text { get; set; }

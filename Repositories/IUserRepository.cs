@@ -5,7 +5,7 @@ using Entities;
 
 namespace Repositories
 {
-    public interface IAdminRepository
+    public interface IUserRepository
     {
         IQueryable<User> GetUsersAsync();
         Task RemoveUserAsync(long id);

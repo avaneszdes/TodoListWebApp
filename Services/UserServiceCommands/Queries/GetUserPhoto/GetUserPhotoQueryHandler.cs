@@ -8,14 +8,14 @@ namespace Services.UserServiceCommands
 {
     public class GetUserPhotoQueryHandler : IRequestHandler<GetUserPhotoQuery, string>
     {
-        private readonly IAdminRepository _adminRepository;
-        public GetUserPhotoQueryHandler(IAdminRepository adminRepository)
+        private readonly IUserRepository _userRepository;
+        public GetUserPhotoQueryHandler(IUserRepository userRepository)
         {
-            _adminRepository = adminRepository;
+            _userRepository = userRepository;
         }
         public async Task<string> Handle(GetUserPhotoQuery request, CancellationToken cancellationToken)
         {
-            return await _adminRepository.GetUserPhotoAsync(request.Id);;
+            return await _userRepository.GetUserPhotoAsync(request.Id);;
         }
     }
 }

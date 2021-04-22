@@ -52,7 +52,7 @@ namespace TodoListWebApp
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly(), typeof(IIdentityService).Assembly); 
             services.AddTransient<IRoleRepository, RoleRepository>();
-            services.AddTransient<IAdminRepository, AdminRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITodoListRepository, TodoListRepository>();
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddDbContext<AppDbContext>(options =>

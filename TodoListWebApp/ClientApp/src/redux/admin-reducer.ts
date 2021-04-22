@@ -4,7 +4,7 @@ import {TodosActionTypes} from "./action";
 
 const initialState: User[] = []
 
-const admin = (state = initialState, action: TodosActionTypes) => {
+export default (state = initialState, action: TodosActionTypes) => {
 
     switch (action.type) {
 
@@ -21,10 +21,9 @@ const admin = (state = initialState, action: TodosActionTypes) => {
                 }
                 return x;
             })
-        
+
 
         default:
             return state
     }
 }
-export default admin

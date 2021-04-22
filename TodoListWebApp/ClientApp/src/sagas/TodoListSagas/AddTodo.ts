@@ -1,8 +1,8 @@
-import {AddTodoAction, createTodoSucceed} from "../redux/action";
+import {AddTodoAction, createTodoSucceed} from "../../redux/action";
 import {call, put, takeEvery} from 'redux-saga/effects'
 import {AxiosRequestConfig} from 'axios';
-import {ADD_TODO} from "../redux/constants";
-import httpRequest from "./httpConfig";
+import {ADD_TODO} from "../../redux/constants";
+import httpRequest from "../httpConfig";
 
 function* addTodoWorker(action: AddTodoAction) {
 

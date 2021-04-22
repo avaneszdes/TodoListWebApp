@@ -12,9 +12,9 @@ namespace Services.UserServiceCommands.Commands
 {
     public class SendEmailCommandHandler: IRequestHandler<SendEmailCommand, string>
     {
-        private readonly IAdminRepository _repository;
+        private readonly IUserRepository _repository;
 
-        public SendEmailCommandHandler(IAdminRepository repository)
+        public SendEmailCommandHandler(IUserRepository repository)
         {
             _repository = repository;
         }

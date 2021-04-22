@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Entities;
 
 namespace Repositories
@@ -7,8 +7,8 @@ namespace Repositories
     public interface ITodoListRepository
     {
         IQueryable<TodoItem> GetAll();
-        void AddItem(TodoItem todoItem);
-        void RemoveItem(long id);
-        void UpdateItem(TodoItem todoItem);
+        Task AddItemAsync(TodoItem todoItem);
+        Task RemoveItemAsync(long id);
+        Task UpdateItemAsync(TodoItem todoItem);
     }
 }

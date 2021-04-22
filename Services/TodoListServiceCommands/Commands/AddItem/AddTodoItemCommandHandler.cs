@@ -7,23 +7,23 @@ using Repositories;
 
 namespace Services.TodoListServiceCommands.AddItem
 {
-    public class AddTodoItemCommandHandler : IRequestHandler<AddTodoItemCommand>
+    public class AddTodoItemCommandHandler : IRequestHandler<AddTodoItemCommand, long>
     {
         private readonly ITodoListRepository _repository;
         private readonly IIdentityService _identity;
 
-        public AddTodoItemCommandHandler(ITodoListRepository repository, IIdentityService identity,  IMapper mapper)
+        public AddTodoItemCommandHandler(ITodoListRepository repository, IIdentityService identity)
         {
             _repository = repository;
             _identity = identity;
         }
 
-        public Task<Unit> Handle(AddTodoItemCommand request, CancellationToken cancellationToken)
+        public async Task<long> Handle(AddTodoItemCommand request, CancellationToken cancellationToken)
         {
-             request.UserId =  _identity.GetUserId();
-              _repository.AddItem( new TodoItem(){ Id = request.Id, Text = request.Text, IsComplete = request.IsComplete, UserId = request.UserId});
-              
-              return Task.FromResult(Unit.Value);
+            var todoItem = new TodoItem()
+                {Id = request.Id, Text = request.Text, IsComplete = request.IsComplete, UserId = _identity.GetUserId()};
+            await _repository.AddItemAsync(todoItem);
+            return todoItem.Id;
         }
     }
 }

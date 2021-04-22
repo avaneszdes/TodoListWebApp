@@ -8,13 +8,12 @@ import {
 import {ITodosState} from "../Components/Interfaces";
 import {TodosActionTypes} from "./action";
 
-
 const initialState: ITodosState = {
     items: [],
     loading: false
 }
 
-const todos = (state = initialState, action: TodosActionTypes) => {
+export default (state = initialState, action: TodosActionTypes) => {
     switch (action.type) {
         case DELETE_TODO:
             return {...state, items: state.items.filter(todo => todo.id !== action.payload)}
@@ -55,5 +54,3 @@ const todos = (state = initialState, action: TodosActionTypes) => {
             return state
     }
 }
-
-export default todos

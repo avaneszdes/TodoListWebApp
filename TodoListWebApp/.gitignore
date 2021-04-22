@@ -9,6 +9,8 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+.idea
+.idea
 
 # Build results
 [Dd]ebug/
@@ -23,10 +25,12 @@ bin/
 Bin/
 obj/
 Obj/
+.idea/
 
 # Visual Studio 2015 cache/options directory
 .vs/
 /wwwroot/dist/
+.idea
 
 # MSTest test Results
 [Tt]est[Rr]esult*/

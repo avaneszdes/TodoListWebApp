@@ -26,6 +26,15 @@
         <Content Remove="$(SpaRoot)**" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+        <None Include="ClientApp\src\sagas\TodoListSagas\AddTodo.ts" />
+        <None Include="ClientApp\src\sagas\TodoListSagas\CompleteTodo.ts" />
+        <None Include="ClientApp\src\sagas\TodoListSagas\DeleteTodo.ts" />
+        <None Include="ClientApp\src\sagas\TodoListSagas\EditTodo.ts" />
+        <None Include="ClientApp\src\sagas\TodoListSagas\GetTodoLIst.ts" />
+        <None Include="ClientApp\src\sagas\UserSagas\DeleteUser.ts" />
+        <None Include="ClientApp\src\sagas\UserSagas\GetUserPhoto.ts" />
+        <None Include="ClientApp\src\sagas\UserSagas\GetUsers.ts" />
+        <None Include="ClientApp\src\sagas\UserSagas\UpdateUserPhoto.ts" />
     </ItemGroup>
 
     <ItemGroup>

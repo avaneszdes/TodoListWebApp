@@ -15,11 +15,11 @@ namespace TodoListWebApp.Controllers
     public class RegistrationController : Controller
     {
         private readonly IMediator _mediator;
-        private readonly PersonValidator _validator;
+        private readonly UserValidator _validator;
         public RegistrationController(IMediator mediator)
         {
             _mediator = mediator;
-            _validator = new PersonValidator();
+            _validator = new UserValidator();
         }
         
         [HttpPost]

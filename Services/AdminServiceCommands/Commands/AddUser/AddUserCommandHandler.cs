@@ -9,19 +9,19 @@ namespace Services.AdminServiceCommands.Commands.AddUser
 {
     public class AddUserCommandHandler : AsyncRequestHandler<AddUserCommand>
     {
-        private readonly IAdminRepository _adminRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
 
-        public AddUserCommandHandler(IAdminRepository adminRepository,IRoleRepository roleRepository)
+        public AddUserCommandHandler(IUserRepository userRepository,IRoleRepository roleRepository)
         {
             _roleRepository = roleRepository;
-            _adminRepository = adminRepository;
+            _userRepository = userRepository;
         }
 
         protected override async Task Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
             var role = _roleRepository.GetRoles().Result.First(x => x.Name == "user");
-            await _adminRepository.AddUserAsync(new User()
+            await _userRepository.AddUserAsync(new User()
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
