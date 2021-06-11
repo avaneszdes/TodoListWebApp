@@ -2,6 +2,7 @@ import {call, put, takeEvery} from "redux-saga/effects";
 import {GET_TODO_LIST, GET_TODO_LIST_SUCCEED, LOADING} from "../../redux/constants";
 import {AxiosRequestConfig} from "axios";
 import httpRequest from "../httpConfig";
+import {Item} from "../../components/Interfaces";
 
 let page = 0
 
@@ -14,6 +15,7 @@ export function* getTodoListWorker() {
 
     page += 10
     const response = yield call(() => httpRequest(httpConfig));
+    response.data.map((x: Item) => x.createdDate = new Date(x.createdDate).toLocaleDateString() + ' ' + new Date(x.createdDate).toLocaleTimeString())
     yield put({type: GET_TODO_LIST_SUCCEED, payload: response.data})
     yield put({type: LOADING, payload: false})
 }

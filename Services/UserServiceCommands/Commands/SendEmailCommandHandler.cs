@@ -21,10 +21,8 @@ namespace Services.UserServiceCommands.Commands
         
         public async Task<string> Handle(SendEmailCommand request, CancellationToken cancellationToken)
         {
-            /*
-            Email emailData = new Email();
-            */
-            var user = _repository.GetUsersAsync().FirstOrDefaultAsync(x => x.Email == request.EmailAddress, cancellationToken: cancellationToken).Result;
+            var user = _repository.GetUsersAsync().
+                FirstOrDefaultAsync(x => x.Email == request.EmailAddress, cancellationToken: cancellationToken).Result;
             var message = new MimeMessage();
             try
             {
@@ -40,6 +38,7 @@ namespace Services.UserServiceCommands.Commands
                     .ToMessageBody();
 
                 using var client = new MailKit.Net.Smtp.SmtpClient();
+                
                 await client.ConnectAsync("smtp.gmail.com", 465, true, cancellationToken); 
                 await client.AuthenticateAsync(SendEmailCommand.EmailClientName,
                     SendEmailCommand.EmailClientPassword, cancellationToken);

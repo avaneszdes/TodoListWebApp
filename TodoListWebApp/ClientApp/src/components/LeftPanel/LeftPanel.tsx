@@ -88,8 +88,7 @@ export default function LeftPanel() {
     }
 
     const toggleDrawer = (open: boolean) => (
-        event: React.KeyboardEvent | React.MouseEvent,
-    ) => {
+        event: React.KeyboardEvent | React.MouseEvent) => {
         if (
             event.type === 'keydown' &&
             ((event as React.KeyboardEvent).key === 'Tab' ||
@@ -144,8 +143,9 @@ export default function LeftPanel() {
     return (
         <div>
             <React.Fragment key={'left'}>
-                <IconButton onClick={toggleDrawer(!state)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon/>
+                <IconButton onClick={toggleDrawer(!state)} edge="start" className={classes.menuButton} color="inherit"
+                            aria-label="menu">
+                    <MenuIcon/>
                 </IconButton>
 
                 <Drawer anchor={'left'} open={state} onClose={toggleDrawer(!state)}>

@@ -12,7 +12,7 @@ const store = configureStore()
 ReactDOM.render(
     <Provider store={store}>
         <Router history={history}>
-            <App/>
+                <App/>
         </Router>
     </Provider>
 

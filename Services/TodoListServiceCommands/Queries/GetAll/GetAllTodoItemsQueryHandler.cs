@@ -7,9 +7,9 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Repositories;
-using Services.TodoItemDto;
+using Services.DtoModels.TodoItemDto;
 
-namespace Services.TodoListServiceCommands
+namespace Services.TodoListServiceCommands.Queries.GetAll
 {
     public class GetAllTodoItemsQueryHandler : IRequestHandler<GetAllTodoItemsQuery, List<TodoItemDtoModel>>
     {

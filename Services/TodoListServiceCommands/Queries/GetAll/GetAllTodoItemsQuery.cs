@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using MediatR;
-using Services.TodoItemDto;
+using Services.DtoModels.TodoItemDto;
 
-namespace Services.TodoListServiceCommands
+namespace Services.TodoListServiceCommands.Queries.GetAll
 {
     public class GetAllTodoItemsQuery : IRequest<List<TodoItemDtoModel>>, IRequest<int>
     {

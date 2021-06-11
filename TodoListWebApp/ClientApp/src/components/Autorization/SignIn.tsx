@@ -136,6 +136,7 @@ export default function SignIn() {
                         helperText={formik.touched.password && formik.errors.password}
                     />
                     <Button
+                        id={"signIn"}
                         type="submit"
                         fullWidth
                         variant="contained"

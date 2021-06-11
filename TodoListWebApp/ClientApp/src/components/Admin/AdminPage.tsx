@@ -90,7 +90,18 @@ export default function AdminPage() {
     const [role, setRole] = useState('user')
     const [userId, setUserId] = useState(0)
     const users = useSelector((x: IRootState) => x.users)
-    console.log(users)
+    
+ 
+    const [user, setUser] = useState<User>({
+        firstName: '',
+        lastName: '',
+        email: '',
+        id: 1,
+        role: 'qwe',
+        password: '123',
+        todosCount: 1,
+        photo: '',
+    });
 
     useEffect(() => {
         dispatch({type: GET_USERS, payload: []})
@@ -134,6 +145,9 @@ export default function AdminPage() {
         },
     })
     const handleClickOpen = (Id: number) => {
+
+        const a: User = users.filter(x => x.id = Id)[0]
+        setUser(a)
         setUserId(Id)
         setOpen(!open)
     }
@@ -161,6 +175,7 @@ export default function AdminPage() {
                                 error={formik.touched.firstName && Boolean(formik.errors.firstName)}
                                 value={formik.values.firstName}
                                 helperText={formik.touched.firstName && formik.errors.firstName}
+                                placeholder={user.firstName}
                             />
                             <TextField
                                 variant="outlined"
@@ -175,6 +190,7 @@ export default function AdminPage() {
                                 error={formik.touched.lastName && Boolean(formik.errors.lastName)}
                                 value={formik.values.lastName}
                                 helperText={formik.touched.lastName && formik.errors.lastName}
+                                placeholder={user.lastName}
                             />
                             <TextField
                                 variant="outlined"
@@ -190,6 +206,7 @@ export default function AdminPage() {
                                 error={formik.touched.email && Boolean(formik.errors.email)}
                                 value={formik.values.email}
                                 helperText={formik.touched.email && formik.errors.email}
+                                placeholder={user.email}
                             />
 
                             <ListItem button onClick={handleOpenRoleList}>
