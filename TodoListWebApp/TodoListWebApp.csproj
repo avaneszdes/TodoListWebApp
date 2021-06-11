@@ -39,6 +39,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ApplicationContext\ApplicationContext.csproj" />
+      <ProjectReference Include="..\NUnitAutoTests\NUnitAutoTests.csproj" />
       <ProjectReference Include="..\Services\Services.csproj" />
     </ItemGroup>
 

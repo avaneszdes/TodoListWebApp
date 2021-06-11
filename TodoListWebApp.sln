@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entiti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{68A5E514-2F98-45E5-9D80-B2246B7751F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitAutoTests", "NUnitAutoTests\NUnitAutoTests.csproj", "{EDC6804C-3877-48F3-97C1-9F035E514FF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{68A5E514-2F98-45E5-9D80-B2246B7751F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68A5E514-2F98-45E5-9D80-B2246B7751F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68A5E514-2F98-45E5-9D80-B2246B7751F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDC6804C-3877-48F3-97C1-9F035E514FF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC6804C-3877-48F3-97C1-9F035E514FF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDC6804C-3877-48F3-97C1-9F035E514FF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC6804C-3877-48F3-97C1-9F035E514FF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
