@@ -34,7 +34,7 @@ export interface AddTodoAction {
 
 export interface AddTodoSucceedAction {
     type: typeof ADD_TODO_SUCCEED,
-    payload: { text: string, id: number, finished: boolean }
+    payload: { text: string, id: number, finished: boolean, createdDate: string }
 }
 
 export interface DeleteTodoAction {
@@ -93,13 +93,14 @@ export interface LogOut {
     payload: string
 }
 
-export function createTodoSucceed(id: number, text: string, finished: boolean): AddTodoSucceedAction {
+export function createTodoSucceed(id: number, text: string, finished: boolean, createdDate: string): AddTodoSucceedAction {
     return {
         type: ADD_TODO_SUCCEED,
         payload: {
             id,
             text,
-            finished
+            finished,
+            createdDate
         }
     }
 }

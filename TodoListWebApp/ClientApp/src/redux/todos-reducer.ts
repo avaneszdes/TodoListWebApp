@@ -43,7 +43,7 @@ export default (state = initialState, action: TodosActionTypes) => {
             }
 
         case GET_TODO_LIST_SUCCEED: {
-            return {...state, items: [...state.items, ...action.payload]};
+            return {...state, items: [...state.items, ...action.payload]}
         }
 
         case LOADING:

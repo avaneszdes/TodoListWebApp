@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Services;
-using Services.TodoItemDto;
-using Services.TodoListServiceCommands;
-using Services.TodoListServiceCommands.AddItem;
+using Services.DtoModels.TodoItemDto;
+using Services.TodoListServiceCommands.Commands.AddItem;
+using Services.TodoListServiceCommands.Queries.GetAll;
 using Services.TodoListServiceCommands.RemoveItem;
 using Services.TodoListServiceCommands.UpdateTodoItem;
 

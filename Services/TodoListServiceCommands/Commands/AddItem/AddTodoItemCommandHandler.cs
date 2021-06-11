@@ -1,13 +1,13 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Entities;
 using MediatR;
 using Repositories;
 
-namespace Services.TodoListServiceCommands.AddItem
+namespace Services.TodoListServiceCommands.Commands.AddItem
 {
-    public class AddTodoItemCommandHandler : IRequestHandler<AddTodoItemCommand, long>
+    public class AddTodoItemCommandHandler : IRequestHandler<AddTodoItemCommand, object>
     {
         private readonly ITodoListRepository _repository;
         private readonly IIdentityService _identity;
@@ -18,12 +18,19 @@ namespace Services.TodoListServiceCommands.AddItem
             _identity = identity;
         }
 
-        public async Task<long> Handle(AddTodoItemCommand request, CancellationToken cancellationToken)
+        public async Task<object> Handle(AddTodoItemCommand request, CancellationToken cancellationToken)
         {
             var todoItem = new TodoItem()
-                {Id = request.Id, Text = request.Text, IsComplete = request.IsComplete, UserId = _identity.GetUserId()};
+                {Id = request.Id,
+                    Text = request.Text,
+                    IsComplete = request.IsComplete, 
+                    UserId = _identity.GetUserId(), 
+                    CreatedDate = DateTime.UtcNow
+                    
+                };
+            
             await _repository.AddItemAsync(todoItem);
-            return todoItem.Id;
+            return new {todoItem.Id, todoItem.CreatedDate};
         }
     }
 }

@@ -11,12 +11,13 @@ function* addTodoWorker(action: AddTodoAction) {
         url: '/api/todoList',
         data: {
             text: action.payload,
-            finished: false
+            finished: false,
         }
     }
 
     const response = yield call(() => httpRequest(httpConfig));
-    const addTodoSucceedAction = createTodoSucceed(response.data, action.payload, false);
+    const createdDate =  new Date(response.data.createdDate).toLocaleDateString() + ' ' + new Date(response.data.createdDate).toLocaleTimeString()
+    const addTodoSucceedAction = createTodoSucceed(response.data.id, action.payload, false,createdDate);
     yield put(addTodoSucceedAction)
 }
 

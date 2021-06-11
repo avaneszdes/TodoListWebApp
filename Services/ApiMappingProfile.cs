@@ -1,10 +1,10 @@
 using AutoMapper;
 using Entities;
-using Services.TodoItemDto;
-using Services.TodoListServiceCommands.AddItem;
+using Services.DtoModels.TodoItemDto;
+using Services.TodoListServiceCommands.Commands.AddItem;
 using Services.UsersDto;
 
-namespace TodoListWebApp
+namespace Services
 {
     public class ApiMappingProfile : Profile
     {
@@ -57,7 +57,8 @@ namespace TodoListWebApp
                 .ForMember(dest => dest.IsComplete
                     , opt => opt.MapFrom(x => x.IsComplete))
                 .ForMember(dest => dest.Id
-                    , opt => opt.MapFrom(x => x.Id));
+                    , opt => opt.MapFrom(x => x.Id))
+                .ForMember(dist => dist.CreatedDate, opt => opt.MapFrom(x => x.CreatedDate));
         }
     }
 }

@@ -1,3 +1,5 @@
+import {date} from "yup";
+
 export interface SignForm {
     firstName: string
     lastName: string
@@ -9,6 +11,7 @@ export interface Item{
     id: number
     text: string
     isComplete: boolean
+    createdDate: string
 }
 export interface ITodosState {
     items: Item[]

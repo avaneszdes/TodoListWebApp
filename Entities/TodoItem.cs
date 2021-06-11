@@ -1,4 +1,6 @@
-﻿namespace Entities
+﻿using System;
+
+namespace Entities
 {
     public class TodoItem : BaseEntity
     {
@@ -6,5 +8,7 @@
         public bool IsComplete { get; set; }
         public long UserId { get; set; }
         public User User { get; set; }
+        
+        public DateTime CreatedDate { get; set; }
     }
 }

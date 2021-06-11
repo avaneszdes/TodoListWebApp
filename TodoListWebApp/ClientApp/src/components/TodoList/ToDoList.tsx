@@ -91,6 +91,7 @@ export default function ToDoList() {
                     onClick={() => changeHideInput()}
                     variant="contained"
                     color="primary"
+                    id='createItem'
                 >
 
                     Create item 
@@ -99,11 +100,12 @@ export default function ToDoList() {
 
             <div style={{marginTop: '3px'}} hidden={!inputHide}>
                 <TextField
-                    placeholder="Write todos here"
+                    placeholder="Write todo item text here"
                     label="New Todos"
                     onChange={textChanged}
                     value={value}
                     className={classes.input}
+                    id='createItemText'
                 />
 
                 <Button

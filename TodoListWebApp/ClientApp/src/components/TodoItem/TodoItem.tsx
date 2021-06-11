@@ -45,14 +45,30 @@ const theme = createMuiTheme({
 });
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
+        childPaper: {
             padding: '2px 4px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            width: '985px',
-            height: '80px',
+            width: '980px',
+            height: '60px',
             margin: '3px',
+        },
+        mainPaper: {
+            padding: '2px 4px',
+            alignItems: 'left',
+            width: '990px',
+            height: '85px',
+            marginTop: '6px',
+            backgroundColor: '#dbeeef',
+            borderStyle: 'solid',
+            borderRadius: '5%',
+            borderColor: '#b9c6ba',
+            // '&:hover': {
+            //     background: "#adecad",
+            //     borderRadius: '0%',
+            //    
+            // },
         },
         input: {
             marginLeft: theme.spacing(1),
@@ -70,6 +86,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
         },
 
+        date: {
+            marginLeft: theme.spacing(0.5),
+            marginTop: theme.spacing(-0.5),
+            width: '120px',
+            fontSize: 12
+
+        },
+
     }),
 );
 export default function TodoItem({item, completeTodo, deleteItem, editItem}: Props) {
@@ -81,7 +105,13 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
         setInputEditHideBtn(!inputEditHideBtn);
     }
     const completeTodoItem = (item: Item) => {
-        completeTodo({id: item.id, text: item.text, isComplete: !item.isComplete});
+        completeTodo(
+            {
+                id: item.id,
+                text: item.text,
+                isComplete: !item.isComplete,
+                createdDate: item.createdDate
+            });
     }
     const textChanged = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)
     const removeItem = (item: Item) => {
@@ -99,9 +129,10 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
                     onClose={handleClose}
                     aria-labelledby="form-title"
             >
-                <DialogTitle id="form-title">Change todo`s text</DialogTitle>
+                <DialogTitle id="form-title">Change todo item text</DialogTitle>
                 <DialogContent>
                     <TextField
+                        // id='qwe'
                         placeholder="Write new text here"
                         label="Edit Todo"
                         style={{width: '400px'}}
@@ -110,6 +141,7 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
                 </DialogContent>
                 <DialogActions>
                     <Button
+                        id="updateTodoItem"
                         color='primary'
                         onClick={() => editedItem()}
                     >
@@ -124,41 +156,47 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
                 </DialogActions>
             </Dialog>
 
-            <Paper component="form" className={classes.root}>
-                <ThemeProvider theme={theme}>
+            <Paper component="form" className={classes.mainPaper} id='paper'>
+                <Paper component="form" className={classes.childPaper}>
+                    <ThemeProvider theme={theme}>
                         <FormControlLabel style={{marginLeft: '10px'}}
-                            onClick={() => completeTodoItem(item)}
-                            control={<Checkbox icon={<FavoriteBorder color={'primary'}/>}
-                                               checkedIcon={<Favorite color={'secondary'} />}
-                                               name="checkedH"
-                                               checked={item.isComplete}
-                                               onChange={() => {
-                                               }}/>}
-                            label=""
+                                          onClick={() => completeTodoItem(item)}
+                                          control={<Checkbox icon={<FavoriteBorder color={'primary'}/>}
+                                                             checkedIcon={<Favorite color={'secondary'}/>}
+                                                             name="checkedH"
+                                                             checked={item.isComplete}
+                                                             onChange={() => {
+                                                             }}/>}
+                                          label=""
                         />
-                </ThemeProvider>
-                <Typography  variant="h5">{item.isComplete ? <s>{item.text}</s> : item.text}</Typography>
-                <div style={{display: 'flex'}}>
-                    <Divider className={classes.divider} orientation="vertical"/>
-                    <Button
-                        className={classes.button}
-                        onClick={() => removeItem(item)}
-                        variant="contained"
-                        color="primary"
-                    >
-                        <DeleteForeverOutlinedIcon  />
-                    </Button>
+                    </ThemeProvider>
+                    <Typography variant="h5">{item.isComplete ? <s>{item.text}</s> : item.text}</Typography>
+                    <div style={{display: 'flex'}}>
+                        <Divider className={classes.divider} orientation="vertical"/>
+                        <Button
+                            className={classes.button}
+                            onClick={() => removeItem(item)}
+                            variant="contained"
+                            color="primary"
+                        >
+                            <DeleteForeverOutlinedIcon/>
+                        </Button>
 
-                    <Button
-                        className={classes.button}
-                        onClick={() => setInputEditHideBtn(!inputEditHideBtn)}
-                        variant="contained"
-                        color="primary"
-                    >
-                        <EditIcon />
-                    </Button>
-                </div>
+                        <Button
+                            id={item.id.toString()}
+                            className={classes.button}
+                            onClick={() => setInputEditHideBtn(!inputEditHideBtn)}
+                            variant="contained"
+                            color="primary"
+                        >
+                            <EditIcon/>
+                        </Button>
+                    </div>
+
+                </Paper>
+                <Typography className={classes.date}>{item.createdDate}</Typography>
             </Paper>
+
 
         </>
     )
