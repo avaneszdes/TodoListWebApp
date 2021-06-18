@@ -11,7 +11,7 @@ function* deleteUserWorker(action: DeleteUserAction) {
     }
 
     const response = yield call(() => httpRequest(httpConfig));
-console.log(response)
+    
     if (response.statusCode === 200) {
         yield put({
             type: DELETE_USER_SUCCEED,

@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Services;
 using Services.AdminServiceCommands.GetAllUsers;
-using Services.UsersDto;
 
 namespace TodoListWebApp.Controllers
 {

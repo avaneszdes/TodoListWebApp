@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Services.UserServiceCommands.Commands
+namespace Services.UserServiceCommands.Commands.SendLinkToEmail
 {
     public class SendEmailCommand: IRequest<string>
     {

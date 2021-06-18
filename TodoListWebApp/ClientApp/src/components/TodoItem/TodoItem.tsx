@@ -62,13 +62,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: '6px',
             backgroundColor: '#dbeeef',
             borderStyle: 'solid',
-            borderRadius: '5%',
             borderColor: '#b9c6ba',
-            // '&:hover': {
-            //     background: "#adecad",
-            //     borderRadius: '0%',
-            //    
-            // },
         },
         input: {
             marginLeft: theme.spacing(1),
@@ -89,7 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
         date: {
             marginLeft: theme.spacing(0.5),
             marginTop: theme.spacing(-0.5),
-            width: '120px',
+            width: '130px',
             fontSize: 12
 
         },

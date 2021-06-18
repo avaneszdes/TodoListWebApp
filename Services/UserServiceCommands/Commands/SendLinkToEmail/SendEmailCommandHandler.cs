@@ -1,14 +1,12 @@
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using Repositories;
-using Services.EmailDto;
 
-namespace Services.UserServiceCommands.Commands
+namespace Services.UserServiceCommands.Commands.SendLinkToEmail
 {
     public class SendEmailCommandHandler: IRequestHandler<SendEmailCommand, string>
     {
@@ -23,6 +21,8 @@ namespace Services.UserServiceCommands.Commands
         {
             var user = _repository.GetUsersAsync().
                 FirstOrDefaultAsync(x => x.Email == request.EmailAddress, cancellationToken: cancellationToken).Result;
+
+            var guid = _repository.AddUserEmailDataConfirmation(request.EmailAddress);
             var message = new MimeMessage();
             try
             {
@@ -32,10 +32,10 @@ namespace Services.UserServiceCommands.Commands
                 message.Subject = "Message from Todo List";
                 message.Body = new BodyBuilder()
                     {
-                        HtmlBody = $"<div style=\"color: black;\">Your password: " +
-                                   $"<div style=\"color: green;\">{user.Password}</div></div>"
-                    }
-                    .ToMessageBody();
+                        HtmlBody = $"<a href=\"https://localhost:5001/ConfirmationPassword/{guid.Result}\" style\"color: green;\">" +
+                                   $"<div style=\"color: green;\">Чтобы поменять пароль на другой, пройдите по этой ссылке</div></div></a>"
+                                   
+                    }.ToMessageBody();
 
                 using var client = new MailKit.Net.Smtp.SmtpClient();
                 

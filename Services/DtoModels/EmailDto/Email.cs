@@ -1,4 +1,4 @@
-namespace Services.EmailDto
+namespace Services.DtoModels.EmailDto
 {
     public class Email
     {

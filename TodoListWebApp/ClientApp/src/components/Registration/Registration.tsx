@@ -15,12 +15,6 @@ import {REGISTRATION} from "../../redux/constants";
 import {useFormik} from 'formik';
 import {ref} from "yup";
 import ErrorAlertComponent from "../ErrorAlert/ErrorAlert";
-import {AppBar, Collapse, Divider, List, ListItem, ListItemText, Toolbar} from "@material-ui/core";
-import { useTranslation } from 'react-i18next';
-import {ExpandLess, ExpandMore} from "@material-ui/icons";
-import i18n from "i18next";
-
-
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -81,7 +75,6 @@ const vScheme = yup.object().shape({
 export default function SignUp() {
 
     const [open, setOpen] = React.useState(true)
-    const { t } = useTranslation(['ns1', 'ns2', 'ns3']);
     const dispatch = useDispatch()
     const classes = useStyles()
     const formik = useFormik({
@@ -99,47 +92,11 @@ export default function SignUp() {
         },
     })
     
-    const handleListItemClick = (lang: string) => {
-        i18n.changeLanguage(lang)
-        setOpen(!open)
-    };
-    
-    console.log(t('UserProfile:firstName'))
-
-    const handleClick = () => {
-        setOpen(!open)
-    }
-
     return (
         <div>
-            <AppBar position="absolute">
-                <Toolbar>
-                    <ListItem button onClick={handleClick} className={classes.languageButton}>
-                        Language
-                        {!open ? <ExpandLess/> : <ExpandMore/>}
-                    </ListItem>
-                    <Divider className={classes.divider} orientation="vertical"/>
-                    <Collapse in={!open} timeout="auto" unmountOnExit>
-                        <List>
-                            <ListItem
-                                button
-                                onClick={(event) => handleListItemClick('en')}
-                            >
-                                <ListItemText primary="En"/>
-                            </ListItem>
-                            <ListItem
-                                button
-                                onClick={(event) => handleListItemClick('ru')}
-                            >
-                                <ListItemText primary="Ru"/>
-                            </ListItem>
-                        </List>
-                    </Collapse>
-                </Toolbar>
-            </AppBar>
-
             <ErrorAlertComponent/>
             <CssBaseline/>
+            
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
@@ -157,7 +114,7 @@ export default function SignUp() {
                                     variant="outlined"
                                     fullWidth
                                     id="firstName"
-                                    label={t('UserProfile.firstName')}
+                                    label="First Name"
                                     autoFocus
                                     onChange={formik.handleChange}
                                     error={formik.touched.firstName && Boolean(formik.errors.firstName)}
@@ -243,14 +200,11 @@ export default function SignUp() {
                             </Grid>
                         </Grid>
                     </form>
-
                 </div>
                 <Box mt={5}>
                     <Copyright/>
                 </Box>
             </Container>
-
-
         </div>
     )
 }

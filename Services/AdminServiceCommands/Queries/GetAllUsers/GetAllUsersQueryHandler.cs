@@ -7,7 +7,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Repositories;
-using Services.UsersDto;
+using Services.DtoModels.UsersDto;
 
 namespace Services.AdminServiceCommands.GetAllUsers
 {

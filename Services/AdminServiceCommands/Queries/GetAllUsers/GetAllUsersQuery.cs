@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using MediatR;
-using Services.UsersDto;
+using Services.DtoModels.UsersDto;
 
 namespace Services.AdminServiceCommands.GetAllUsers
 {

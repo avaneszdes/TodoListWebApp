@@ -1,8 +1,8 @@
 using AutoMapper;
 using Entities;
 using Services.DtoModels.TodoItemDto;
+using Services.DtoModels.UsersDto;
 using Services.TodoListServiceCommands.Commands.AddItem;
-using Services.UsersDto;
 
 namespace Services
 {
