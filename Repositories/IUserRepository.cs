@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Entities;
@@ -12,5 +12,8 @@ namespace Repositories
         Task UpdateUserDataAsync(User user);
         Task<string> GetUserPhotoAsync(long id);
         Task AddUserAsync(User user);
+        Task<Guid> AddUserEmailDataConfirmation(string email);
+        Task<EmailConfirmData> GetConfirmationDataAsync(Guid guidId);
+        Task RemoveConfirmationDataAsync(int userFormId);
     }
 }

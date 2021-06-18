@@ -1,4 +1,10 @@
-import {DELETE_USER, EDIT_USER, GET_USERS_SUCCEED} from "./constants";
+import {
+    CHANGE_USER_PASSWORD,
+    CHANGE_USER_PASSWORD_SUCCEED,
+    DELETE_USER,
+    EDIT_USER,
+    GET_USERS_SUCCEED
+} from "./constants";
 import {User} from "../Components/Interfaces";
 import {TodosActionTypes} from "./action";
 
@@ -21,7 +27,8 @@ export default (state = initialState, action: TodosActionTypes) => {
                 }
                 return x;
             })
-
+        case CHANGE_USER_PASSWORD_SUCCEED:
+            return state
 
         default:
             return state

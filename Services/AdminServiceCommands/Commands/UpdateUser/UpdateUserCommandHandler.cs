@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 using Entities;
 using MediatR;
 using Repositories;
+using Services.AdminServiceCommands.UpdateUser;
 
-namespace Services.AdminServiceCommands.UpdateUser
+namespace Services.AdminServiceCommands.Commands.UpdateUser
 {
     public class UpdateUserCommandHandler : AsyncRequestHandler<UpdateUserCommand>
     {
@@ -31,6 +32,8 @@ namespace Services.AdminServiceCommands.UpdateUser
                 FirstName = request.FirstName,
                 LastName = request.LastName
             });
+            
+            
         }
     }
 }

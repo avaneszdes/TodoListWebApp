@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import ToDoList from "../TodoList/ToDoList";
 import AdminPage from "../Admin/AdminPage";
+import EmailConfirmation from "../EmailConfirmation/EmailConfirmation";
 
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
                 <Route exact path="/admin" component={AdminPage}/>
                 <Route exact path="/todoList" component={ToDoList}/>
                 <Route exact path="/signUp" component={SignUp}/>
+                <Route path="/ConfirmationPassword" component={EmailConfirmation}/>
             </Switch>
         </div>
     );

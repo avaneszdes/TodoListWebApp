@@ -1,4 +1,4 @@
-namespace Services.UsersDto
+namespace Services.DtoModels.UsersDto
 {
     public class UserDtoModel
     {

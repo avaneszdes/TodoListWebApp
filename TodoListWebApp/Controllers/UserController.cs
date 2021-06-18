@@ -12,9 +12,11 @@ using Services;
 using Services.AdminServiceCommands.Commands.RemoveUserById;
 using Services.AdminServiceCommands.GetAllUsers;
 using Services.AdminServiceCommands.UpdateUser;
-using Services.EmailDto;
-using Services.UsersDto;
+using Services.DtoModels.EmailDto;
+using Services.DtoModels.UsersDto;
 using Services.UserServiceCommands.Commands;
+using Services.UserServiceCommands.Commands.SendLinkToEmail;
+using Services.UserServiceCommands.Commands.UpdateUserPassword;
 using Services.UserServiceCommands.Queries;
 
 namespace TodoListWebApp.Controllers
@@ -36,11 +38,24 @@ namespace TodoListWebApp.Controllers
             return await _mediator.Send(new GetUserPhotoQuery(id));
         }
         
+        [Route("Api/User/SendEmail")]
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> SendEmail([FromBody]Email email)
         {
             var message = await _mediator.Send(new SendEmailCommand(email.EmailAddress));
+            if (message == "")
+            {
+                return Ok("The password sent");
+            }
+
+            return BadRequest("User with the same email address didn`t found");
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> UpdateEmail([FromBody]UpdateEmailCommand updateEmailCommand)
+        {
+            var message = await _mediator.Send(updateEmailCommand);
             if (message == "")
             {
                 return Ok("The password sent");
@@ -55,7 +70,6 @@ namespace TodoListWebApp.Controllers
         {
             return Ok(await _mediator.Send(user));
         }
-        
         
         [Authorize(Roles = "admin")]
         [HttpGet]

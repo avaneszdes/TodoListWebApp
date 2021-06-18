@@ -44,3 +44,10 @@ export interface User {
     photo: string
     
 }
+
+export interface UpdatePassword {
+    EmailAddress: string
+    GuidId: string
+    Password: string
+    
+}

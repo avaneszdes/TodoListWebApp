@@ -3,11 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApplicationContext
 {
-    public class AppDbContext : DbContext
+    public sealed class AppDbContext : DbContext
     {
         public DbSet<TodoItem> TodoItems { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<EmailConfirmData> EmailConfirmators { get; set; }
 
         public AppDbContext(DbContextOptions options) : base(options)
         {
@@ -30,8 +31,8 @@ namespace ApplicationContext
                 FirstName = "VLAD"
             };
 
-            modelBuilder.Entity<Role>().HasData(new Role[]{adminRole,userRole});
-            modelBuilder.Entity<User>().HasData(new User[]{admin});
+            modelBuilder.Entity<Role>().HasData(adminRole, userRole);
+            modelBuilder.Entity<User>().HasData(admin);
             base.OnModelCreating(modelBuilder);
         }
     }

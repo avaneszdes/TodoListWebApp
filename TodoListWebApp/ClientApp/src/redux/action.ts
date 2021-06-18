@@ -1,4 +1,4 @@
-import {Auth, Item, SignForm, User} from "../Components/Interfaces";
+import {Auth, Item, SignForm, UpdatePassword, User} from "../Components/Interfaces";
 import {
     ADD_TODO,
     ADD_TODO_SUCCEED,
@@ -23,7 +23,7 @@ import {
     GET_USERS_SUCCEED,
     LOADING,
     LOG_OUT,
-    REGISTRATION, SEND_USER_PASSWORD
+    REGISTRATION, SEND_USER_PASSWORD, CHANGE_USER_PASSWORD_SUCCEED
 } from "./constants";
 
 
@@ -175,6 +175,11 @@ export interface ClearErrorMessage {
     payload: string
 }
 
+export interface ChangeUserPasswordSucceed {
+    type: typeof CHANGE_USER_PASSWORD_SUCCEED,
+    payload: UpdatePassword
+}
+
 export type TodosActionTypes =
     AddTodoAction
     | DeleteTodoAction
@@ -201,4 +206,5 @@ export type TodosActionTypes =
     | SendUserPassword
     | GetErrorMessage
     | ClearErrorMessage
+    | ChangeUserPasswordSucceed
 

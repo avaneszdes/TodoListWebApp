@@ -5,10 +5,10 @@ import httpRequest from "../httpConfig";
 import {GET_ERROR_MESSAGE_SUCCEED, SEND_USER_PASSWORD} from "../../redux/constants";
 
 function* sendEmailWorker(action: SendUserPassword) {
+    
     const httpConfig: AxiosRequestConfig = {
-
         method: 'POST',
-        url: '/api/user',
+        url: 'Api/User/Api/User/SendEmail',
         data: {
             EmailAddress: action.payload,
         },
