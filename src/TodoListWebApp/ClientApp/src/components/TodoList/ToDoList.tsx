@@ -9,7 +9,20 @@ import SimpleBackdrop from "../BackDrop/BackDrop";
 import LeftPanel from "../LeftPanel/LeftPanel";
 import Button from "@material-ui/core/Button";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
-import {AppBar, Hidden, TextField, Toolbar} from "@material-ui/core";
+import {TransitionProps} from "@material-ui/core/transitions";
+import {
+    AppBar,
+    Box,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Slide,
+    TextField,
+    Toolbar
+} from "@material-ui/core";
+import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -19,7 +32,8 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         button: {
-            width: '1000px'
+            width: '1000px',
+            marginTop: '70px',
         },
         input: {
             width: '915px'
@@ -36,16 +50,27 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1,
         },
 
+        box: {},
+
+
     }),
 );
+
+const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & { children?: React.ReactElement<any, any> },
+    ref: React.Ref<unknown>,
+) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
+
 
 export default function ToDoList() {
 
     const classes = useStyles();
     const [value, setValue] = useState("")
-    const [inputHide, setInputHide] = useState(false)
-
     const todos: Item[] = useSelector((state: IRootState) => state.todos.items)
+    const [inputEditHideBtn, setInputEditHideBtn] = useState(false)
     const loading: boolean = useSelector((state: IRootState) => state.todos.loading)
     const dispatch = useDispatch();
     const [page, setPage] = useState(1)
@@ -55,14 +80,34 @@ export default function ToDoList() {
     }, [page])// eslint-disable-line react-hooks/exhaustive-deps
 
 
-    const changeHideInput = () => setInputHide(!inputHide);
+    const [columns, setColumns] = useState({
+        new: {
+            name: "New",
+            items: todos
+        },
+        inProgress: {
+            name: "In Progress",
+            items: []
+        },
+        done: {
+            name: "Done",
+            items: [{id: 4, text: '123', isComplete: false, createdDate: ''}]
+        },
+
+    })
+
+    useEffect(() => {
+        columns.new.items = todos;
+    }, [todos])
+
+
     const textChanged = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
     const addTodos = (text: string) => {
         if (text !== '') {
             dispatch({type: ADD_TODO, payload: text})
             setValue('')
         }
-        setInputHide(!inputHide);
+        handleClose()
     }
     const deleteItem = (id: number) => {
         dispatch({type: DELETE_TODO, payload: id})
@@ -74,9 +119,49 @@ export default function ToDoList() {
         dispatch({type: EDIT_TODO, payload: {id: item.id, text: item.text, finished: item.isComplete}})
 
     }
+    const handleClose = () => {
+        setInputEditHideBtn(!inputEditHideBtn);
+    }
+
+    const onDragEnd = (result: any, columns: any, setColumns: any) => {
+        if (!result.destination) return;
+        const {source, destination} = result;
+
+        if (source.droppableId !== destination.droppableId) {
+            const sourceColumn = columns[source.droppableId];
+            const destColumn = columns[destination.droppableId];
+            const sourceItems = [...sourceColumn.items];
+            const destItems = [...destColumn.items];
+            const [removed] = sourceItems.splice(source.index, 1);
+            destItems.splice(destination.index, 0, removed);
+            setColumns({
+                ...columns,
+                [source.droppableId]: {
+                    ...sourceColumn,
+                    items: sourceItems
+                },
+                [destination.droppableId]: {
+                    ...destColumn,
+                    items: destItems
+                }
+            });
+        } else {
+            const column = columns[source.droppableId];
+            const copiedItems = [...column.items];
+            const [removed] = copiedItems.splice(source.index, 1);
+            copiedItems.splice(destination.index, 0, removed);
+            setColumns({
+                ...columns,
+                [source.droppableId]: {
+                    ...column,
+                    items: copiedItems
+                }
+            });
+        }
+    };
 
     return (
-        <div style={{marginTop: '70px'}}>
+        <Box className={classes.box} component="span" m={1}>
 
             <AppBar position="absolute">
                 <Toolbar>
@@ -84,38 +169,39 @@ export default function ToDoList() {
                 </Toolbar>
             </AppBar>
 
-            <Hidden only={inputHide ? 'xl' : 'xs'}>
-                <Button
-                    className={classes.button}
-                    onClick={() => changeHideInput()}
-                    variant="contained"
-                    color="primary"
-                    id='createItem'
-                >
+            <Dialog TransitionComponent={Transition}
+                    keepMounted
+                    open={inputEditHideBtn}
+                    onClose={handleClose}
+                    aria-labelledby="form-title"
+            >
+                <DialogTitle id="form-title">Creating item</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        placeholder="Write text"
+                        label="Email address"
+                        style={{width: '400px'}}
+                        onChange={textChanged}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        color='primary'
+                        onClick={() => addTodos(value)}
+                    >
+                        Create item
+                    </Button>
+                    <Button
+                        onClick={handleClose}
+                        color='primary'
+                    >
+                        Cancel
+                    </Button>
+                </DialogActions>
+            </Dialog>
 
-                    Create item 
-                </Button>
-            </Hidden>
 
-            <div style={{marginTop: '3px'}} hidden={!inputHide}>
-                <TextField
-                    placeholder="Write todo item text here"
-                    label="New Todos"
-                    onChange={textChanged}
-                    value={value}
-                    className={classes.input}
-                    id='createItemText'
-                />
-
-                <Button
-                    onClick={() => addTodos(value)}
-                    variant="contained"
-                    color="primary"
-                >
-                    Create
-                </Button>
-            </div>
-            <div>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
                 <InfiniteScroll
                     dataLength={todos.length}
                     next={() => setPage(page + 1)}
@@ -126,20 +212,100 @@ export default function ToDoList() {
                             <b>Yay! You have seen it all</b>
                         </p>
                     }
+
                 >
-                    <h1>{todos.map((x: Item, index: number) =>
-                        <TodoItem key={index}
-                                  item={x}
-                                  completeTodo={completeTodo}
-                                  deleteItem={deleteItem}
-                                  editItem={editItem}
-                        />)}
-                    </h1>
+                    <DragDropContext
+                        onDragEnd={result => onDragEnd(result, columns, setColumns)}
+                    >
+                        <h1 style={{
+                            display: "flex",
+                            justifyContent: "spaceBetween",
+                            flexDirection: 'row',
+                            height: "100%"
+                        }}>
+                            {Object.entries(columns).map(([columnId, column], index) => {
+                                return (
+                                    <div
+
+                                        key={columnId}
+                                    >
+                                        <h6 style={{display: "flex", justifyContent: 'center'}}>{column.name}</h6>
+                                        <div>
+                                            <Droppable droppableId={index.toString()} key={index}>
+                                                {(provided, snapshot) => {
+                                                    return (
+                                                        <div
+                                                            {...provided.droppableProps}
+                                                            ref={provided.innerRef}
+                                                            style={{
+                                                                background: snapshot.isDraggingOver
+                                                                    ? "#ecf8ec"
+                                                                    : "#d7ddf6",
+                                                                padding: 4,
+                                                                width: 325,
+                                                                minHeight: 300,
+                                                                borderColor: 'blue',
+                                                                border: 'solid',
+                                                                margin: '3px',
+                                                                borderWidth: '0.5px'
+
+                                                            }}
+                                                        >
+                                                            {index === 0 ? <Button
+                                                                style={{width: 310, marginLeft: '7px'}}
+                                                                onClick={() => addTodos(value)}
+                                                                variant="contained"
+                                                                color="primary"
+                                                            >
+                                                                Create
+                                                            </Button> : ''}
+
+                                                            {column.items.map((item, index) => {
+                                                                return (
+
+                                                                    <Draggable
+                                                                        key={item.id}
+                                                                        draggableId={item.id.toString()}
+                                                                        index={index}
+                                                                    >
+
+                                                                        {(provided) => {
+                                                                            return (
+                                                                                <div
+                                                                                    ref={provided.innerRef}
+                                                                                    {...provided.draggableProps}
+                                                                                    {...provided.dragHandleProps}
+                                                                                >
+
+                                                                                    <TodoItem key={index}
+                                                                                              item={item}
+                                                                                              completeTodo={completeTodo}
+                                                                                              deleteItem={deleteItem}
+                                                                                              editItem={editItem}
+                                                                                    />
+                                                                                </div>
+                                                                            );
+                                                                        }}
+                                                                    </Draggable>
+                                                                );
+                                                            })}
+                                                            {provided.placeholder}
+                                                        </div>
+                                                    );
+                                                }}
+                                            </Droppable>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </h1>
+                    </DragDropContext>
 
                 </InfiniteScroll>
                 <SimpleBackdrop hidden={loading}/>
             </div>
 
-        </div>
+        </Box>
+
     )
 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ErrorAlertComponent from "../ErrorAlert/ErrorAlert";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Avatar from "@material-ui/core/Avatar";
@@ -6,14 +6,12 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { Slide} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import {makeStyles} from "@material-ui/core/styles";
 import * as yup from "yup";
-import {useDispatch, useSelector} from "react-redux";
-import {IRootState} from "../../redux/configureStore";
+import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
-import {CHANGE_USER_PASSWORD, CHANGE_USER_PASSWORD_SUCCEED} from "../../redux/constants";
+import {CHANGE_USER_PASSWORD} from "../../redux/constants";
 import {ref} from "yup";
 import {UpdatePassword} from "../Interfaces";
 

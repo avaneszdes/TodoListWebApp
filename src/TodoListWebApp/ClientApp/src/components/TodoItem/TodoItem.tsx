@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Item} from '../Interfaces';
 import Button from "@material-ui/core/Button";
 import {
-    Checkbox, createMuiTheme,
+    Checkbox,
     createStyles,
     Dialog,
     DialogActions,
@@ -17,6 +17,7 @@ import {makeStyles, Theme} from "@material-ui/core/styles";
 import {Favorite, FavoriteBorder} from "@material-ui/icons";
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import EditIcon from '@material-ui/icons/Edit';
+import { createTheme } from '@material-ui/core/styles'
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -32,7 +33,7 @@ interface Props {
     editItem: (item: Item) => void,
 }
 
-const theme = createMuiTheme({
+const theme = createTheme({
     palette: {
         secondary: {
             main: '#4df608',
@@ -48,17 +49,17 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: '2px 4px',
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '980px',
-            height: '60px',
+            width: '290px',
+            height: '190px',
             margin: '3px',
         },
         mainPaper: {
             padding: '2px 4px',
             alignItems: 'left',
-            width: '990px',
-            height: '85px',
+            width: '300px',
+            height: '250px',
             marginTop: '6px',
+            marginLeft: '6px',
             backgroundColor: '#dbeeef',
             borderStyle: 'solid',
             borderColor: '#b9c6ba',
@@ -69,13 +70,15 @@ const useStyles = makeStyles((theme: Theme) =>
         },
 
         divider: {
-            height: 28,
-            width: '4px',
+            height: 25,
+            width: '2px',
             margin: 4,
         },
         button: {
-            width: '55px',
+            width: '30px',
+            height: '25px',
             marginLeft: '3px',
+            marginTop: '3px',
 
         },
 
@@ -114,6 +117,9 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
         editItem({...item, text: value});
         setInputEditHideBtn(!inputEditHideBtn);
     }
+    
+    
+    
     return (
         <>
             <Dialog TransitionComponent={Transition}
@@ -149,10 +155,11 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
                 </DialogActions>
             </Dialog>
 
-            <Paper component="form" className={classes.mainPaper} id='paper'>
-                <Paper component="form" className={classes.childPaper}>
+            <Paper component="form" className={classes.mainPaper}>
+               
+                <div style={{display: 'flex'}}>
                     <ThemeProvider theme={theme}>
-                        <FormControlLabel style={{marginLeft: '10px'}}
+                        <FormControlLabel style={{marginLeft: '10px', marginTop: '-5px'}}
                                           onClick={() => completeTodoItem(item)}
                                           control={<Checkbox icon={<FavoriteBorder color={'primary'}/>}
                                                              checkedIcon={<Favorite color={'secondary'}/>}
@@ -163,29 +170,28 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
                                           label=""
                         />
                     </ThemeProvider>
+                    <Divider className={classes.divider} orientation="vertical"/>
+                    <Button
+                        className={classes.button}
+                        onClick={() => removeItem(item)}
+                        variant="contained"
+                        color="primary"
+                    >
+                        <DeleteForeverOutlinedIcon/>
+                    </Button>
+
+                    <Button
+                        id={item.id.toString()}
+                        className={classes.button}
+                        onClick={() => setInputEditHideBtn(!inputEditHideBtn)}
+                        variant="contained"
+                        color="primary"
+                    >
+                        <EditIcon/>
+                    </Button>
+                </div>
+                <Paper  className={classes.childPaper}>
                     <Typography variant="h5">{item.isComplete ? <s>{item.text}</s> : item.text}</Typography>
-                    <div style={{display: 'flex'}}>
-                        <Divider className={classes.divider} orientation="vertical"/>
-                        <Button
-                            className={classes.button}
-                            onClick={() => removeItem(item)}
-                            variant="contained"
-                            color="primary"
-                        >
-                            <DeleteForeverOutlinedIcon/>
-                        </Button>
-
-                        <Button
-                            id={item.id.toString()}
-                            className={classes.button}
-                            onClick={() => setInputEditHideBtn(!inputEditHideBtn)}
-                            variant="contained"
-                            color="primary"
-                        >
-                            <EditIcon/>
-                        </Button>
-                    </div>
-
                 </Paper>
                 <Typography className={classes.date}>{item.createdDate}</Typography>
             </Paper>

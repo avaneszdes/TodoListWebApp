@@ -74,7 +74,6 @@ const vScheme = yup.object().shape({
 
 export default function SignUp() {
 
-    const [open, setOpen] = React.useState(true)
     const dispatch = useDispatch()
     const classes = useStyles()
     const formik = useFormik({

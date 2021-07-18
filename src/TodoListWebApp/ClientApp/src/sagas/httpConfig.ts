@@ -1,4 +1,4 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
+import axios, {AxiosRequestConfig} from "axios";
 import {call, select} from "redux-saga/effects";
 import {IRootState} from "../redux/configureStore";
 

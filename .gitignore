@@ -1,7 +1,47 @@
-bin/
+gits stabin/
 obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
 /.vs/TodoListWebApp/config/applicationhost.config
 /.idea/.idea.TodoListWebApp/.idea/inspectionProfiles/Project_Default.xml
+.eslintcache
+/.vs
+
+# User specific
+**/.idea/**/workspace.xml
+**/.idea/**/tasks.xml
+**/.idea/shelf/*
+**/.idea/dictionaries
+**/.idea/httpRequests/
+
+# Sensitive or high-churn files
+**/.idea/**/dataSources/
+**/.idea/**/dataSources.ids
+**/.idea/**/dataSources.xml
+**/.idea/**/dataSources.local.xml
+**/.idea/**/sqlDataSources.xml
+**/.idea/**/dynamic.xml
+
+# Rider
+# Rider auto-generates .iml files, and contentModel.xml
+**/.idea/**/*.iml
+**/.idea/**/contentModel.xml
+**/.idea/**/modules.xml
+
+*.suo
+*.user
+.vs/
+[Bb]in/
+[Oo]bj/
+_UpgradeReport_Files/
+[Pp]ackages/
+
+Thumbs.db
+Desktop.ini
+.DS_Store
+src/TodoListWebApp.sln.DotSettings.user
+src/TodoListWebApp/ClientApp/node_modules/.cache/terser-webpack-plugin/content-v2/sha512
+src/.idea
+src/.vs
+node_modules
