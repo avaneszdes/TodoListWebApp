@@ -8,7 +8,9 @@ namespace Services.TodoListServiceCommands.Commands.AddItem
         public int Id { get; set; }
         public string Text { get; set; }
         public bool IsComplete { get; set; }
-        public long UserId { get; set; }
         public string CreatedDate { get; set; }
+        public long ColumnId { get; set; }
+        
+        
     }
 }

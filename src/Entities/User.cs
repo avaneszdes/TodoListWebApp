@@ -11,7 +11,7 @@ namespace Entities
         public string Password { get; set; }
         public string Photo { get; set; }
         
-        public List<TodoItem> TodoItems = new();
+        public List<TodoColumn> TodoColumns = new();
         public long? RoleId { get; set; }
         public Role Role { get; set; }
     }

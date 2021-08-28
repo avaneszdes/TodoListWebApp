@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using Services.AdminServiceCommands.Commands.AddUser;
-using Services.AdminServiceCommands.GetAllUsers;
+using Services.AdminServiceCommands.Queries.GetAllUsers;
 
 namespace TodoListWebApp.Controllers
 {

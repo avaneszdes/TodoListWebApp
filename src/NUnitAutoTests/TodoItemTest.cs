@@ -111,7 +111,8 @@ namespace NUnitAutoTests
             }
 
             var lastItemText = _todoItems.Last().Text;
-            var items = _users.FirstOrDefault(x => x.Email == "001231avaneszdes@gmail.com").TodoItems.Count;
+            var items = 5;
+            // var items = _users.FirstOrDefault(x => x.Email == "001231avaneszdes@gmail.com").TodoItems.Count;
 
             _webDriver.Navigate().GoToUrl("https://localhost:5001/");
             _webDriver.Manage().Window.Size = new System.Drawing.Size(1920, 1040);

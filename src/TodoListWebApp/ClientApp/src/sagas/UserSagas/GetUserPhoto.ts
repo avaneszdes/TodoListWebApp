@@ -5,6 +5,7 @@ import {
 } from "../../redux/constants";
 import httpRequest from "../httpConfig";
 import {IRootState} from "../../redux/configureStore";
+import host from '../../Common/Constants'
 
 
 function* getUserPhotoWorker() {
@@ -13,7 +14,7 @@ function* getUserPhotoWorker() {
 
     const httpConfig: AxiosRequestConfig = {
         method: 'GET',
-        url: `api/user/${id}`,
+        url: `${host.host}api/user/${id}`,
     }
 
     const response: AxiosResponse = yield call(() => httpRequest(httpConfig));

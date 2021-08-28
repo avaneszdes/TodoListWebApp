@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Repositories;
 using Services.DtoModels.UsersDto;
 
-namespace Services.AdminServiceCommands.GetAllUsers
+namespace Services.AdminServiceCommands.Queries.GetAllUsers
 {
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserDtoModel>>
     {

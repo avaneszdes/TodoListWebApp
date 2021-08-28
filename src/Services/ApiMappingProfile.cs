@@ -11,8 +11,8 @@ namespace Services
         public ApiMappingProfile()
         {
             CreateMap<TodoItem, AddTodoItemCommand>()
-                .ForMember(dest => dest.UserId,
-                    opt => opt.MapFrom(x => x.UserId))
+                .ForMember(dest => dest.CreatedDate,
+                    opt => opt.MapFrom(x => x.CreatedDate))
                 .ForMember(dest => dest.Text,
                     opt => opt.MapFrom(x => x.Text))
                 .ForMember(dest => dest.IsComplete
@@ -32,7 +32,7 @@ namespace Services
                 .ForMember(dest => dest.Role,
                     opt => opt.MapFrom(x => x.Role.Name))
                 .ForMember(dest => dest.TodosCount,
-                    opt => opt.MapFrom(x => x.TodoItems.Count))
+                    opt => opt.MapFrom(x => x.TodoColumns.Count))
                 .ForMember(dest => dest.Photo,
                     opt => opt.MapFrom(x => x.Photo));
 

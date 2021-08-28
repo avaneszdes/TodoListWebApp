@@ -3,11 +3,12 @@ import {AxiosRequestConfig, AxiosResponse} from 'axios';
 import httpRequest from "../httpConfig";
 import {DELETE_USER, DELETE_USER_SUCCEED} from "../../redux/constants";
 import {DeleteUserAction} from "../../redux/action";
+import host from '../../Common/Constants'
 
 function* deleteUserWorker(action: DeleteUserAction) {
     const httpConfig: AxiosRequestConfig = {
         method: 'DELETE',
-        url: `/api/user/${action.payload}`,
+        url: `${host.host}api/user/${action.payload}`,
     }
 
     const response: AxiosResponse = yield call(() => httpRequest(httpConfig));

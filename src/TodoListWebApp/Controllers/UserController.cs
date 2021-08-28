@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using Services.AdminServiceCommands.Commands.RemoveUserById;
-using Services.AdminServiceCommands.GetAllUsers;
+using Services.AdminServiceCommands.Queries.GetAllUsers;
 using Services.AdminServiceCommands.UpdateUser;
 using Services.DtoModels.EmailDto;
 using Services.DtoModels.UsersDto;

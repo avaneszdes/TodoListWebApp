@@ -3,12 +3,13 @@ import {AxiosRequestConfig, AxiosResponse} from "axios";
 import {EDIT_USER} from '../../redux/constants';
 import httpRequest from "../httpConfig";
 import {EditUserSucceedAction} from "../../redux/action";
+import host from '../../Common/Constants'
 
 function* editUserWorker(action: EditUserSucceedAction){
    
     const httpConfig: AxiosRequestConfig = {
         method: 'PUT',
-        url: '/api/user',
+        url: `${host.host}api/user`,
         data: {
             id: action.payload.id,
             firstName: action.payload.firstName,

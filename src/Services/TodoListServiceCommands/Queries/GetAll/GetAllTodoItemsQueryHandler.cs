@@ -27,7 +27,7 @@ namespace Services.TodoListServiceCommands.Queries.GetAll
             CancellationToken cancellationToken)
         {
             return await _repository.GetAll()
-                .Where(x => x.UserId == _identity.GetUserId())
+                // .Where(x => x.UserId == _identity.GetUserId())
                 .OrderBy(x => x.Id)
                 .GetPage(request.Page, 10)
                 .ProjectTo<TodoItemDtoModel>(_mapper.ConfigurationProvider)

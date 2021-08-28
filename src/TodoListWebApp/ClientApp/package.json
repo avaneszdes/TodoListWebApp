@@ -23,6 +23,7 @@
     "formik": "^2.2.9",
     "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^17.0.2",
     "react-infinite-scroll-component": "^6.1.0",
     "react-redux": "^7.2.4",
@@ -55,20 +56,10 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [">0.3%", "not ie 11", "not dead", "not op_mini all"],
   "devDependencies": {
     "@types/calidation": "^1.16.3",
+    "@types/react-beautiful-dnd": "^13.1.1",
     "@types/react-redux": "^7.1.18",
     "eslint-plugin-react-hooks": "^4.2.0",
     "gh-pages": "^3.2.3",

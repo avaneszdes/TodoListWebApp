@@ -3,15 +3,18 @@ import {call, put, takeEvery} from 'redux-saga/effects'
 import {AxiosRequestConfig, AxiosResponse} from 'axios';
 import {ADD_TODO} from "../../redux/constants";
 import httpRequest from "../httpConfig";
+import host from '../../Common/Constants'
+
 
 function* addTodoWorker(action: AddTodoAction) {
 
     const httpConfig: AxiosRequestConfig = {
         method: 'POST',
-        url: '/api/todoList',
+        url: `${host.host}api/todoList`,
         data: {
             text: action.payload,
             finished: false,
+            columnId: 1
         }
     }
 

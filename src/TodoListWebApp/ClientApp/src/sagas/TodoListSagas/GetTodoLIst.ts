@@ -3,6 +3,7 @@ import {GET_TODO_LIST, GET_TODO_LIST_SUCCEED, LOADING} from "../../redux/constan
 import {AxiosRequestConfig, AxiosResponse} from "axios";
 import httpRequest from "../httpConfig";
 import {Item} from "../../components/Interfaces";
+import host from '../../Common/Constants'
 
 let page = 0
 
@@ -10,7 +11,7 @@ export function* getTodoListWorker() {
     yield put({type: LOADING, payload: true})
     const httpConfig: AxiosRequestConfig = {
         method: 'GET',
-        url: `/api/todoList/${page}`,
+        url: `${host.host}api/todoList/${page}`,
     }
 
     page += 10

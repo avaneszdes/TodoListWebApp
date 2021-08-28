@@ -5,14 +5,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text.Json;
-using System.Threading.Tasks;
-using AutoMapper;
 using Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Services;
-using Services.AdminServiceCommands.GetAllUsers;
+using Services.AdminServiceCommands.Queries.GetAllUsers;
 
 namespace TodoListWebApp.Controllers
 {

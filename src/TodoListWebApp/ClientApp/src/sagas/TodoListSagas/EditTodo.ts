@@ -3,11 +3,12 @@ import {call, put, takeEvery} from "redux-saga/effects";
 import {AxiosRequestConfig, AxiosResponse} from "axios";
 import {EDIT_TODO} from "../../redux/constants";
 import httpRequest from "../httpConfig";
+import host from '../../Common/Constants'
 
 function* editTodoWorker(action: EditTodoSucceedAction){
     const httpConfig: AxiosRequestConfig = {
         method: 'PUT',
-        url: '/api/todoList',
+        url: `${host.host}api/todoList`,
         data: {
             id: action.payload.id,
             text: action.payload.text,

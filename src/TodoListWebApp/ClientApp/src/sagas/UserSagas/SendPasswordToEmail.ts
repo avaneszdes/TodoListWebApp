@@ -3,12 +3,13 @@ import {AxiosError, AxiosRequestConfig, AxiosResponse} from "axios";
 import {call, put, takeEvery} from "redux-saga/effects";
 import httpRequest from "../httpConfig";
 import {GET_ERROR_MESSAGE_SUCCEED, SEND_USER_PASSWORD} from "../../redux/constants";
+import host from '../../Common/Constants'
 
 function* sendEmailWorker(action: SendUserPassword) {
     
     const httpConfig: AxiosRequestConfig = {
         method: 'POST',
-        url: 'Api/User/Api/User/SendEmail',
+        url: `${host.host}Api/User/Api/User/SendEmail`,
         data: {
             EmailAddress: action.payload,
         },

@@ -4,12 +4,12 @@ import {call, put, takeEvery} from "redux-saga/effects";
 import {GET_ERROR_MESSAGE_SUCCEED, REGISTRATION, REGISTRATION_SUCCEED} from "../redux/constants";
 import httpRequest from "./httpConfig";
 import history from "../components/history";
-
+import host from '../Common/Constants'
 
 function* registrationWorker(action: RegistrationAction) {
     const httpConfig: AxiosRequestConfig = {
         method: 'POST',
-        url: 'api/registration/',
+        url: `${host.host}api/registration/`,
         data: action.payload
     }
     try {

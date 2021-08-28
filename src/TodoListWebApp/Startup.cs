@@ -1,10 +1,11 @@
+using System;
 using System.Reflection;
 using ApplicationContext;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+// using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,15 +50,22 @@ namespace TodoListWebApp
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
             services.AddHttpContextAccessor();
-            services.AddMediatR(Assembly.GetExecutingAssembly());
-            services.AddMediatR(Assembly.GetExecutingAssembly(), typeof(IIdentityService).Assembly); 
             services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITodoListRepository, TodoListRepository>();
             services.AddTransient<IIdentityService, IdentityService>();
+            services.AddTransient<ITodoColumnRepository, TodoColumnRepository>();
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
+            {
+                // options.LogTo(Console.WriteLine);
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+              
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(Assembly.GetExecutingAssembly(), typeof(IIdentityService).Assembly); 
+            // services.AddMediatR(typeof(IIdentityService).GetTypeInfo().Assembly);
+            
+            // services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
             services.AddCors(options =>
             {
                 options.AddPolicy("NotesPolicy",
@@ -84,7 +92,7 @@ namespace TodoListWebApp
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            // app.UseSpaStaticFiles();
 
             app.UseRouting();
             app.UseCors("NotesPolicy");
@@ -99,15 +107,15 @@ namespace TodoListWebApp
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
-            });
+            // app.UseSpa(spa =>
+            // {
+            //     spa.Options.SourcePath = "ClientApp";
+            //
+            //     if (env.IsDevelopment())
+            //     {
+            //         spa.UseReactDevelopmentServer(npmScript: "start");
+            //     }
+            // });
         }
     }
 }

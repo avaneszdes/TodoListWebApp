@@ -8,12 +8,9 @@ namespace ApplicationContext
     {
         public void Configure(EntityTypeBuilder<TodoItem> builder)
         {
-            builder.Navigation(x => x.User);
-            builder.HasOne(x => x.User)
-                .WithMany(x => x.TodoItems)
-                .OnDelete(DeleteBehavior.Cascade);
-
             builder.Property(x => x.Text).IsRequired().HasMaxLength(200);
+            builder.Property(x => x.CreatedDate);
+            
         }
     }
 }

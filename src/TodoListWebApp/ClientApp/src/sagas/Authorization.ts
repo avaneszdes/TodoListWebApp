@@ -10,14 +10,14 @@ import httpRequest from "./httpConfig";
 import jwt_decode from "jwt-decode";
 import {CustomJwtPayload} from "../redux/auth-reducer";
 import history from '../components/history'
-
+import host from '../Common/Constants'
 
 function* authorizationWorker(action: AuthorizationAction) {
 
     yield put({type: LOADING, payload: true})
     const httpConfig: AxiosRequestConfig = {
         method: 'POST',
-        url: 'authorization',
+        url: `${host.host}authorization`,
         data: action.payload
     }
 

@@ -4,12 +4,13 @@ import {call, put, takeEvery} from "redux-saga/effects";
 import httpRequest from "../httpConfig";
 import {CHANGE_USER_PASSWORD, GET_ERROR_MESSAGE_SUCCEED} from "../../redux/constants";
 import history from "../../components/history";
+import host from '../../Common/Constants'
 
 function* changeEmailWorker(action: ChangeUserPasswordSucceed) {
     
     const httpConfig: AxiosRequestConfig = {
         method: 'POST',
-        url: '/api/user',
+        url: `${host.host}api/user`,
         data: action.payload,
     }
     
