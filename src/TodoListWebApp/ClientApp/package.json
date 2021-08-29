@@ -1,5 +1,5 @@
 {
-  "homepage": "http://avaneszdes.github.io/todo-list/",
+  "homepage": "http://avaneszdes.github.io/",
   "name": "todo-list",
   "version": "0.1.0",
   "private": true,
@@ -21,7 +21,9 @@
     "axios": "^0.21.1",
     "calidation": "^1.17.0",
     "formik": "^2.2.9",
+    "i": "^0.3.6",
     "jwt-decode": "^3.1.2",
+    "npm": "^7.21.1",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^17.0.2",
@@ -38,6 +40,7 @@
     "typescript": "^4.3.5",
     "uuid": "^8.3.2",
     "web-vitals": "^0.2.4",
+    "webpack-dev-server": "^4.0.0",
     "why-did-you-update": "^1.0.8",
     "yup": "^0.32.9",
     "yup-password": "^0.2.1"
@@ -56,7 +59,12 @@
       "react-app/jest"
     ]
   },
-  "browserslist": [">0.3%", "not ie 11", "not dead", "not op_mini all"],
+  "browserslist": [
+    ">0.3%",
+    "not ie 11",
+    "not dead",
+    "not op_mini all"
+  ],
   "devDependencies": {
     "@types/calidation": "^1.16.3",
     "@types/react-beautiful-dnd": "^13.1.1",

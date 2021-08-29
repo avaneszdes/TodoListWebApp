@@ -13,6 +13,10 @@ import {watchDeleteUser} from "./UserSagas/DeleteUser";
 import {watchUpdateUserPhoto} from "./UserSagas/UpdateUserPhoto";
 import {watchGetUserPhoto} from "./UserSagas/GetUserPhoto";
 import {watchChangeEmail} from "./UserSagas/UpdatePassword";
+import {watchCreateColumn} from "./TodoColumnSagas/CreateColumn";
+import {watchGetColumn} from "./TodoColumnSagas/GetColumn";
+import {watchAllColumns} from "./TodoColumnSagas/GetAllColumns";
+import {watchDeleteColumn} from "./TodoColumnSagas/DeleteColumnById";
 
 export function* rootSaga () {
     yield all([
@@ -30,5 +34,9 @@ export function* rootSaga () {
         watchGetUserPhoto(),
         watchSendEmail(),
         watchChangeEmail(),
+        watchCreateColumn(),
+        watchGetColumn(),
+        watchAllColumns(),
+        watchDeleteColumn(),
     ]);
 }

@@ -1,5 +1,6 @@
 using AutoMapper;
 using Entities;
+using Services.DtoModels.TodoColumnDto;
 using Services.DtoModels.TodoItemDto;
 using Services.DtoModels.UsersDto;
 using Services.TodoListServiceCommands.Commands.AddItem;
@@ -59,6 +60,15 @@ namespace Services
                 .ForMember(dest => dest.Id
                     , opt => opt.MapFrom(x => x.Id))
                 .ForMember(dist => dist.CreatedDate, opt => opt.MapFrom(x => x.CreatedDate));
+
+            CreateMap<TodoColumn, TodoColumnDto>()
+                .ForMember(dest => dest.Id,
+                    opt => opt.MapFrom(x => x.Id))
+                .ForMember(dest => dest.ColumnName,
+                    opt => opt.MapFrom(x => x.ColumnName))
+                .ForMember(dest => dest.TodoItems,
+                    opt => opt.MapFrom(x => x.TodoItems));
+
         }
     }
 }

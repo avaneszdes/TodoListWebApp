@@ -13,16 +13,22 @@ export interface Item{
     isComplete: boolean
     createdDate: string
 }
+export interface TodoColumn{
+    columnName: string
+    id: number
+    todoItems: Item[]
+}
+
 export interface ITodosState {
     items: Item[]
     loading: boolean
+    todoColumns: TodoColumn[]
 }
 
 export enum Role {
     Admin = 1,
     User = 2
 }
-
 
 
 export interface Auth{

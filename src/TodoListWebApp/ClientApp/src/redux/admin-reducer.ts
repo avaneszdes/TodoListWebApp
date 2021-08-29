@@ -9,7 +9,7 @@ import {TodosActionTypes} from "./action";
 
 const initialState: User[] = []
 
-export default (state = initialState, action: TodosActionTypes) => {
+export default function admin (state = initialState, action: TodosActionTypes) {
 
     switch (action.type) {
 

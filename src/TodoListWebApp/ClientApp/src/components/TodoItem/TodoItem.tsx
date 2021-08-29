@@ -15,9 +15,9 @@ import {
 import {TransitionProps} from '@material-ui/core/transitions';
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import {Favorite, FavoriteBorder} from "@material-ui/icons";
-import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import EditIcon from '@material-ui/icons/Edit';
-import { createTheme } from '@material-ui/core/styles'
+import {createTheme} from '@material-ui/core/styles'
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -117,9 +117,8 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
         editItem({...item, text: value});
         setInputEditHideBtn(!inputEditHideBtn);
     }
-    
-    
-    
+
+
     return (
         <>
             <Dialog TransitionComponent={Transition}
@@ -131,7 +130,6 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
                 <DialogTitle id="form-title">Change todo item text</DialogTitle>
                 <DialogContent>
                     <TextField
-                        // id='qwe'
                         placeholder="Write new text here"
                         label="Edit Todo"
                         style={{width: '400px'}}
@@ -156,7 +154,6 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
             </Dialog>
 
             <Paper component="form" className={classes.mainPaper}>
-               
                 <div style={{display: 'flex'}}>
                     <ThemeProvider theme={theme}>
                         <FormControlLabel style={{marginLeft: '10px', marginTop: '-5px'}}
@@ -174,23 +171,19 @@ export default function TodoItem({item, completeTodo, deleteItem, editItem}: Pro
                     <Button
                         className={classes.button}
                         onClick={() => removeItem(item)}
-                        variant="contained"
-                        color="primary"
                     >
-                        <DeleteForeverOutlinedIcon/>
+                        <DeleteOutlineIcon/>
                     </Button>
 
                     <Button
                         id={item.id.toString()}
                         className={classes.button}
                         onClick={() => setInputEditHideBtn(!inputEditHideBtn)}
-                        variant="contained"
-                        color="primary"
                     >
                         <EditIcon/>
                     </Button>
                 </div>
-                <Paper  className={classes.childPaper}>
+                <Paper className={classes.childPaper}>
                     <Typography variant="h5">{item.isComplete ? <s>{item.text}</s> : item.text}</Typography>
                 </Paper>
                 <Typography className={classes.date}>{item.createdDate}</Typography>

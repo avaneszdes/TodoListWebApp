@@ -21,7 +21,7 @@ namespace Services.TodoListServiceCommands.Commands.UpdateTodoItem
         {
             await _repository.UpdateItemAsync(new TodoItem
             {
-                Id = request.Id, Text = request.Text, IsComplete = request.IsComplete, UserId = _identity.GetUserId()
+                Id = request.Id, Text = request.Text, IsComplete = request.IsComplete
             });
         }
     }

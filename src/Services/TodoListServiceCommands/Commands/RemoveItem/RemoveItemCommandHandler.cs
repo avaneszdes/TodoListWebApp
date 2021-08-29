@@ -14,7 +14,7 @@ namespace Services.TodoListServiceCommands.Commands.RemoveItem
             _repository = repository;
         }
 
-        protected override async Task  Handle(RemoveItemCommand request, CancellationToken cancellationToken)
+        protected override async Task Handle(RemoveItemCommand request, CancellationToken cancellationToken)
         {
            await _repository.RemoveItemAsync(request.Id);
         }

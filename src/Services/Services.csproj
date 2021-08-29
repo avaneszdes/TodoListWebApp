@@ -21,8 +21,6 @@
 
     <ItemGroup>
       <Folder Include="AdminServiceCommands\Queries" />
-      <Folder Include="DtoModels" />
-      <Folder Include="TodoListServiceCommands\Commands" />
       <Folder Include="TodoListServiceCommands\Queries" />
     </ItemGroup>
 

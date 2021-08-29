@@ -8,7 +8,7 @@ namespace TodoListWebApp.Controllers
         public const string ISSUER = "MyAuthServer";
         public const string AUDIENCE = "MyAuthClient";
         const string KEY = "Avanesov-Vladi+!";
-        public const int LIFETIME = 5;
+        public const int LIFETIME = 200;
 
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {

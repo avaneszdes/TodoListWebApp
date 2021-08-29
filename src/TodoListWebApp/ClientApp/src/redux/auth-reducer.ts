@@ -42,7 +42,7 @@ const getAuthState = (): Auth => {
 
 const initialState: Auth = getAuthState();
 
-const auth = (state = initialState, action: TodosActionTypes) => {
+export default function auth (state = initialState, action: TodosActionTypes){
 
     switch (action.type) {
         case REGISTRATION:
@@ -77,4 +77,3 @@ const auth = (state = initialState, action: TodosActionTypes) => {
     }
 }
 
-export default auth

@@ -14,8 +14,11 @@ function* registrationWorker(action: RegistrationAction) {
     }
     try {
         const response: AxiosResponse = yield call(() => httpRequest(httpConfig));
-        yield put({type: REGISTRATION_SUCCEED, payload: action.payload})
-        history.push("/");
+        if (response.status === 200) {
+            yield put({type: REGISTRATION_SUCCEED, payload: action.payload})
+            history.push("/");
+        }
+
 
     } catch (e) {
         const error = e as AxiosError

@@ -13,6 +13,7 @@ import changePhotoImg from '../../img/open-folder.png'
 import './LeftPanel.css'
 import {IconButton} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
+import LeftPanelDialog from "../DialogLeftPanel/DialogLeftPanel";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
         height: '20px',
         backgroundImage: `url(${logoutImg})`,
         backgroundRepeat: 'no-repeat',
+        backgroundPosition: '0px 50%'
     },
     changePhoto: {
         margin: '8%',
@@ -50,10 +52,13 @@ const useStyles = makeStyles((theme) => ({
         height: '20px',
         backgroundImage: `url(${changePhotoImg})`,
         backgroundRepeat: 'no-repeat',
+        backgroundPosition: '0px 50%'
     },
     menuButton: {
         marginRight: theme.spacing(2),
+        marginBottom: theme.spacing(1.5),
     },
+
 
 }));
 
@@ -116,7 +121,7 @@ export default function LeftPanel() {
                 <h3>{profile.name}</h3>
             </div>
             <div className={classes.logoutContainer}>
-                <div className={classes.changePhoto} style={{backgroundPosition: '0px 50%'}}/>
+                <div className={classes.changePhoto}/>
                 <div className='change-photo_wrapper'>
                     <label className="custom-file-upload">
                         Change photo <input
@@ -131,11 +136,10 @@ export default function LeftPanel() {
             </div>
             <Divider/>
             <div hidden={!Boolean(profile.token)} className={classes.logoutContainer}>
-                <div className={classes.logoutImg} style={{backgroundPosition: '0px 50%'}}/>
+                <div className={classes.logoutImg} />
                 <Button onClick={logOut} style={{width: '180px'}} variant="outlined" color="primary">
                     Log Out
                 </Button>
-
             </div>
         </div>
     );
@@ -147,10 +151,11 @@ export default function LeftPanel() {
                             aria-label="menu">
                     <MenuIcon/>
                 </IconButton>
-
                 <Drawer anchor={'left'} open={state} onClose={toggleDrawer(!state)}>
                     {list()}
+                    <LeftPanelDialog/>
                 </Drawer>
+               
             </React.Fragment>
         </div>
     );

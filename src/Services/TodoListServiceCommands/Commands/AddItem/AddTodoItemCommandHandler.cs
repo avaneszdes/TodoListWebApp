@@ -32,9 +32,9 @@ namespace Services.TodoListServiceCommands.Commands.AddItem
             };
             
             
-            if (await _columnRepository.IsColumnExist(request.ColumnId))
+            if (await _columnRepository.IsColumnExistAsync(request.ColumnId))
             {
-              await _columnRepository.CreateColumn("New", _identity.GetUserId());
+              await _columnRepository.CreateColumnAsync("New", _identity.GetUserId());
             }
 
             await _repository.AddItemAsync(todoItem);

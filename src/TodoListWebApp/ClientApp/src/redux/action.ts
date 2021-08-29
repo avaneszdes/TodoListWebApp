@@ -1,9 +1,10 @@
-import {Auth, Item, SignForm, UpdatePassword, User} from "../Components/Interfaces";
+import {Auth, Item, SignForm, TodoColumn, UpdatePassword, User} from "../Components/Interfaces";
 import {
     ADD_TODO,
     ADD_TODO_SUCCEED,
     AUTHORIZATION,
-    AUTHORIZATION_SUCCEED, CLEAR_ERROR_MESSAGE,
+    AUTHORIZATION_SUCCEED,
+    CLEAR_ERROR_MESSAGE,
     COMPLETE_TODO,
     COMPLETE_TODO_SUCCEED,
     DELETE_TODO,
@@ -23,7 +24,17 @@ import {
     GET_USERS_SUCCEED,
     LOADING,
     LOG_OUT,
-    REGISTRATION, SEND_USER_PASSWORD, CHANGE_USER_PASSWORD_SUCCEED
+    REGISTRATION,
+    SEND_USER_PASSWORD,
+    CHANGE_USER_PASSWORD_SUCCEED,
+    CREATE_TODO_COLUMN,
+    CREATE_TODO_COLUMN_SUCCEED,
+    GET_TODO_COLUMN,
+    GET_TODO_COLUMN_SUCCEED,
+    GET_ALL_COLUMNS,
+    GET_ALL_COLUMNS_SUCCEED,
+    DELETE_COLUMN_BY_ID,
+    DELETE_COLUMN_BY_ID_SUCCEED
 } from "./constants";
 
 
@@ -35,6 +46,26 @@ export interface AddTodoAction {
 export interface AddTodoSucceedAction {
     type: typeof ADD_TODO_SUCCEED,
     payload: { text: string, id: number, finished: boolean, createdDate: string }
+}
+
+export interface AddColumnAction {
+    type: typeof CREATE_TODO_COLUMN,
+    payload: string
+}
+
+export interface AddColumnActionSucceed {
+    type: typeof CREATE_TODO_COLUMN_SUCCEED,
+    payload: { id: number, name: string, todoItems: [] }
+}
+
+export interface GetColumnAction {
+    type: typeof GET_TODO_COLUMN,
+    payload: {}
+}
+
+export interface GetColumnActionSucceed {
+    type: typeof GET_TODO_COLUMN_SUCCEED,
+    payload: { id: number, name: string, todoItems: [] }
 }
 
 export interface DeleteTodoAction {
@@ -180,6 +211,26 @@ export interface ChangeUserPasswordSucceed {
     payload: UpdatePassword
 }
 
+export interface GetAllColumnsAction {
+    type: typeof GET_ALL_COLUMNS,
+    payload: []
+}
+
+export interface GetAllColumnsActionSucceed {
+    type: typeof GET_ALL_COLUMNS_SUCCEED,
+    payload: TodoColumn[]
+}
+
+export interface DeleteColumnById {
+    type: typeof DELETE_COLUMN_BY_ID,
+    payload: number
+}
+
+export interface DeleteColumnByIdSucceed {
+    type: typeof DELETE_COLUMN_BY_ID_SUCCEED,
+    payload: number
+}
+
 export type TodosActionTypes =
     AddTodoAction
     | DeleteTodoAction
@@ -207,4 +258,12 @@ export type TodosActionTypes =
     | GetErrorMessage
     | ClearErrorMessage
     | ChangeUserPasswordSucceed
+    | AddColumnAction
+    | AddColumnActionSucceed
+    | GetColumnActionSucceed
+    | GetAllColumnsAction
+    | GetAllColumnsActionSucceed
+    | DeleteColumnById
+    | DeleteColumnByIdSucceed
+
 
