@@ -22,7 +22,7 @@ namespace Services.UserServiceCommands.Commands.SendLinkToEmail
             var user = _repository.GetUsersAsync().
                 FirstOrDefaultAsync(x => x.Email == request.EmailAddress, cancellationToken: cancellationToken).Result;
 
-            var guid = _repository.AddUserEmailDataConfirmation(request.EmailAddress);
+            var guid = await _repository.AddUserEmailDataConfirmation(request.EmailAddress);
             var message = new MimeMessage();
             try
             {
@@ -32,7 +32,7 @@ namespace Services.UserServiceCommands.Commands.SendLinkToEmail
                 message.Subject = "Message from Todo List";
                 message.Body = new BodyBuilder()
                     {
-                        HtmlBody = $"<a href=\"https://localhost:5001/ConfirmationPassword/{guid.Result}\" style\"color: green;\">" +
+                        HtmlBody = $"<a href=\"https://localhost:5001/ConfirmationPassword/{guid}\" style\"color: green;\">" +
                                    $"<div style=\"color: green;\">Чтобы поменять пароль на другой, пройдите по этой ссылке</div></div></a>"
                                    
                     }.ToMessageBody();
