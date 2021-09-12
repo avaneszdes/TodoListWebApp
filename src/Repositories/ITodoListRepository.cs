@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Entities;
 
@@ -10,5 +11,6 @@ namespace Repositories
         Task AddItemAsync(TodoItem todoItem);
         Task RemoveItemAsync(long id);
         Task UpdateItemAsync(TodoItem todoItem);
+        Task UpdateItemsAsync(List<TodoItem> todoItems);
     }
 }

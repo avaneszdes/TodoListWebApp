@@ -9,6 +9,7 @@ namespace Services.TodoListServiceCommands.Commands.AddItem
         public string Text { get; set; }
         public bool IsComplete { get; set; }
         public string CreatedDate { get; set; }
+        public long UpdatedItemId { get; set; }
         public long ColumnId { get; set; }
         
         

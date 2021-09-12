@@ -35,6 +35,7 @@ namespace ApplicationContext
                 IsComplete = false,
                 CreatedDate = DateTime.UtcNow,
                 TodoColumnId = 1,
+                UpdatedItemId = 1
                
             };
             
@@ -42,7 +43,7 @@ namespace ApplicationContext
             {
                 Id = 1,
                 ColumnName = "New",
-                TodoItems = new List<TodoItem>(),
+                TodoItems = new List<TodoItem>(){todoItem},
             };
 
             var admin = new User

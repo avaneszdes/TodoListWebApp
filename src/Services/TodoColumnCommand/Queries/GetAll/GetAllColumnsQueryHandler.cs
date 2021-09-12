@@ -25,7 +25,6 @@ namespace Services.TodoColumnCommand.Queries.GetAll
             _mapper = mapper;
         }
 
-
         public async Task<List<TodoColumnDto>> Handle(GetAllColumnsQuery request, CancellationToken cancellationToken)
         {
            return await _columnRepository.GetAllColumns(_identityService.GetUserId())

@@ -7,6 +7,7 @@ using Services.TodoColumnCommand.DeleteColumnById;
 using Services.TodoColumnCommand.Queries.GetAll;
 using Services.TodoColumnCommand.Queries.GetColumnById;
 using Services.TodoColumnCommand.Queries.GetColumnCount;
+using Services.TodoListServiceCommands.Commands.MoveItem;
 
 namespace TodoListWebApp.Controllers
 {
@@ -34,12 +35,12 @@ namespace TodoListWebApp.Controllers
         //     return await _mediator.Send(new GetColumnCountQuery());
         // }
         
-        // [HttpGet("{columnId:long}")]
-        // public async Task<IActionResult> GetColumn(long columnId)
-        // {
-        //     return Ok(await _mediator.Send(new GetColumnByIdQuery(columnId)));
-        // }
-        //
+        [HttpPut]
+        public async Task<IActionResult> MoveItem([FromBody] MoveItemCommand obj)
+        {
+            return Ok(await _mediator.Send(obj));
+        }
+        
         
         [HttpGet]
         public async Task<IActionResult> GetAllColumns()

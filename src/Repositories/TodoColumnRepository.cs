@@ -73,6 +73,12 @@ namespace Repositories
             return _context.TodoColumns.Where(x => x.UserId == userId);
         }
 
+        public async Task UpdateColumn(TodoColumn column)
+        {
+            _context.Update(column);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<bool> RemoveColumnAsync(long id, long userId)
         {
            var column = await _context.TodoColumns

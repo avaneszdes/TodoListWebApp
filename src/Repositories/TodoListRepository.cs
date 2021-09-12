@@ -41,5 +41,11 @@ namespace Repositories
             _context.TodoItems.Update(todoItem);
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateItemsAsync(List<TodoItem> todoItems)
+        {
+            _context.TodoItems.UpdateRange(todoItems);
+            await _context.SaveChangesAsync();
+        }
     }
 }

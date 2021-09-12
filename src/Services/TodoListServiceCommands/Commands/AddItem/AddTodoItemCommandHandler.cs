@@ -28,14 +28,14 @@ namespace Services.TodoListServiceCommands.Commands.AddItem
                 Text = request.Text,
                 IsComplete = request.IsComplete,
                 CreatedDate = DateTime.UtcNow,
-                TodoColumnId = request.ColumnId
+                TodoColumnId = request.ColumnId,
+                UpdatedItemId = request.UpdatedItemId
+                
             };
-            
-            
-            if (await _columnRepository.IsColumnExistAsync(request.ColumnId))
-            {
-              await _columnRepository.CreateColumnAsync("New", _identity.GetUserId());
-            }
+            // if (await _columnRepository.IsColumnExistAsync(request.ColumnId))
+            // {
+            //   await _columnRepository.CreateColumnAsync("New", _identity.GetUserId());
+            // }
 
             await _repository.AddItemAsync(todoItem);
             return new {todoItem.Id, todoItem.CreatedDate};
